@@ -4,6 +4,8 @@ Read this file first. It's the context an AI assistant (or a new developer) need
 
 Owners: **Steven** (GitHub `stevenp36`, repo owner) and **Alan** (co-ranker, collaborator). Both edit the rankings; both may work on the code from their own Claude accounts. Keep this file current: when you make a product decision, add it here in the same commit.
 
+Alan works from Claude on the `alan-dev` branch (changes reach `main` by merge/PR, not direct pushes).
+
 ---
 
 ## 1. What SPAM is
