@@ -84,7 +84,7 @@ No duplicates: a player gets a new entry only when his overall rank, position ra
 
 Click any player's name or photo anywhere on the site (rankings, My Team, team pages, free agents, trade calculator, Trade Finder) to open his details in a pop-up over the current page. Nothing underneath changes: your place in the rankings and any trade you're building stay exactly as they were. Close it with ×, Escape or a click outside. Clicking another player inside the pop-up switches to him (← goes back). On phones it opens as a nearly full-screen panel.
 
-- **Top:** photo, team, position, age, overall rank, position rank, SPAM Value, points per game, Sleeper owner. Actions: **Add to trade** (goes to the side away from the team that owns him), **Find trades**, **Compare player** (side-by-side, better number in gold) and close.
+- **Top:** photo, team, position, age, overall rank, position rank, SPAM Value, points per game, Sleeper owner. Actions: **Add to trade** (goes to the side away from the team that owns him), **Find trades** and close.
 - **Overview:** ranks, value, season points, PPG, recent games, last 3 and last 5 averages, season trend, next opponent, Sleeper owner and roster status (starting, bench, IR, taxi), plus a weekly points chart.
 - **Game log:** each week of 2026, 2025 or 2024 with position-specific columns, byes and missed games. Gold rows are big weeks (1.75× the position's starter line), dim rows are under half of it.
 - **Stats:** season totals and usage/efficiency (target share, catch rate, yards per touch/carry/catch, completion %, yards per attempt).
