@@ -82,261 +82,261 @@ const SITE = {
    Tip: export straight from Google Sheets / Excel as CSV and paste here.
    ===================================================================== */
 const RANKINGS_CSV = `
-player,pos,team,rank,pos_rank,tier,value,proj_ppg,games,proj_score,sleeper_id,source,tier_name
-Josh Allen,QB,BUF,6,1,1,9741,23.07,3,19.04,4984,manual,Elite QB1
-Lamar Jackson,QB,BAL,16,3,2,,15.96,3,14.77,4881,manual,HIgh QB1
-Brock Purdy,QB,SF,11,2,2,,17.96,3,15.97,8183,manual,HIgh QB1
-Patrick Mahomes II,QB,KC,18,4,2,,17.71,3,15.82,4046,manual,HIgh QB1
-Joe Burrow,QB,CIN,24,5,3,,17.37,3,15.62,6770,manual,QB1
-Trevor Lawrence,QB,JAX,25,6,3,,14.67,3,14.00,7523,manual,QB1
-Jalen Hurts,QB,PHI,28,7,3,,15.86,3,14.71,6904,manual,QB1
-Dak Prescott,QB,DAL,29,8,3,,17.86,3,15.91,3294,manual,QB1
-Caleb Williams,QB,CHI,30,9,3,,17.75,2,15.37,11560,manual,QB1
-Tyler Shough,QB,NO,33,11,3,,22.87,3,18.92,12545,manual,QB1
-Jared Goff,QB,DET,35,12,3,,18.55,3,16.32,3163,manual,QB1
-Jayden Daniels,QB,WAS,32,10,3,,15.43,2,14.21,11566,manual,QB1
-Matthew Stafford,QB,LAR,42,14,4,,17.30,3,15.57,421,manual,Low QB1
-Jordan Love,QB,GB,54,16,4,,17.09,3,15.45,6804,manual,Low QB1
-Bo Nix,QB,DEN,64,18,4,,15.48,3,14.48,11563,manual,Low QB1
-Drake Maye,QB,NE,49,15,4,,11.87,3,12.32,11564,manual,Low QB1
-Bryce Young,QB,CAR,40,13,4,,19.25,3,16.75,9228,manual,Low QB1
-Justin Herbert,QB,LAC,81,19,5,,12.31,3,12.58,6797,manual,QB2
-Sam Darnold,QB,SEA,83,20,5,,11.37,2,12.18,4943,manual,QB2
-C.J. Stroud,QB,HOU,84,21,5,,16.93,3,15.36,9758,manual,QB2
-Kyler Murray,QB,MIN,93,24,5,,7.14,2,10.07,5849,manual,QB2
-Malik Willis,QB,MIA,103,27,5,,15.32,3,14.39,8161,manual,QB2
-Jacoby Brissett,QB,ARI,86,22,5,,19.25,3,16.75,3257,manual,QB2
-Geno Smith,QB,NYJ,87,23,5,,17.62,3,15.77,1373,manual,QB2
-Daniel Jones,QB,IND,95,26,5,,13.60,3,13.36,5870,manual,QB2
-Michael Penix Jr.,QB,ATL,104,28,5,,13.67,1,13.22,11559,manual,QB2
-Kirk Cousins,QB,LV,61,17,4,,17.17,3,15.50,1166,manual,Low QB1
-Baker Mayfield,QB,TB,111,32,6,,13.33,3,13.20,4892,manual,Shaky Plays
-Aaron Rodgers,QB,PIT,106,29,6,,15.74,3,14.64,96,manual,Shaky Plays
-Cam Ward,QB,TEN,110,31,6,,14.54,3,13.92,12522,manual,Shaky Plays
-Deshaun Watson,QB,CLE,94,25,5,,18.66,3,16.39,4017,manual,QB2
-Jameis Winston,QB,NYG,109,30,6,,8.78,2,10.88,2306,manual,Shaky Plays
-Jahmyr Gibbs,RB,DET,1,1,1,10000,26.96,3,20.58,9221,manual,Elite RB1
-Bijan Robinson,RB,ATL,3,2,1,9842,25.85,3,19.91,9509,manual,Elite RB1
-Kenneth Walker III,RB,KC,4,3,1,9797,23.27,3,18.36,8151,manual,Elite RB1
-Jonathan Taylor,RB,IND,12,4,2,,21.19,3,17.12,6813,manual,High RB1
-Christian McCaffrey,RB,SF,14,5,2,,16.33,3,14.20,4034,manual,High RB1
-Derrick Henry,RB,BAL,15,6,2,,18.80,3,15.68,3198,manual,High RB1
-James Cook III,RB,BUF,19,7,3,,15.62,3,13.78,8138,manual,Low RB1
-Chase Brown,RB,CIN,20,8,3,,15.87,3,13.93,9224,manual,Low RB1
-Ashton Jeanty,RB,LV,26,9,3,,20.55,3,16.73,12527,manual,Low RB1
-Jeremiyah Love,RB,ARI,48,14,4,,15.71,3,13.83,13287,manual,Elite RB2
-Saquon Barkley,RB,PHI,51,15,4,,8.46,3,9.48,4866,manual,Elite RB2
-Kyren Williams,RB,LAR,27,10,3,,15.55,3,13.73,8150,manual,Low RB1
-Breece Hall,RB,NYJ,45,12,4,,15.56,3,13.74,8155,manual,Elite RB2
-Omarion Hampton,RB,LAC,56,17,5,,10.30,3,10.58,12507,manual,RB2
-Javonte Williams,RB,DAL,34,11,3,,15.22,3,13.54,7588,manual,Low RB1
-Bhaysul Tuten,RB,JAX,52,16,4,,12.24,3,11.75,12490,manual,Elite RB2
-Chuba Hubbard,RB,CAR,46,13,4,,14.63,3,13.19,7594,manual,Elite RB2
-D'Andre Swift,RB,CHI,57,18,5,,16.80,3,14.48,6790,manual,RB2
-Cam Skattebo,RB,NYG,70,20,6,,13.41,3,12.45,12481,manual,Low RB2
-Bucky Irving,RB,TB,82,23,6,,14.20,3,12.92,11584,manual,Low RB2
-Jaylen Warren,RB,PIT,63,19,5,,14.63,3,13.19,8228,manual,RB2
-David Montgomery,RB,HOU,80,22,6,,12.10,3,11.66,5892,manual,Low RB2
-Quinshon Judkins,RB,CLE,76,21,6,,12.38,3,11.83,12512,manual,Low RB2
-TreVeyon Henderson,RB,NE,117,28,7,,8.44,2,9.73,12529,manual,RB3/Flex
-Aaron Jones Sr.,RB,MIN,85,24,6,,13.65,3,12.60,4199,manual,Low RB2
-Travis Ettienne Jr.,RB,NO,105,26,6,,12.25,3,11.76,7543,manual,Low RB2
-Rhamondre Stevenson,RB,NE,89,25,6,,10.81,3,10.89,7611,manual,Low RB2
-Jacorey Croskey-Merritt,RB,WAS,120,31,7,,10.60,3,10.76,12533,manual,RB3/Flex
-Jadarian Price,RB,SEA,133,39,9,,7.45,3,8.87,13286,manual,Bench/Handcuff
-Josh Jacobs,RB,GB,122,33,8,,,,,5850,manual,Low RB3/Flex
-RJ Harvey,RB,DEN,115,27,7,,10.32,2,10.67,12489,manual,RB3/Flex
-J.K. Dobbins,RB,DEN,119,30,7,,6.84,3,8.51,6806,manual,RB3/Flex
-Tony Pollard,RB,TEN,121,32,7,,10.63,3,10.78,5967,manual,RB3/Flex
-Blake Corum,RB,LAR,126,37,8,,7.58,3,8.95,11586,manual,Low RB3/Flex
-Kyle Monangai,RB,CHI,124,35,8,,9.04,3,9.83,12534,manual,Low RB3/Flex
-Rachaad White,RB,WAS,125,36,8,,10.23,3,10.54,8136,manual,Low RB3/Flex
-Braelon Allen,RB,NYJ,127,38,8,,6.40,3,8.24,11576,manual,Low RB3/Flex
-Woody Marks,RB,HOU,134,40,9,,8.22,3,9.34,12474,manual,Bench/Handcuff
-Rico Dowdle,RB,PIT,138,42,9,,8.09,2,9.55,7021,manual,Bench/Handcuff
-Alvin Kamara,RB,NO,135,41,9,,9.37,2,10.19,4035,manual,Bench/Handcuff
-Ollie Gordon II,RB,MIA,123,34,8,,8.70,2,9.85,12495,manual,Low RB3/Flex
-Jaylen Wright,RB,MIA,141,43,9,,0.79,2,5.90,11643,manual,Bench/Handcuff
-Emmet Johnson,RB,KC,149,44,9,,5.15,3,7.49,13337,manual,Bench/Handcuff
-Kaelon Black,RB,SF,150,45,9,,5.01,3,7.41,13414,manual,Bench/Handcuff
-Zach Charbonnet,RB,SEA,153,48,9,,,,,9753,manual,Bench/Handcuff
-Jordan Mason,RB,MIN,154,49,9,,10.10,1,10.71,8408,manual,Bench/Handcuff
-Tyler Allgeier,RB,ARI,152,47,9,,8.50,3,9.51,8132,manual,Bench/Handcuff
-Mike Washington Jr.,RB,MIN,151,46,9,,4.42,3,7.05,13305,manual,Bench/Handcuff
-Keaton Mitchell,RB,LAC,163,50,9,,5.43,3,7.66,9511,manual,Bench/Handcuff
-Brian Robinson,RB,ATL,166,52,9,,8.10,3,9.26,8154,manual,Bench/Handcuff
-Chris Rodriguez,RB,JAX,165,51,9,,4.21,3,6.93,10219,manual,Bench/Handcuff
-Jonathon Brooks,RB,CAR,170,53,10,,4.79,2,7.90,11583,manual,Dead
-Jaxon Smith-Njigba,WR,SEA,2,1,1,9944,26.45,3,20.28,9488,manual,Elite WR1
-Ja'Marr Chase,WR,CIN,9,4,2,8305,16.58,3,14.35,7564,manual,High WR1
-Amon-Ra St. Brown,WR,DET,8,3,2,8316,21.69,3,17.42,7547,manual,High WR1
-CeeDee Lamb,WR,DAL,5,2,1,,17.66,3,15.00,6786,manual,Elite WR1
-Puka Nacua,WR,LAR,13,5,2,,13.95,1,11.99,9493,manual,High WR1
-Chris Olave,WR,NO,17,6,3,,22.62,3,17.97,8144,manual,WR1
-Drake London,WR,ATL,23,9,3,,13.89,3,12.74,8112,manual,WR1
-Justin Jefferson,WR,MIN,31,10,3,,12.30,3,11.78,6794,manual,WR1
-Zay Flowers,WR,BAL,21,7,3,,14.11,2,12.56,9997,manual,WR1
-Nico Collins,WR,HOU,22,8,3,,20.00,1,14.01,7569,manual,WR1
-Parker Washington,WR,JAX,36,11,4,,14.43,3,13.06,9487,manual,Low WR1 / High WR 2
-Garrett Wilson,WR,NYJ,39,13,4,,17.58,3,14.95,8146,manual,Low WR1 / High WR 2
-DeVonta Smith,WR,PHI,38,12,4,,15.14,3,13.49,7525,manual,Low WR1 / High WR 2
-Christian Watson,WR,GB,41,14,4,,18.95,3,15.77,8167,manual,Low WR1 / High WR 2
-George Pickens,WR,DAL,59,19,5,,12.35,3,11.81,8137,manual,WR2
-Davante Adams,WR,LAR,60,20,5,,18.91,3,15.75,2133,manual,WR2
-Tee Higgins,WR,CIN,44,16,4,,14.46,3,13.08,6801,manual,Low WR1 / High WR 2
-Rashee Rice,WR,KC,55,18,4,,10.55,3,10.74,10229,manual,Low WR1 / High WR 2
-Tetairoa McMillan,WR,CAR,43,15,4,,11.63,3,11.38,12526,manual,Low WR1 / High WR 2
-Malik Nabers,WR,NYG,50,17,4,,9.38,3,10.03,11632,manual,Low WR1 / High WR 2
-DJ Moore,WR,BUF,77,28,6,,10.41,3,10.65,4983,manual,Low WR2
-Ladd McConkey,WR,LAC,75,27,6,,9.18,3,9.91,11635,manual,Low WR2
-Matthew Golden,WR,GB,67,23,5,,16.25,3,14.16,12501,manual,WR2
-Jaylen Waddle,WR,DEN,66,22,5,,11.21,3,11.13,7526,manual,WR2
-Luther Burden III,WR,CHI,73,26,5,,12.91,3,12.15,12519,manual,WR2
-A.J. Brown,WR,NE,68,24,90,,6.80,1,9.61,5859,manual,Hurt/WR1-2 When Healthy
-Michael Wilson,WR,ARI,65,21,5,,17.53,3,14.92,10232,manual,WR2
-Mike Evans,WR,SF,69,25,5,,9.96,3,10.38,2216,manual,WR2
-Josh Downs,WR,IND,88,29,6,,13.40,3,12.44,9500,manual,Low WR2
-Emeka Egbuka,WR,TB,97,34,6,,10.80,3,10.88,12514,manual,Low WR2
-Jameson Williams,WR,DET,90,30,6,,8.69,3,9.62,8148,manual,Low WR2
-Jalen Coker,WR,CAR,91,31,6,,14.30,3,12.98,11646,manual,Low WR2
-Terry McLaurin,WR,WAS,107,40,6,,12.49,3,11.90,5927,manual,Low WR2
-DK Metcalf,WR,PIT,99,36,6,,12.04,3,11.63,5846,manual,Low WR2
-Deebo Samuel SR.,WR,SF,92,32,6,,9.21,3,9.93,5872,manual,Low WR2
-Stefon Diggs,WR,WAS,98,35,6,,14.56,3,13.14,2449,manual,Low WR2
-Rome Odunze,WR,CHI,102,39,6,,7.37,3,8.82,11620,manual,Low WR2
-Jordan Addison,WR,MIN,112,41,7,,9.06,3,9.84,9756,manual,WR3
-Jakobi Meyers,WR,JAX,116,42,7,,8.64,3,9.59,5947,manual,WR3
-Carnell Tate,WR,TEN,96,33,6,,10.68,3,10.81,13279,manual,Low WR2
-KC Concepcion Jr.,WR,CLE,101,38,6,,10.82,3,10.90,13298,manual,Low WR2
-Devaughn Vele,WR,NO,130,44,8,,13.14,3,12.29,11834,manual,Flex Play
-Jordyn Tyson,WR,NO,129,43,8,,,,,13281,manual,Flex Play
-Denzel Boston,WR,CLE,100,37,6,,11.69,3,11.42,13346,manual,Low WR2
-Brian Thomas Jr.,WR,JAX,139,47,8,,6.22,3,8.14,11631,manual,Flex Play
-Chris Godwin Jr.,WR,TB,142,49,8,,6.73,3,8.44,4037,manual,Flex Play
-Makai Lemon,WR,PHI,136,45,8,,4.45,3,7.07,13294,manual,Flex Play
-Courtland Sutton,WR,DEN,143,50,8,,7.84,3,9.11,5045,manual,Flex Play
-Adonai Mitchell,WR,NYJ,137,46,8,,12.70,2,11.85,11625,manual,Flex Play
-Marvin Harrison Jr.,WR,ARI,140,48,8,,5.03,3,7.42,11628,manual,Flex Play
-Xavier Worthy,WR,KC,144,51,8,,7.87,3,9.12,11624,manual,Flex Play
-Malik Washington,WR,MIA,145,52,8,,12.40,3,11.84,11610,manual,Flex Play
-Kalif Raymond,WR,CHI,146,53,8,,13.37,3,12.42,3634,manual,Flex Play
-Dontayvion Wicks,WR,PHI,148,54,8,,9.18,3,9.91,9486,manual,Flex Play
-Chris Bell,WR,MIA,167,56,8,,5.58,3,7.75,13311,manual,Flex Play
-Romeo Doubs,WR,NE,160,55,8,,6.70,3,8.43,8121,manual,Flex Play
-Keenan Allen,WR,IND,168,57,9,,11.43,3,11.26,1479,manual,Shaky Flex
-Wan'Dale Robinson,WR,TEN,169,58,9,,10.53,3,10.72,8126,manual,Shaky Flex
-Quentin Johnston,WR,LAC,171,59,9,,7.11,3,8.67,9754,manual,Shaky Flex
-Michael Pittman Jr.,WR,PIT,172,60,9,,6.49,2,8.75,6819,manual,Shaky Flex
-Khalil Shakir,WR,BUF,173,61,9,,7.19,3,8.72,8134,manual,Shaky Flex
-Tre Tucker,WR,LV,174,62,9,,10.21,3,10.53,10213,manual,Shaky Flex
-Pat Bryant,WR,DEN,181,69,9,,6.63,3,8.38,12492,manual,Shaky Flex
-Rashod Batemen,WR,BAL,175,63,9,,7.81,3,9.09,7571,manual,Shaky Flex
-Caleb Douglas,WR,MIA,176,64,9,,9.27,2,10.14,13296,manual,Shaky Flex
-Antonio Williams,WR,WAS,177,65,9,,7.93,3,9.16,13301,manual,Shaky Flex
-Alec Pierce,WR,IND,178,66,9,,6.32,2,8.67,8142,manual,Shaky Flex
-Tyreek Hill,WR,FA,220,84,10,,,,,3321,manual,Bench/Stash
-Mack Hollins,WR,NE,179,67,9,,9.45,3,10.07,4177,manual,Shaky Flex
-Keon Coleman,WR,BUF,180,68,9,,5.30,3,7.58,11637,manual,Shaky Flex
-De'Zhaun Stribling,WR,SF,183,71,9,,,,,13417,manual,Shaky Flex
-Ja'Kobi Lane,WR,BAL,203,78,10,,3.91,1,8.64,13293,manual,Bench/Stash
-Ted Hurst,WR,TB,184,72,9,,7.05,3,8.63,13317,manual,Shaky Flex
-Travis Hunter,WR,JAX,191,75,10,,,,,12530,manual,Bench/Stash
-Brock Bowers,TE,LV,7,1,1,9710,30.39,1,17.25,11604,manual,Elite TE1
-Trey Mcbride,TE,ARI,10,2,1,,26.20,3,19.99,8130,manual,Elite TE1
-Tyler Warren,TE,IND,37,3,2,,17.04,3,14.49,12518,manual,High TE1
-George Kittle,TE,SF,47,4,2,,13.13,3,12.15,4217,manual,High TE1
-Dalton Kincaid,TE,BUF,58,6,3,,13.48,3,12.36,10236,manual,Low TE1
-Sam LaPorta,TE,DET,53,5,3,,13.26,3,12.23,10859,manual,Low TE1
-Juwan Johnson,TE,NO,62,7,3,,16.05,3,13.90,7002,manual,Low TE1
-Travis Kelce,TE,KC,78,11,4,,14.58,3,13.02,1466,manual,High TE2
-Colston Loveland,TE,CHI,71,8,4,,5.24,3,7.41,12517,manual,High TE2
-Tucker Kraft,TE,GB,72,9,4,,10.24,3,10.41,9484,manual,High TE2
-Harold Fannin Jr.,TE,CLE,74,10,4,,14.77,3,13.13,12506,manual,High TE2
-Isaiah Likely,TE,NYG,79,12,4,,15.91,3,13.82,8131,manual,High TE2
-Dalton Schultz,TE,HOU,114,15,5,,17.19,3,14.58,5001,manual,TE2
-Kenyon Sadiq,TE,NYJ,113,14,5,,12.46,3,11.75,13330,manual,TE2
-Mark Andrews,TE,BAL,108,13,5,,11.35,3,11.08,5012,manual,TE2
-Dallas Goedert,TE,PHI,131,16,6,,9.47,2,10.07,5022,manual,Low TE2
-Jake Ferguson,TE,DAL,156,20,6,,9.25,3,9.82,8110,manual,Low TE2
-Kyle Pitts Sr.,TE,ATL,157,21,6,,3.54,3,6.39,7553,manual,Low TE2
-Darren Waller,TE,CAR,147,18,6,,10.41,3,10.52,2505,manual,Low TE2
-Terrance Ferguson,TE,LAR,162,25,6,,8.18,3,9.18,12487,manual,Low TE2
-Oronde Gadsden II,TE,LAC,158,22,6,,4.79,3,7.15,12493,manual,Low TE2
-Brenton Strange,TE,JAX,159,23,6,,7.37,3,8.69,9480,manual,Low TE2
-Tyler Higbee,TE,LAR,155,19,6,,14.18,2,12.43,3271,manual,Low TE2
-T.J. Hockenson,TE,MIN,132,17,6,,9.46,3,9.95,5844,manual,Low TE2
-Pat Freiermuth,TE,PIT,161,24,6,,10.86,3,10.79,7600,manual,Low TE2
-Jaxson Dart,QB,NYG,254,43,99,0,11.74,2,12.36,12508,manual,Out for season
-Marcus Mariota,QB,WAS,164,34,7,,13.67,2,13.33,2307,manual,Dead
-Carson Wentz,QB,MIN,187,35,7,,11.97,2,12.48,3161,manual,Dead
-Tyson Bagent,QB,CHI,128,33,7,,,,,11256,manual,Dead
-Case Keenum,QB,CHI,188,36,7,,22.68,1,16.22,1737,manual,Dead
-Drew Lock,QB,SEA,194,37,7,,13.39,2,13.19,5854,manual,Dead
-J.J. McCarthy,QB,MIN,202,38,7,,,,,11565,manual,Dead
-Tua Tagovailoa,QB,ATL,208,39,7,,,,,6768,manual,Dead
-Shedeur Sanders,QB,CLE,209,40,7,,0.24,1,8.74,12524,manual,Dead
-Justin Fields,QB,KC,211,41,7,,,,,7591,manual,Dead
-Mac Jones,QB,SF,219,42,7,,0.68,1,8.88,7527,manual,Dead
-De'Von Achane,RB,MIA,253,72,99,,11.65,3,11.39,9226,manual,Out for season
-Isiah Pacheco,RB,DET,204,60,11,,,,,8205,auto,Dead
-Tyjae Spears,RB,TEN,195,56,10,,5.52,3,7.71,9508,manual,Dead
-MarShawn Lloyd,RB,GB,197,57,10,,6.71,3,8.43,11581,manual,Dead
-Jonah Coleman,RB,DEN,189,54,10,,6.36,2,8.69,13345,manual,Dead
-Devin Singletary,RB,NYG,212,61,11,,6.77,2,8.89,6130,auto,Dead
-Tyrone Tracy Jr.,RB,NYG,217,63,12,,0.33,3,4.60,11655,auto,
-Kimani Vidal,RB,LAC,201,59,10,,2.09,2,6.55,11647,manual,Dead
-Emanuel Wilson,RB,SEA,118,29,7,,5.67,3,7.81,11435,manual,RB3/Flex
-Kendre Miller,RB,NO,214,62,11,,6.31,2,8.66,9757,manual,Dead
-Trey Benson,RB,ARI,225,65,12,,,,,11589,auto,
-Kenny Gainwell,RB,TB,193,55,10,,5.38,3,7.63,7567,manual,Dead
-Dylan Sampson,RB,CLE,231,66,12,,0.00,1,7.34,12469,auto,
-Justice Hill,RB,BAL,234,67,13,,3.81,3,6.69,5995,auto,
-Raheim Sanders,RB,CLE,237,68,13,,5.95,3,7.97,12472,auto,
-Samaje Perine,RB,CIN,240,69,13,,5.43,3,7.66,4147,auto,
-Tank Bigsby,RB,PHI,223,64,12,,4.02,3,6.82,9225,manual,
-Najee Harris,RB,NYG,246,70,13,,3.62,2,7.31,7528,auto,
-Ty Johnson,RB,BUF,249,71,13,,6.75,1,9.59,6039,auto,
-Kaleb Johnson,RB,GB,199,58,10,,3.12,3,6.28,12504,manual,Dead
-Jauan Jennings,WR,MIN,182,70,9,,1.80,2,6.40,7049,manual,Shaky Flex
-Xavier Hutchinson,WR,HOU,192,76,10,,10.45,3,10.67,10218,auto,Bench/Stash
-Ryan Flournoy,WR,DAL,198,77,10,,8.03,3,9.22,11783,auto,Bench/Stash
-Roman Wilson,WR,PIT,185,73,9,,10.15,3,10.50,11630,manual,Shaky Flex
-Kendrick Bourne,WR,ARI,207,79,10,,8.59,3,9.56,4454,auto,Bench/Stash
-Jayden Reed,WR,GB,218,83,10,,5.37,2,8.19,10222,manual,Bench/Stash
-Rashid Shaheed,WR,SEA,210,80,10,,5.84,3,7.91,8676,manual,Bench/Stash
-Cooper Kupp,WR,SEA,215,82,10,,6.65,3,8.40,4039,auto,Bench/Stash
-Tre Harris,WR,LAC,186,74,10,,8.10,3,9.26,12509,manual,Bench/Stash
-Ricky Pearsall,WR,SF,227,87,11,,,,,11638,manual,Bench/Stash
-Germie Bernard,WR,PIT,213,81,10,,7.13,2,9.07,13274,manual,Bench/Stash
-Tory Horton,WR,SEA,224,85,11,,6.01,1,9.34,12497,auto,Bench/Stash
-Kayshon Boutte,WR,HOU,226,86,11,,4.98,3,7.39,9504,manual,Bench/Stash
-Troy Franklin,WR,DEN,229,88,11,,2.56,3,5.94,11627,auto,Bench/Stash
-Josh Palmer,WR,BUF,232,89,11,,6.79,2,8.90,7670,auto,Bench/Stash
-Jayden Higgins,WR,HOU,233,90,11,,,,,12484,auto,Bench/Stash
-Marquise Brown,WR,PHI,236,91,12,,1.38,1,7.80,5848,auto,Bench/Stash
-Elic Ayomanor,WR,TEN,238,92,12,,5.88,3,7.93,12499,auto,Bench/Stash
-DeMario Douglas,WR,NE,241,93,12,,6.83,3,8.50,9501,auto,Bench/Stash
-Malachi Fields,WR,NYG,243,94,12,,5.89,3,7.94,13285,auto,Bench/Stash
-Jerry Jeudy,WR,CLE,245,95,12,,3.96,2,7.49,6783,auto,Bench/Stash
-Jalen Nailor,WR,LV,248,96,12,,5.28,3,7.57,8180,auto,Bench/Stash
-Xavier Legette,WR,CAR,250,97,12,,4.67,2,7.84,11626,auto,Bench/Stash
-Calvin Ridley,WR,TEN,252,98,12,,2.90,2,6.96,4981,auto,Bench/Stash
-Cade Otton,TE,TB,190,26,7,,10.39,3,10.51,8111,auto,Low TE2
-Hunter Henry,TE,NE,196,27,7,,6.76,3,8.33,3214,auto,Low TE2
-AJ Barner,TE,SEA,200,28,7,,8.82,3,9.56,11603,auto,Low TE2
-Mike Gesicki,TE,CIN,205,29,7,,13.51,2,12.10,4993,manual,Low TE2
-Zach Ertz,TE,PHI,216,31,8,,3.43,1,8.26,1339,auto,
-Michael Mayer,TE,LV,206,30,7,,10.55,3,10.60,9482,manual,Low TE2
-Noah Fant,TE,NO,221,32,8,,10.33,3,10.47,5857,auto,
-David Njoku,TE,LAC,222,33,8,,7.19,2,8.94,4033,auto,
-Jake Tonges,TE,SF,228,34,8,,,,,8698,auto,
-Greg Dulcich,TE,MIA,230,35,9,,8.43,3,9.33,8172,auto,
-Mason Taylor,TE,NYJ,235,36,9,,5.36,1,8.91,12498,auto,
-Theo Johnson,TE,NYG,239,37,9,,3.57,2,7.13,11597,auto,
-Gunnar Helm,TE,TEN,242,38,9,,7.27,3,8.63,12502,auto,
-Evan Engram,TE,DEN,244,39,9,,6.12,3,7.94,4066,auto,
-Colby Parkinson,TE,LAR,247,40,9,,3.02,3,6.08,6865,auto,
-Chig Okonkwo,TE,WAS,251,41,9,,6.28,1,9.21,8210,auto,
+player,pos,team,rank,pos_rank,tier,value,proj_ppg,games,proj_score,sleeper_id,source,tier_name,alan_rank,alan_pos_rank,alan_tier,alan_value,alan_source,alan_tier_name,steven_rank,steven_pos_rank,steven_tier,steven_value,steven_source,steven_tier_name
+Josh Allen,QB,BUF,6,1,1,9741,23.07,3,19.04,4984,manual,Elite QB1,6,1,1,9741,manual,Elite QB1,6,1,1,9741,manual,Elite QB1
+Lamar Jackson,QB,BAL,16,3,2,,15.96,3,14.77,4881,manual,HIgh QB1,16,3,2,,manual,HIgh QB1,16,3,2,,manual,HIgh QB1
+Brock Purdy,QB,SF,11,2,2,,17.96,3,15.97,8183,manual,HIgh QB1,11,2,2,,manual,HIgh QB1,11,2,2,,manual,HIgh QB1
+Patrick Mahomes II,QB,KC,18,4,2,,17.71,3,15.82,4046,manual,HIgh QB1,18,4,2,,manual,HIgh QB1,18,4,2,,manual,HIgh QB1
+Joe Burrow,QB,CIN,24,5,3,,17.37,3,15.62,6770,manual,QB1,24,5,3,,manual,QB1,24,5,3,,manual,QB1
+Trevor Lawrence,QB,JAX,25,6,3,,14.67,3,14.00,7523,manual,QB1,25,6,3,,manual,QB1,25,6,3,,manual,QB1
+Jalen Hurts,QB,PHI,28,7,3,,15.86,3,14.71,6904,manual,QB1,28,7,3,,manual,QB1,28,7,3,,manual,QB1
+Dak Prescott,QB,DAL,29,8,3,,17.86,3,15.91,3294,manual,QB1,29,8,3,,manual,QB1,29,8,3,,manual,QB1
+Caleb Williams,QB,CHI,30,9,3,,17.75,2,15.37,11560,manual,QB1,30,9,3,,manual,QB1,30,9,3,,manual,QB1
+Tyler Shough,QB,NO,33,11,3,,22.87,3,18.92,12545,manual,QB1,33,11,3,,manual,QB1,33,11,3,,manual,QB1
+Jared Goff,QB,DET,35,12,3,,18.55,3,16.32,3163,manual,QB1,35,12,3,,manual,QB1,35,12,3,,manual,QB1
+Jayden Daniels,QB,WAS,32,10,3,,15.43,2,14.21,11566,manual,QB1,32,10,3,,manual,QB1,32,10,3,,manual,QB1
+Matthew Stafford,QB,LAR,42,14,4,,17.30,3,15.57,421,manual,Low QB1,42,14,4,,manual,Low QB1,42,14,4,,manual,Low QB1
+Jordan Love,QB,GB,54,16,4,,17.09,3,15.45,6804,manual,Low QB1,54,16,4,,manual,Low QB1,54,16,4,,manual,Low QB1
+Bo Nix,QB,DEN,64,18,4,,15.48,3,14.48,11563,manual,Low QB1,64,18,4,,manual,Low QB1,64,18,4,,manual,Low QB1
+Drake Maye,QB,NE,49,15,4,,11.87,3,12.32,11564,manual,Low QB1,49,15,4,,manual,Low QB1,49,15,4,,manual,Low QB1
+Bryce Young,QB,CAR,40,13,4,,19.25,3,16.75,9228,manual,Low QB1,40,13,4,,manual,Low QB1,40,13,4,,manual,Low QB1
+Justin Herbert,QB,LAC,81,19,5,,12.31,3,12.58,6797,manual,QB2,81,19,5,,manual,QB2,81,19,5,,manual,QB2
+Sam Darnold,QB,SEA,83,20,5,,11.37,2,12.18,4943,manual,QB2,83,20,5,,manual,QB2,83,20,5,,manual,QB2
+C.J. Stroud,QB,HOU,84,21,5,,16.93,3,15.36,9758,manual,QB2,84,21,5,,manual,QB2,84,21,5,,manual,QB2
+Kyler Murray,QB,MIN,93,24,5,,7.14,2,10.07,5849,manual,QB2,93,24,5,,manual,QB2,93,24,5,,manual,QB2
+Malik Willis,QB,MIA,103,27,5,,15.32,3,14.39,8161,manual,QB2,103,27,5,,manual,QB2,103,27,5,,manual,QB2
+Jacoby Brissett,QB,ARI,86,22,5,,19.25,3,16.75,3257,manual,QB2,86,22,5,,manual,QB2,86,22,5,,manual,QB2
+Geno Smith,QB,NYJ,87,23,5,,17.62,3,15.77,1373,manual,QB2,87,23,5,,manual,QB2,87,23,5,,manual,QB2
+Daniel Jones,QB,IND,95,26,5,,13.60,3,13.36,5870,manual,QB2,95,26,5,,manual,QB2,95,26,5,,manual,QB2
+Michael Penix Jr.,QB,ATL,104,28,5,,13.67,1,13.22,11559,manual,QB2,104,28,5,,manual,QB2,104,28,5,,manual,QB2
+Kirk Cousins,QB,LV,61,17,4,,17.17,3,15.50,1166,manual,Low QB1,61,17,4,,manual,Low QB1,61,17,4,,manual,Low QB1
+Baker Mayfield,QB,TB,111,32,6,,13.33,3,13.20,4892,manual,Shaky Plays,111,32,6,,manual,Shaky Plays,111,32,6,,manual,Shaky Plays
+Aaron Rodgers,QB,PIT,106,29,6,,15.74,3,14.64,96,manual,Shaky Plays,106,29,6,,manual,Shaky Plays,106,29,6,,manual,Shaky Plays
+Cam Ward,QB,TEN,110,31,6,,14.54,3,13.92,12522,manual,Shaky Plays,110,31,6,,manual,Shaky Plays,110,31,6,,manual,Shaky Plays
+Deshaun Watson,QB,CLE,94,25,5,,18.66,3,16.39,4017,manual,QB2,94,25,5,,manual,QB2,94,25,5,,manual,QB2
+Jameis Winston,QB,NYG,109,30,6,,8.78,2,10.88,2306,manual,Shaky Plays,109,30,6,,manual,Shaky Plays,109,30,6,,manual,Shaky Plays
+Jahmyr Gibbs,RB,DET,1,1,1,10000,26.96,3,20.58,9221,manual,Elite RB1,1,1,1,10000,manual,Elite RB1,1,1,1,10000,manual,Elite RB1
+Bijan Robinson,RB,ATL,3,2,1,9842,25.85,3,19.91,9509,manual,Elite RB1,3,2,1,9842,manual,Elite RB1,3,2,1,9842,manual,Elite RB1
+Kenneth Walker III,RB,KC,4,3,1,9797,23.27,3,18.36,8151,manual,Elite RB1,4,3,1,9797,manual,Elite RB1,4,3,1,9797,manual,Elite RB1
+Jonathan Taylor,RB,IND,12,4,2,,21.19,3,17.12,6813,manual,High RB1,12,4,2,,manual,High RB1,12,4,2,,manual,High RB1
+Christian McCaffrey,RB,SF,14,5,2,,16.33,3,14.20,4034,manual,High RB1,14,5,2,,manual,High RB1,14,5,2,,manual,High RB1
+Derrick Henry,RB,BAL,15,6,2,,18.80,3,15.68,3198,manual,High RB1,15,6,2,,manual,High RB1,15,6,2,,manual,High RB1
+James Cook III,RB,BUF,19,7,3,,15.62,3,13.78,8138,manual,Low RB1,19,7,3,,manual,Low RB1,19,7,3,,manual,Low RB1
+Chase Brown,RB,CIN,20,8,3,,15.87,3,13.93,9224,manual,Low RB1,20,8,3,,manual,Low RB1,20,8,3,,manual,Low RB1
+Ashton Jeanty,RB,LV,26,9,3,,20.55,3,16.73,12527,manual,Low RB1,26,9,3,,manual,Low RB1,26,9,3,,manual,Low RB1
+Jeremiyah Love,RB,ARI,48,14,4,,15.71,3,13.83,13287,manual,Elite RB2,48,14,4,,manual,Elite RB2,48,14,4,,manual,Elite RB2
+Saquon Barkley,RB,PHI,51,15,4,,8.46,3,9.48,4866,manual,Elite RB2,51,15,4,,manual,Elite RB2,51,15,4,,manual,Elite RB2
+Kyren Williams,RB,LAR,27,10,3,,15.55,3,13.73,8150,manual,Low RB1,27,10,3,,manual,Low RB1,27,10,3,,manual,Low RB1
+Breece Hall,RB,NYJ,45,12,4,,15.56,3,13.74,8155,manual,Elite RB2,45,12,4,,manual,Elite RB2,45,12,4,,manual,Elite RB2
+Omarion Hampton,RB,LAC,56,17,5,,10.30,3,10.58,12507,manual,RB2,56,17,5,,manual,RB2,56,17,5,,manual,RB2
+Javonte Williams,RB,DAL,34,11,3,,15.22,3,13.54,7588,manual,Low RB1,34,11,3,,manual,Low RB1,34,11,3,,manual,Low RB1
+Bhaysul Tuten,RB,JAX,52,16,4,,12.24,3,11.75,12490,manual,Elite RB2,52,16,4,,manual,Elite RB2,52,16,4,,manual,Elite RB2
+Chuba Hubbard,RB,CAR,46,13,4,,14.63,3,13.19,7594,manual,Elite RB2,46,13,4,,manual,Elite RB2,46,13,4,,manual,Elite RB2
+D'Andre Swift,RB,CHI,57,18,5,,16.80,3,14.48,6790,manual,RB2,57,18,5,,manual,RB2,57,18,5,,manual,RB2
+Cam Skattebo,RB,NYG,70,20,6,,13.41,3,12.45,12481,manual,Low RB2,70,20,6,,manual,Low RB2,70,20,6,,manual,Low RB2
+Bucky Irving,RB,TB,82,23,6,,14.20,3,12.92,11584,manual,Low RB2,82,23,6,,manual,Low RB2,82,23,6,,manual,Low RB2
+Jaylen Warren,RB,PIT,63,19,5,,14.63,3,13.19,8228,manual,RB2,63,19,5,,manual,RB2,63,19,5,,manual,RB2
+David Montgomery,RB,HOU,80,22,6,,12.10,3,11.66,5892,manual,Low RB2,80,22,6,,manual,Low RB2,80,22,6,,manual,Low RB2
+Quinshon Judkins,RB,CLE,76,21,6,,12.38,3,11.83,12512,manual,Low RB2,76,21,6,,manual,Low RB2,76,21,6,,manual,Low RB2
+TreVeyon Henderson,RB,NE,117,28,7,,8.44,2,9.73,12529,manual,RB3/Flex,117,28,7,,manual,RB3/Flex,117,28,7,,manual,RB3/Flex
+Aaron Jones Sr.,RB,MIN,85,24,6,,13.65,3,12.60,4199,manual,Low RB2,85,24,6,,manual,Low RB2,85,24,6,,manual,Low RB2
+Travis Ettienne Jr.,RB,NO,105,26,6,,12.25,3,11.76,7543,manual,Low RB2,105,26,6,,manual,Low RB2,105,26,6,,manual,Low RB2
+Rhamondre Stevenson,RB,NE,89,25,6,,10.81,3,10.89,7611,manual,Low RB2,89,25,6,,manual,Low RB2,89,25,6,,manual,Low RB2
+Jacorey Croskey-Merritt,RB,WAS,120,31,7,,10.60,3,10.76,12533,manual,RB3/Flex,120,31,7,,manual,RB3/Flex,120,31,7,,manual,RB3/Flex
+Jadarian Price,RB,SEA,133,39,9,,7.45,3,8.87,13286,manual,Bench/Handcuff,133,39,9,,manual,Bench/Handcuff,133,39,9,,manual,Bench/Handcuff
+Josh Jacobs,RB,GB,122,33,8,,,,,5850,manual,Low RB3/Flex,122,33,8,,manual,Low RB3/Flex,122,33,8,,manual,Low RB3/Flex
+RJ Harvey,RB,DEN,115,27,7,,10.32,2,10.67,12489,manual,RB3/Flex,115,27,7,,manual,RB3/Flex,115,27,7,,manual,RB3/Flex
+J.K. Dobbins,RB,DEN,119,30,7,,6.84,3,8.51,6806,manual,RB3/Flex,119,30,7,,manual,RB3/Flex,119,30,7,,manual,RB3/Flex
+Tony Pollard,RB,TEN,121,32,7,,10.63,3,10.78,5967,manual,RB3/Flex,121,32,7,,manual,RB3/Flex,121,32,7,,manual,RB3/Flex
+Blake Corum,RB,LAR,126,37,8,,7.58,3,8.95,11586,manual,Low RB3/Flex,126,37,8,,manual,Low RB3/Flex,126,37,8,,manual,Low RB3/Flex
+Kyle Monangai,RB,CHI,124,35,8,,9.04,3,9.83,12534,manual,Low RB3/Flex,124,35,8,,manual,Low RB3/Flex,124,35,8,,manual,Low RB3/Flex
+Rachaad White,RB,WAS,125,36,8,,10.23,3,10.54,8136,manual,Low RB3/Flex,125,36,8,,manual,Low RB3/Flex,125,36,8,,manual,Low RB3/Flex
+Braelon Allen,RB,NYJ,127,38,8,,6.40,3,8.24,11576,manual,Low RB3/Flex,127,38,8,,manual,Low RB3/Flex,127,38,8,,manual,Low RB3/Flex
+Woody Marks,RB,HOU,134,40,9,,8.22,3,9.34,12474,manual,Bench/Handcuff,134,40,9,,manual,Bench/Handcuff,134,40,9,,manual,Bench/Handcuff
+Rico Dowdle,RB,PIT,138,42,9,,8.09,2,9.55,7021,manual,Bench/Handcuff,138,42,9,,manual,Bench/Handcuff,138,42,9,,manual,Bench/Handcuff
+Alvin Kamara,RB,NO,135,41,9,,9.37,2,10.19,4035,manual,Bench/Handcuff,135,41,9,,manual,Bench/Handcuff,135,41,9,,manual,Bench/Handcuff
+Ollie Gordon II,RB,MIA,123,34,8,,8.70,2,9.85,12495,manual,Low RB3/Flex,123,34,8,,manual,Low RB3/Flex,123,34,8,,manual,Low RB3/Flex
+Jaylen Wright,RB,MIA,141,43,9,,0.79,2,5.90,11643,manual,Bench/Handcuff,141,43,9,,manual,Bench/Handcuff,141,43,9,,manual,Bench/Handcuff
+Emmet Johnson,RB,KC,149,44,9,,5.15,3,7.49,13337,manual,Bench/Handcuff,149,44,9,,manual,Bench/Handcuff,149,44,9,,manual,Bench/Handcuff
+Kaelon Black,RB,SF,150,45,9,,5.01,3,7.41,13414,manual,Bench/Handcuff,150,45,9,,manual,Bench/Handcuff,150,45,9,,manual,Bench/Handcuff
+Zach Charbonnet,RB,SEA,153,48,9,,,,,9753,manual,Bench/Handcuff,153,48,9,,manual,Bench/Handcuff,153,48,9,,manual,Bench/Handcuff
+Jordan Mason,RB,MIN,154,49,9,,10.10,1,10.71,8408,manual,Bench/Handcuff,154,49,9,,manual,Bench/Handcuff,154,49,9,,manual,Bench/Handcuff
+Tyler Allgeier,RB,ARI,152,47,9,,8.50,3,9.51,8132,manual,Bench/Handcuff,152,47,9,,manual,Bench/Handcuff,152,47,9,,manual,Bench/Handcuff
+Mike Washington Jr.,RB,MIN,151,46,9,,4.42,3,7.05,13305,manual,Bench/Handcuff,151,46,9,,manual,Bench/Handcuff,151,46,9,,manual,Bench/Handcuff
+Keaton Mitchell,RB,LAC,163,50,9,,5.43,3,7.66,9511,manual,Bench/Handcuff,163,50,9,,manual,Bench/Handcuff,163,50,9,,manual,Bench/Handcuff
+Brian Robinson,RB,ATL,166,52,9,,8.10,3,9.26,8154,manual,Bench/Handcuff,166,52,9,,manual,Bench/Handcuff,166,52,9,,manual,Bench/Handcuff
+Chris Rodriguez,RB,JAX,165,51,9,,4.21,3,6.93,10219,manual,Bench/Handcuff,165,51,9,,manual,Bench/Handcuff,165,51,9,,manual,Bench/Handcuff
+Jonathon Brooks,RB,CAR,170,53,10,,4.79,2,7.90,11583,manual,Dead,170,53,10,,manual,Dead,170,53,10,,manual,Dead
+Jaxon Smith-Njigba,WR,SEA,2,1,1,9944,26.45,3,20.28,9488,manual,Elite WR1,2,1,1,9944,manual,Elite WR1,2,1,1,9944,manual,Elite WR1
+Ja'Marr Chase,WR,CIN,9,4,2,8305,16.58,3,14.35,7564,manual,High WR1,9,4,2,8305,manual,High WR1,9,4,2,8305,manual,High WR1
+Amon-Ra St. Brown,WR,DET,8,3,2,8316,21.69,3,17.42,7547,manual,High WR1,8,3,2,8316,manual,High WR1,8,3,2,8316,manual,High WR1
+CeeDee Lamb,WR,DAL,5,2,1,,17.66,3,15.00,6786,manual,Elite WR1,5,2,1,,manual,Elite WR1,5,2,1,,manual,Elite WR1
+Puka Nacua,WR,LAR,13,5,2,,13.95,1,11.99,9493,manual,High WR1,13,5,2,,manual,High WR1,13,5,2,,manual,High WR1
+Chris Olave,WR,NO,17,6,3,,22.62,3,17.97,8144,manual,WR1,17,6,3,,manual,WR1,17,6,3,,manual,WR1
+Drake London,WR,ATL,23,9,3,,13.89,3,12.74,8112,manual,WR1,23,9,3,,manual,WR1,23,9,3,,manual,WR1
+Justin Jefferson,WR,MIN,31,10,3,,12.30,3,11.78,6794,manual,WR1,31,10,3,,manual,WR1,31,10,3,,manual,WR1
+Zay Flowers,WR,BAL,21,7,3,,14.11,2,12.56,9997,manual,WR1,21,7,3,,manual,WR1,21,7,3,,manual,WR1
+Nico Collins,WR,HOU,22,8,3,,20.00,1,14.01,7569,manual,WR1,22,8,3,,manual,WR1,22,8,3,,manual,WR1
+Parker Washington,WR,JAX,36,11,4,,14.43,3,13.06,9487,manual,Low WR1 / High WR 2,36,11,4,,manual,Low WR1 / High WR 2,36,11,4,,manual,Low WR1 / High WR 2
+Garrett Wilson,WR,NYJ,39,13,4,,17.58,3,14.95,8146,manual,Low WR1 / High WR 2,39,13,4,,manual,Low WR1 / High WR 2,39,13,4,,manual,Low WR1 / High WR 2
+DeVonta Smith,WR,PHI,38,12,4,,15.14,3,13.49,7525,manual,Low WR1 / High WR 2,38,12,4,,manual,Low WR1 / High WR 2,38,12,4,,manual,Low WR1 / High WR 2
+Christian Watson,WR,GB,41,14,4,,18.95,3,15.77,8167,manual,Low WR1 / High WR 2,41,14,4,,manual,Low WR1 / High WR 2,41,14,4,,manual,Low WR1 / High WR 2
+George Pickens,WR,DAL,59,19,5,,12.35,3,11.81,8137,manual,WR2,59,19,5,,manual,WR2,59,19,5,,manual,WR2
+Davante Adams,WR,LAR,60,20,5,,18.91,3,15.75,2133,manual,WR2,60,20,5,,manual,WR2,60,20,5,,manual,WR2
+Tee Higgins,WR,CIN,44,16,4,,14.46,3,13.08,6801,manual,Low WR1 / High WR 2,44,16,4,,manual,Low WR1 / High WR 2,44,16,4,,manual,Low WR1 / High WR 2
+Rashee Rice,WR,KC,55,18,4,,10.55,3,10.74,10229,manual,Low WR1 / High WR 2,55,18,4,,manual,Low WR1 / High WR 2,55,18,4,,manual,Low WR1 / High WR 2
+Tetairoa McMillan,WR,CAR,43,15,4,,11.63,3,11.38,12526,manual,Low WR1 / High WR 2,43,15,4,,manual,Low WR1 / High WR 2,43,15,4,,manual,Low WR1 / High WR 2
+Malik Nabers,WR,NYG,50,17,4,,9.38,3,10.03,11632,manual,Low WR1 / High WR 2,50,17,4,,manual,Low WR1 / High WR 2,50,17,4,,manual,Low WR1 / High WR 2
+DJ Moore,WR,BUF,77,28,6,,10.41,3,10.65,4983,manual,Low WR2,77,28,6,,manual,Low WR2,77,28,6,,manual,Low WR2
+Ladd McConkey,WR,LAC,75,27,6,,9.18,3,9.91,11635,manual,Low WR2,75,27,6,,manual,Low WR2,75,27,6,,manual,Low WR2
+Matthew Golden,WR,GB,67,23,5,,16.25,3,14.16,12501,manual,WR2,67,23,5,,manual,WR2,67,23,5,,manual,WR2
+Jaylen Waddle,WR,DEN,66,22,5,,11.21,3,11.13,7526,manual,WR2,66,22,5,,manual,WR2,66,22,5,,manual,WR2
+Luther Burden III,WR,CHI,73,26,5,,12.91,3,12.15,12519,manual,WR2,73,26,5,,manual,WR2,73,26,5,,manual,WR2
+A.J. Brown,WR,NE,68,24,90,,6.80,1,9.61,5859,manual,Hurt/WR1-2 When Healthy,68,24,90,,manual,Hurt/WR1-2 When Healthy,68,24,90,,manual,Hurt/WR1-2 When Healthy
+Michael Wilson,WR,ARI,65,21,5,,17.53,3,14.92,10232,manual,WR2,65,21,5,,manual,WR2,65,21,5,,manual,WR2
+Mike Evans,WR,SF,69,25,5,,9.96,3,10.38,2216,manual,WR2,69,25,5,,manual,WR2,69,25,5,,manual,WR2
+Josh Downs,WR,IND,88,29,6,,13.40,3,12.44,9500,manual,Low WR2,88,29,6,,manual,Low WR2,88,29,6,,manual,Low WR2
+Emeka Egbuka,WR,TB,97,34,6,,10.80,3,10.88,12514,manual,Low WR2,97,34,6,,manual,Low WR2,97,34,6,,manual,Low WR2
+Jameson Williams,WR,DET,90,30,6,,8.69,3,9.62,8148,manual,Low WR2,90,30,6,,manual,Low WR2,90,30,6,,manual,Low WR2
+Jalen Coker,WR,CAR,91,31,6,,14.30,3,12.98,11646,manual,Low WR2,91,31,6,,manual,Low WR2,91,31,6,,manual,Low WR2
+Terry McLaurin,WR,WAS,107,40,6,,12.49,3,11.90,5927,manual,Low WR2,107,40,6,,manual,Low WR2,107,40,6,,manual,Low WR2
+DK Metcalf,WR,PIT,99,36,6,,12.04,3,11.63,5846,manual,Low WR2,99,36,6,,manual,Low WR2,99,36,6,,manual,Low WR2
+Deebo Samuel SR.,WR,SF,92,32,6,,9.21,3,9.93,5872,manual,Low WR2,92,32,6,,manual,Low WR2,92,32,6,,manual,Low WR2
+Stefon Diggs,WR,WAS,98,35,6,,14.56,3,13.14,2449,manual,Low WR2,98,35,6,,manual,Low WR2,98,35,6,,manual,Low WR2
+Rome Odunze,WR,CHI,102,39,6,,7.37,3,8.82,11620,manual,Low WR2,102,39,6,,manual,Low WR2,102,39,6,,manual,Low WR2
+Jordan Addison,WR,MIN,112,41,7,,9.06,3,9.84,9756,manual,WR3,112,41,7,,manual,WR3,112,41,7,,manual,WR3
+Jakobi Meyers,WR,JAX,116,42,7,,8.64,3,9.59,5947,manual,WR3,116,42,7,,manual,WR3,116,42,7,,manual,WR3
+Carnell Tate,WR,TEN,96,33,6,,10.68,3,10.81,13279,manual,Low WR2,96,33,6,,manual,Low WR2,96,33,6,,manual,Low WR2
+KC Concepcion Jr.,WR,CLE,101,38,6,,10.82,3,10.90,13298,manual,Low WR2,101,38,6,,manual,Low WR2,101,38,6,,manual,Low WR2
+Devaughn Vele,WR,NO,130,44,8,,13.14,3,12.29,11834,manual,Flex Play,130,44,8,,manual,Flex Play,130,44,8,,manual,Flex Play
+Jordyn Tyson,WR,NO,129,43,8,,,,,13281,manual,Flex Play,129,43,8,,manual,Flex Play,129,43,8,,manual,Flex Play
+Denzel Boston,WR,CLE,100,37,6,,11.69,3,11.42,13346,manual,Low WR2,100,37,6,,manual,Low WR2,100,37,6,,manual,Low WR2
+Brian Thomas Jr.,WR,JAX,139,47,8,,6.22,3,8.14,11631,manual,Flex Play,139,47,8,,manual,Flex Play,139,47,8,,manual,Flex Play
+Chris Godwin Jr.,WR,TB,142,49,8,,6.73,3,8.44,4037,manual,Flex Play,142,49,8,,manual,Flex Play,142,49,8,,manual,Flex Play
+Makai Lemon,WR,PHI,136,45,8,,4.45,3,7.07,13294,manual,Flex Play,136,45,8,,manual,Flex Play,136,45,8,,manual,Flex Play
+Courtland Sutton,WR,DEN,143,50,8,,7.84,3,9.11,5045,manual,Flex Play,143,50,8,,manual,Flex Play,143,50,8,,manual,Flex Play
+Adonai Mitchell,WR,NYJ,137,46,8,,12.70,2,11.85,11625,manual,Flex Play,137,46,8,,manual,Flex Play,137,46,8,,manual,Flex Play
+Marvin Harrison Jr.,WR,ARI,140,48,8,,5.03,3,7.42,11628,manual,Flex Play,140,48,8,,manual,Flex Play,140,48,8,,manual,Flex Play
+Xavier Worthy,WR,KC,144,51,8,,7.87,3,9.12,11624,manual,Flex Play,144,51,8,,manual,Flex Play,144,51,8,,manual,Flex Play
+Malik Washington,WR,MIA,145,52,8,,12.40,3,11.84,11610,manual,Flex Play,145,52,8,,manual,Flex Play,145,52,8,,manual,Flex Play
+Kalif Raymond,WR,CHI,146,53,8,,13.37,3,12.42,3634,manual,Flex Play,146,53,8,,manual,Flex Play,146,53,8,,manual,Flex Play
+Dontayvion Wicks,WR,PHI,148,54,8,,9.18,3,9.91,9486,manual,Flex Play,148,54,8,,manual,Flex Play,148,54,8,,manual,Flex Play
+Chris Bell,WR,MIA,167,56,8,,5.58,3,7.75,13311,manual,Flex Play,167,56,8,,manual,Flex Play,167,56,8,,manual,Flex Play
+Romeo Doubs,WR,NE,160,55,8,,6.70,3,8.43,8121,manual,Flex Play,160,55,8,,manual,Flex Play,160,55,8,,manual,Flex Play
+Keenan Allen,WR,IND,168,57,9,,11.43,3,11.26,1479,manual,Shaky Flex,168,57,9,,manual,Shaky Flex,168,57,9,,manual,Shaky Flex
+Wan'Dale Robinson,WR,TEN,169,58,9,,10.53,3,10.72,8126,manual,Shaky Flex,169,58,9,,manual,Shaky Flex,169,58,9,,manual,Shaky Flex
+Quentin Johnston,WR,LAC,171,59,9,,7.11,3,8.67,9754,manual,Shaky Flex,171,59,9,,manual,Shaky Flex,171,59,9,,manual,Shaky Flex
+Michael Pittman Jr.,WR,PIT,172,60,9,,6.49,2,8.75,6819,manual,Shaky Flex,172,60,9,,manual,Shaky Flex,172,60,9,,manual,Shaky Flex
+Khalil Shakir,WR,BUF,173,61,9,,7.19,3,8.72,8134,manual,Shaky Flex,173,61,9,,manual,Shaky Flex,173,61,9,,manual,Shaky Flex
+Tre Tucker,WR,LV,174,62,9,,10.21,3,10.53,10213,manual,Shaky Flex,174,62,9,,manual,Shaky Flex,174,62,9,,manual,Shaky Flex
+Pat Bryant,WR,DEN,181,69,9,,6.63,3,8.38,12492,manual,Shaky Flex,181,69,9,,manual,Shaky Flex,181,69,9,,manual,Shaky Flex
+Rashod Batemen,WR,BAL,175,63,9,,7.81,3,9.09,7571,manual,Shaky Flex,175,63,9,,manual,Shaky Flex,175,63,9,,manual,Shaky Flex
+Caleb Douglas,WR,MIA,176,64,9,,9.27,2,10.14,13296,manual,Shaky Flex,176,64,9,,manual,Shaky Flex,176,64,9,,manual,Shaky Flex
+Antonio Williams,WR,WAS,177,65,9,,7.93,3,9.16,13301,manual,Shaky Flex,177,65,9,,manual,Shaky Flex,177,65,9,,manual,Shaky Flex
+Alec Pierce,WR,IND,178,66,9,,6.32,2,8.67,8142,manual,Shaky Flex,178,66,9,,manual,Shaky Flex,178,66,9,,manual,Shaky Flex
+Tyreek Hill,WR,FA,220,84,10,,,,,3321,manual,Bench/Stash,220,84,10,,manual,Bench/Stash,220,84,10,,manual,Bench/Stash
+Mack Hollins,WR,NE,179,67,9,,9.45,3,10.07,4177,manual,Shaky Flex,179,67,9,,manual,Shaky Flex,179,67,9,,manual,Shaky Flex
+Keon Coleman,WR,BUF,180,68,9,,5.30,3,7.58,11637,manual,Shaky Flex,180,68,9,,manual,Shaky Flex,180,68,9,,manual,Shaky Flex
+De'Zhaun Stribling,WR,SF,183,71,9,,,,,13417,manual,Shaky Flex,183,71,9,,manual,Shaky Flex,183,71,9,,manual,Shaky Flex
+Ja'Kobi Lane,WR,BAL,203,78,10,,3.91,1,8.64,13293,manual,Bench/Stash,203,78,10,,manual,Bench/Stash,203,78,10,,manual,Bench/Stash
+Ted Hurst,WR,TB,184,72,9,,7.05,3,8.63,13317,manual,Shaky Flex,184,72,9,,manual,Shaky Flex,184,72,9,,manual,Shaky Flex
+Travis Hunter,WR,JAX,191,75,10,,,,,12530,manual,Bench/Stash,191,75,10,,manual,Bench/Stash,191,75,10,,manual,Bench/Stash
+Brock Bowers,TE,LV,7,1,1,9710,30.39,1,17.25,11604,manual,Elite TE1,7,1,1,9710,manual,Elite TE1,7,1,1,9710,manual,Elite TE1
+Trey Mcbride,TE,ARI,10,2,1,,26.20,3,19.99,8130,manual,Elite TE1,10,2,1,,manual,Elite TE1,10,2,1,,manual,Elite TE1
+Tyler Warren,TE,IND,37,3,2,,17.04,3,14.49,12518,manual,High TE1,37,3,2,,manual,High TE1,37,3,2,,manual,High TE1
+George Kittle,TE,SF,47,4,2,,13.13,3,12.15,4217,manual,High TE1,47,4,2,,manual,High TE1,47,4,2,,manual,High TE1
+Dalton Kincaid,TE,BUF,58,6,3,,13.48,3,12.36,10236,manual,Low TE1,58,6,3,,manual,Low TE1,58,6,3,,manual,Low TE1
+Sam LaPorta,TE,DET,53,5,3,,13.26,3,12.23,10859,manual,Low TE1,53,5,3,,manual,Low TE1,53,5,3,,manual,Low TE1
+Juwan Johnson,TE,NO,62,7,3,,16.05,3,13.90,7002,manual,Low TE1,62,7,3,,manual,Low TE1,62,7,3,,manual,Low TE1
+Travis Kelce,TE,KC,78,11,4,,14.58,3,13.02,1466,manual,High TE2,78,11,4,,manual,High TE2,78,11,4,,manual,High TE2
+Colston Loveland,TE,CHI,71,8,4,,5.24,3,7.41,12517,manual,High TE2,71,8,4,,manual,High TE2,71,8,4,,manual,High TE2
+Tucker Kraft,TE,GB,72,9,4,,10.24,3,10.41,9484,manual,High TE2,72,9,4,,manual,High TE2,72,9,4,,manual,High TE2
+Harold Fannin Jr.,TE,CLE,74,10,4,,14.77,3,13.13,12506,manual,High TE2,74,10,4,,manual,High TE2,74,10,4,,manual,High TE2
+Isaiah Likely,TE,NYG,79,12,4,,15.91,3,13.82,8131,manual,High TE2,79,12,4,,manual,High TE2,79,12,4,,manual,High TE2
+Dalton Schultz,TE,HOU,114,15,5,,17.19,3,14.58,5001,manual,TE2,114,15,5,,manual,TE2,114,15,5,,manual,TE2
+Kenyon Sadiq,TE,NYJ,113,14,5,,12.46,3,11.75,13330,manual,TE2,113,14,5,,manual,TE2,113,14,5,,manual,TE2
+Mark Andrews,TE,BAL,108,13,5,,11.35,3,11.08,5012,manual,TE2,108,13,5,,manual,TE2,108,13,5,,manual,TE2
+Dallas Goedert,TE,PHI,131,16,6,,9.47,2,10.07,5022,manual,Low TE2,131,16,6,,manual,Low TE2,131,16,6,,manual,Low TE2
+Jake Ferguson,TE,DAL,156,20,6,,9.25,3,9.82,8110,manual,Low TE2,156,20,6,,manual,Low TE2,156,20,6,,manual,Low TE2
+Kyle Pitts Sr.,TE,ATL,157,21,6,,3.54,3,6.39,7553,manual,Low TE2,157,21,6,,manual,Low TE2,157,21,6,,manual,Low TE2
+Darren Waller,TE,CAR,147,18,6,,10.41,3,10.52,2505,manual,Low TE2,147,18,6,,manual,Low TE2,147,18,6,,manual,Low TE2
+Terrance Ferguson,TE,LAR,162,25,6,,8.18,3,9.18,12487,manual,Low TE2,162,25,6,,manual,Low TE2,162,25,6,,manual,Low TE2
+Oronde Gadsden II,TE,LAC,158,22,6,,4.79,3,7.15,12493,manual,Low TE2,158,22,6,,manual,Low TE2,158,22,6,,manual,Low TE2
+Brenton Strange,TE,JAX,159,23,6,,7.37,3,8.69,9480,manual,Low TE2,159,23,6,,manual,Low TE2,159,23,6,,manual,Low TE2
+Tyler Higbee,TE,LAR,155,19,6,,14.18,2,12.43,3271,manual,Low TE2,155,19,6,,manual,Low TE2,155,19,6,,manual,Low TE2
+T.J. Hockenson,TE,MIN,132,17,6,,9.46,3,9.95,5844,manual,Low TE2,132,17,6,,manual,Low TE2,132,17,6,,manual,Low TE2
+Pat Freiermuth,TE,PIT,161,24,6,,10.86,3,10.79,7600,manual,Low TE2,161,24,6,,manual,Low TE2,161,24,6,,manual,Low TE2
+Jaxson Dart,QB,NYG,254,43,99,0,11.74,2,12.36,12508,manual,Out for season,254,43,99,0,manual,Out for season,254,43,99,0,manual,Out for season
+Marcus Mariota,QB,WAS,164,34,7,,13.67,2,13.33,2307,manual,Dead,164,34,7,,manual,Dead,164,34,7,,manual,Dead
+Carson Wentz,QB,MIN,187,35,7,,11.97,2,12.48,3161,manual,Dead,187,35,7,,manual,Dead,187,35,7,,manual,Dead
+Tyson Bagent,QB,CHI,128,33,7,,,,,11256,manual,Dead,128,33,7,,manual,Dead,128,33,7,,manual,Dead
+Case Keenum,QB,CHI,188,36,7,,22.68,1,16.22,1737,manual,Dead,188,36,7,,manual,Dead,188,36,7,,manual,Dead
+Drew Lock,QB,SEA,194,37,7,,13.39,2,13.19,5854,manual,Dead,194,37,7,,manual,Dead,194,37,7,,manual,Dead
+J.J. McCarthy,QB,MIN,202,38,7,,,,,11565,manual,Dead,202,38,7,,manual,Dead,202,38,7,,manual,Dead
+Tua Tagovailoa,QB,ATL,208,39,7,,,,,6768,manual,Dead,208,39,7,,manual,Dead,208,39,7,,manual,Dead
+Shedeur Sanders,QB,CLE,209,40,7,,0.24,1,8.74,12524,manual,Dead,209,40,7,,manual,Dead,209,40,7,,manual,Dead
+Justin Fields,QB,KC,211,41,7,,,,,7591,manual,Dead,211,41,7,,manual,Dead,211,41,7,,manual,Dead
+Mac Jones,QB,SF,219,42,7,,0.68,1,8.88,7527,manual,Dead,219,42,7,,manual,Dead,219,42,7,,manual,Dead
+De'Von Achane,RB,MIA,253,72,99,,11.65,3,11.39,9226,manual,Out for season,253,72,99,,manual,Out for season,253,72,99,,manual,Out for season
+Isiah Pacheco,RB,DET,204,60,11,,,,,8205,auto,Dead,204,60,11,,auto,Dead,204,60,11,,auto,Dead
+Tyjae Spears,RB,TEN,195,56,10,,5.52,3,7.71,9508,manual,Dead,195,56,10,,manual,Dead,195,56,10,,manual,Dead
+MarShawn Lloyd,RB,GB,197,57,10,,6.71,3,8.43,11581,manual,Dead,197,57,10,,manual,Dead,197,57,10,,manual,Dead
+Jonah Coleman,RB,DEN,189,54,10,,6.36,2,8.69,13345,manual,Dead,189,54,10,,manual,Dead,189,54,10,,manual,Dead
+Devin Singletary,RB,NYG,212,61,11,,6.77,2,8.89,6130,auto,Dead,212,61,11,,auto,Dead,212,61,11,,auto,Dead
+Tyrone Tracy Jr.,RB,NYG,217,63,12,,0.33,3,4.60,11655,auto,,217,63,12,,auto,,217,63,12,,auto,
+Kimani Vidal,RB,LAC,201,59,10,,2.09,2,6.55,11647,manual,Dead,201,59,10,,manual,Dead,201,59,10,,manual,Dead
+Emanuel Wilson,RB,SEA,118,29,7,,5.67,3,7.81,11435,manual,RB3/Flex,118,29,7,,manual,RB3/Flex,118,29,7,,manual,RB3/Flex
+Kendre Miller,RB,NO,214,62,11,,6.31,2,8.66,9757,manual,Dead,214,62,11,,manual,Dead,214,62,11,,manual,Dead
+Trey Benson,RB,ARI,225,65,12,,,,,11589,auto,,225,65,12,,auto,,225,65,12,,auto,
+Kenny Gainwell,RB,TB,193,55,10,,5.38,3,7.63,7567,manual,Dead,193,55,10,,manual,Dead,193,55,10,,manual,Dead
+Dylan Sampson,RB,CLE,231,66,12,,0.00,1,7.34,12469,auto,,231,66,12,,auto,,231,66,12,,auto,
+Justice Hill,RB,BAL,234,67,13,,3.81,3,6.69,5995,auto,,234,67,13,,auto,,234,67,13,,auto,
+Raheim Sanders,RB,CLE,237,68,13,,5.95,3,7.97,12472,auto,,237,68,13,,auto,,237,68,13,,auto,
+Samaje Perine,RB,CIN,240,69,13,,5.43,3,7.66,4147,auto,,240,69,13,,auto,,240,69,13,,auto,
+Tank Bigsby,RB,PHI,223,64,12,,4.02,3,6.82,9225,manual,,223,64,12,,manual,,223,64,12,,manual,
+Najee Harris,RB,NYG,246,70,13,,3.62,2,7.31,7528,auto,,246,70,13,,auto,,246,70,13,,auto,
+Ty Johnson,RB,BUF,249,71,13,,6.75,1,9.59,6039,auto,,249,71,13,,auto,,249,71,13,,auto,
+Kaleb Johnson,RB,GB,199,58,10,,3.12,3,6.28,12504,manual,Dead,199,58,10,,manual,Dead,199,58,10,,manual,Dead
+Jauan Jennings,WR,MIN,182,70,9,,1.80,2,6.40,7049,manual,Shaky Flex,182,70,9,,manual,Shaky Flex,182,70,9,,manual,Shaky Flex
+Xavier Hutchinson,WR,HOU,192,76,10,,10.45,3,10.67,10218,auto,Bench/Stash,192,76,10,,auto,Bench/Stash,192,76,10,,auto,Bench/Stash
+Ryan Flournoy,WR,DAL,198,77,10,,8.03,3,9.22,11783,auto,Bench/Stash,198,77,10,,auto,Bench/Stash,198,77,10,,auto,Bench/Stash
+Roman Wilson,WR,PIT,185,73,9,,10.15,3,10.50,11630,manual,Shaky Flex,185,73,9,,manual,Shaky Flex,185,73,9,,manual,Shaky Flex
+Kendrick Bourne,WR,ARI,207,79,10,,8.59,3,9.56,4454,auto,Bench/Stash,207,79,10,,auto,Bench/Stash,207,79,10,,auto,Bench/Stash
+Jayden Reed,WR,GB,218,83,10,,5.37,2,8.19,10222,manual,Bench/Stash,218,83,10,,manual,Bench/Stash,218,83,10,,manual,Bench/Stash
+Rashid Shaheed,WR,SEA,210,80,10,,5.84,3,7.91,8676,manual,Bench/Stash,210,80,10,,manual,Bench/Stash,210,80,10,,manual,Bench/Stash
+Cooper Kupp,WR,SEA,215,82,10,,6.65,3,8.40,4039,auto,Bench/Stash,215,82,10,,auto,Bench/Stash,215,82,10,,auto,Bench/Stash
+Tre Harris,WR,LAC,186,74,10,,8.10,3,9.26,12509,manual,Bench/Stash,186,74,10,,manual,Bench/Stash,186,74,10,,manual,Bench/Stash
+Ricky Pearsall,WR,SF,227,87,11,,,,,11638,manual,Bench/Stash,227,87,11,,manual,Bench/Stash,227,87,11,,manual,Bench/Stash
+Germie Bernard,WR,PIT,213,81,10,,7.13,2,9.07,13274,manual,Bench/Stash,213,81,10,,manual,Bench/Stash,213,81,10,,manual,Bench/Stash
+Tory Horton,WR,SEA,224,85,11,,6.01,1,9.34,12497,auto,Bench/Stash,224,85,11,,auto,Bench/Stash,224,85,11,,auto,Bench/Stash
+Kayshon Boutte,WR,HOU,226,86,11,,4.98,3,7.39,9504,manual,Bench/Stash,226,86,11,,manual,Bench/Stash,226,86,11,,manual,Bench/Stash
+Troy Franklin,WR,DEN,229,88,11,,2.56,3,5.94,11627,auto,Bench/Stash,229,88,11,,auto,Bench/Stash,229,88,11,,auto,Bench/Stash
+Josh Palmer,WR,BUF,232,89,11,,6.79,2,8.90,7670,auto,Bench/Stash,232,89,11,,auto,Bench/Stash,232,89,11,,auto,Bench/Stash
+Jayden Higgins,WR,HOU,233,90,11,,,,,12484,auto,Bench/Stash,233,90,11,,auto,Bench/Stash,233,90,11,,auto,Bench/Stash
+Marquise Brown,WR,PHI,236,91,12,,1.38,1,7.80,5848,auto,Bench/Stash,236,91,12,,auto,Bench/Stash,236,91,12,,auto,Bench/Stash
+Elic Ayomanor,WR,TEN,238,92,12,,5.88,3,7.93,12499,auto,Bench/Stash,238,92,12,,auto,Bench/Stash,238,92,12,,auto,Bench/Stash
+DeMario Douglas,WR,NE,241,93,12,,6.83,3,8.50,9501,auto,Bench/Stash,241,93,12,,auto,Bench/Stash,241,93,12,,auto,Bench/Stash
+Malachi Fields,WR,NYG,243,94,12,,5.89,3,7.94,13285,auto,Bench/Stash,243,94,12,,auto,Bench/Stash,243,94,12,,auto,Bench/Stash
+Jerry Jeudy,WR,CLE,245,95,12,,3.96,2,7.49,6783,auto,Bench/Stash,245,95,12,,auto,Bench/Stash,245,95,12,,auto,Bench/Stash
+Jalen Nailor,WR,LV,248,96,12,,5.28,3,7.57,8180,auto,Bench/Stash,248,96,12,,auto,Bench/Stash,248,96,12,,auto,Bench/Stash
+Xavier Legette,WR,CAR,250,97,12,,4.67,2,7.84,11626,auto,Bench/Stash,250,97,12,,auto,Bench/Stash,250,97,12,,auto,Bench/Stash
+Calvin Ridley,WR,TEN,252,98,12,,2.90,2,6.96,4981,auto,Bench/Stash,252,98,12,,auto,Bench/Stash,252,98,12,,auto,Bench/Stash
+Cade Otton,TE,TB,190,26,7,,10.39,3,10.51,8111,auto,Low TE2,190,26,7,,auto,Low TE2,190,26,7,,auto,Low TE2
+Hunter Henry,TE,NE,196,27,7,,6.76,3,8.33,3214,auto,Low TE2,196,27,7,,auto,Low TE2,196,27,7,,auto,Low TE2
+AJ Barner,TE,SEA,200,28,7,,8.82,3,9.56,11603,auto,Low TE2,200,28,7,,auto,Low TE2,200,28,7,,auto,Low TE2
+Mike Gesicki,TE,CIN,205,29,7,,13.51,2,12.10,4993,manual,Low TE2,205,29,7,,manual,Low TE2,205,29,7,,manual,Low TE2
+Zach Ertz,TE,PHI,216,31,8,,3.43,1,8.26,1339,auto,,216,31,8,,auto,,216,31,8,,auto,
+Michael Mayer,TE,LV,206,30,7,,10.55,3,10.60,9482,manual,Low TE2,206,30,7,,manual,Low TE2,206,30,7,,manual,Low TE2
+Noah Fant,TE,NO,221,32,8,,10.33,3,10.47,5857,auto,,221,32,8,,auto,,221,32,8,,auto,
+David Njoku,TE,LAC,222,33,8,,7.19,2,8.94,4033,auto,,222,33,8,,auto,,222,33,8,,auto,
+Jake Tonges,TE,SF,228,34,8,,,,,8698,auto,,228,34,8,,auto,,228,34,8,,auto,
+Greg Dulcich,TE,MIA,230,35,9,,8.43,3,9.33,8172,auto,,230,35,9,,auto,,230,35,9,,auto,
+Mason Taylor,TE,NYJ,235,36,9,,5.36,1,8.91,12498,auto,,235,36,9,,auto,,235,36,9,,auto,
+Theo Johnson,TE,NYG,239,37,9,,3.57,2,7.13,11597,auto,,239,37,9,,auto,,239,37,9,,auto,
+Gunnar Helm,TE,TEN,242,38,9,,7.27,3,8.63,12502,auto,,242,38,9,,auto,,242,38,9,,auto,
+Evan Engram,TE,DEN,244,39,9,,6.12,3,7.94,4066,auto,,244,39,9,,auto,,244,39,9,,auto,
+Colby Parkinson,TE,LAR,247,40,9,,3.02,3,6.08,6865,auto,,247,40,9,,auto,,247,40,9,,auto,
+Chig Okonkwo,TE,WAS,251,41,9,,6.28,1,9.21,8210,auto,,251,41,9,,auto,,251,41,9,,auto,
 `;
 
 /* =====================================================================
@@ -1137,6 +1137,23 @@ td.val { width: 42%; min-width: 230px; padding-left: 14px; }
 .count { font-size: 0.78rem; color: var(--muted); margin-top: 12px; }
 
 /* ---------- Editor toolbar ---------- */
+/* Rankings boards (Oct 8): SPAM consensus · Alan · Steven */
+.rk-boards { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 12px; }
+.rkb-tabs { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+.rkb-tab { all: unset; box-sizing: border-box; display: inline-flex; align-items: baseline; gap: 6px; padding: 7px 16px; border-radius: 7px; cursor: pointer;
+  font-size: 0.86rem; font-weight: 700; color: var(--muted); transition: background 0.15s, color 0.15s; }
+.rkb-tab small { font-size: 0.56rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8; }
+.rkb-tab:hover { color: var(--ink); }
+.rkb-tab:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.rkb-tab[data-board="spam"][aria-selected="true"] { background: var(--accent-primary); color: var(--bg); }
+.rkb-tab[data-board="alan"][aria-selected="true"], .rkb-tab[data-board="steven"][aria-selected="true"] { background: color-mix(in srgb, var(--mine-accent) 20%, var(--surface)); color: var(--heading); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mine-accent) 60%, transparent); }
+.rkb-note { margin: 0; font-size: 0.72rem; color: var(--muted); }
+.rkb-banner { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; padding: 9px 14px; border-radius: var(--radius); font-size: 0.8rem; color: var(--ink-2);
+  background: color-mix(in srgb, var(--mine-accent) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--mine-accent) 40%, var(--line-soft)); box-shadow: inset 4px 0 0 var(--mine-accent); }
+.rkb-banner b { color: var(--heading); }
+.rkb-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mine-accent); flex: none; }
+#panel-rankings[data-board="alan"] .table-scroll, #panel-rankings[data-board="steven"] .table-scroll { border-top: 2px solid color-mix(in srgb, var(--mine-accent) 70%, transparent); }
+.bd-split { display: block; font-size: 0.64rem; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; letter-spacing: 0.01em; white-space: nowrap; }
 .editor-bar {
   display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between;
   background: color-mix(in srgb, var(--editor-bg) 40%, transparent); border: 1px solid color-mix(in srgb, var(--editor-line) 55%, transparent); border-radius: var(--radius);
@@ -3489,6 +3506,15 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
 
   <div class="fmt-override" id="fmt-override" role="status" hidden></div>
   <section id="panel-rankings" role="tabpanel" aria-labelledby="tab-rankings">
+    <div class="rk-boards" id="rk-boards">
+      <div class="rkb-tabs" role="tablist" aria-label="Rankings board">
+        <button class="rkb-tab" type="button" role="tab" data-board="spam" aria-selected="true">SPAM<small>Consensus</small></button>
+        <button class="rkb-tab" type="button" role="tab" data-board="alan" aria-selected="false">Alan</button>
+        <button class="rkb-tab" type="button" role="tab" data-board="steven" aria-selected="false">Steven</button>
+      </div>
+      <p class="rkb-note" id="rkb-note">Average of Alan's and Steven's rankings</p>
+    </div>
+    <div class="rkb-banner" id="rkb-banner" role="status" hidden></div>
     <div class="editor-bar" id="editor-bar" hidden>
       <div class="eb-left">
         <strong>Editor</strong>
@@ -4309,6 +4335,18 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
 
   let players = loadPlayers(RANKINGS_CSV);
   let byId = new Map(players.map(p => [p.id, p]));
+  /* Three ranking boards (Steven, Oct 8). One player pool (RANKINGS_CSV rows); Alan's and Steven's rankings live in
+     their own columns (alan_rank, alan_tier, … / steven_…), and the SPAM board in the base columns is never edited by
+     hand: consensus() rebuilds it from the two personal boards (average overall rank, averaged tiers, model values,
+     typed values averaged). `players` / `byId` stay the SPAM board everywhere on the site; the Rankings tab shows the
+     selected board through BP() / BM(), and the editor writes the selected person's columns (bpref()). */
+  const PEOPLE = ["alan", "steven"];
+  const BOARD_NAMES = { spam: "SPAM", alan: "Alan", steven: "Steven" };
+  const RB = { board: "spam", P: {} };   // P[who] = { players, byId } for each personal board, rebuilt with the SPAM board
+  const BP = () => (RB.board !== "spam" && RB.P[RB.board] ? RB.P[RB.board].players : players);
+  const BM = () => (RB.board !== "spam" && RB.P[RB.board] ? RB.P[RB.board].byId : byId);
+  const bpref = () => (RB.board === "spam" ? "" : RB.board + "_");
+  const personal = () => RB.board !== "spam";
   let maxValue = Math.max(1, ...players.map(p => p.value));
   const hasPicks = players.some(p => p.pos === "PICK");
   const editor = { on: true, token: null, login: "", saving: false };   // temporary: editing open to everyone
@@ -4399,7 +4437,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   // everywhere except the Rankings board, where the SPAM Board / League-adjusted toggle decides.
   // Trade Finder, My Team, League, Free Agents, the calculator's league mode and player pages opened
   // from them always use the league's own order, never the base SPAM positional rank.
-  const leagueView = () => LG.fmtOn && (LG.mode === "league" || offRankings());
+  const leagueView = () => LG.fmtOn && (offRankings() || (LG.mode === "league" && RB.board === "spam"));   // personal boards: always their own values
   const offRankings = () => { try { return currentTab !== "rankings"; } catch (e) { return false; } };
   const adjName = () => (LG.active ? "League-adjusted" : "Your settings");
   const dv = p => (leagueView() && LG.adj.has(p.id) ? LG.adj.get(p.id) : p.value);
@@ -4468,7 +4506,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   (() => { const m = document.querySelector(".masthead"); if (!m) return;
     const set = () => document.documentElement.style.setProperty("--mast-h", m.offsetHeight + "px");
     set(); if (window.ResizeObserver) new ResizeObserver(set).observe(m); else window.addEventListener("resize", set); })();
-  const BUILD_ID = "2026-10-08T09:00Z";
+  const BUILD_ID = "2026-10-08T15:00Z";
   let lastBuildCheck = 0;
   async function checkForUpdate() {
     if (Date.now() - lastBuildCheck < 5 * 60e3) return;
@@ -4628,9 +4666,9 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const own = pos === "OVERALL" ? names.OVERALL : names[pos];
     return (own && own[tier]) || (pos !== "OVERALL" && names.ALL && names.ALL[tier]) || "";
   }
-  function tierNameOf(pos, tier) {
+  function tierNameOf(pos, tier, list = BP()) {
     const t = String(tier);
-    const hit = players.find(p => p.pos === pos && String(p.tier) === t && p.tierName);
+    const hit = list.find(p => p.pos === pos && String(p.tier) === t && p.tierName);
     if (hit) return hit.tierName;
     let empty = null;
     try { empty = (TIER_EMPTY[pos] || []).find(e => String(e.tier) === t); } catch (e) {}
@@ -4641,8 +4679,8 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   const OUT_TIER = 99;   // Out for season: a tag tier every position has (see sendOut)
   // "All" view: his positional tier as a small tag beside the position badge (tiers are per position, so no bands here)
   const tierTag = p => `<span class="tier-tag${isTagTier(p.tier) ? " tagged" : ""}" title="${esc(p.pos)} ${esc(tierLabel(p.pos, p.tier))}">${isTagTier(p.tier) ? esc(tierNameOf(p.pos, p.tier) || "Tagged") : "T" + esc(String(p.tier))}</span>`;
-  function tierLabel(pos, tier) {
-    const name = pos === "OVERALL" ? presetTierName(pos, tier) : tierNameOf(pos, tier);
+  function tierLabel(pos, tier, list) {
+    const name = pos === "OVERALL" ? presetTierName(pos, tier) : tierNameOf(pos, tier, list);
     if (isTagTier(tier)) return name || "Tagged";
     if (/^tier\b/i.test(name)) return name;   // typed in full ("Tier 1 · Elite")
     return name ? `Tier ${tier} · ${name}` : `Tier ${tier}`;
@@ -4650,7 +4688,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
 
   const POS_ORDER = { QB: 0, RB: 1, WR: 2, TE: 3 };
   const POS_NAMES = { QB: "Quarterbacks", RB: "Running backs", WR: "Wide receivers", TE: "Tight ends" };
-  const hasOverall = () => players.some(p => p.pos !== "PICK" && p.rank != null);
+  const hasOverall = () => BP().some(p => p.pos !== "PICK" && p.rank != null);
   const byPos = (a, b) => (POS_ORDER[a.pos] ?? 9) - (POS_ORDER[b.pos] ?? 9) || (a.posNum ?? 1e9) - (b.posNum ?? 1e9);
 
   /* Custom = a value typed in and not published yet. Once published it is the player's
@@ -4659,10 +4697,11 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   function publishedValueOf(p) {
     let csv;
     try { csv = publishedCsv; } catch (e) { return undefined; }   // editor not set up yet
-    if (pubValCache.csv !== csv) {
+    const col = bpref() + "value";   // the published value on the board being shown
+    if (pubValCache.csv !== csv || pubValCache.col !== col) {
       const rows = parseCSV(csv), head = (rows.shift() || []).map(h => h.toLowerCase());
-      const iN = head.indexOf("player"), iP = head.indexOf("pos"), iV = head.indexOf("value");
-      pubValCache = { csv, map: new Map(rows.map(r => [(r[iN] + "|" + r[iP]).toLowerCase(), iV < 0 ? "" : String(r[iV] ?? "").trim()])) };
+      const iN = head.indexOf("player"), iP = head.indexOf("pos"), iV = head.indexOf(col);
+      pubValCache = { csv, col, map: new Map(rows.map(r => [(r[iN] + "|" + r[iP]).toLowerCase(), iV < 0 ? "" : String(r[iV] ?? "").trim()])) };
     }
     return pubValCache.map.get((p.name + "|" + p.pos).toLowerCase());
   }
@@ -4689,20 +4728,36 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     return `<span class="bm ${up ? "bm-up" : "bm-down"}" title="${up ? "Up" : "Down"} ${n} from #${from} on the SPAM Board">${up ? "▲" : "▼"}${n}</span>`;
   }
   const posLabel = p => (leagueView() && LG.adjPos.has(p.id) ? p.pos + LG.adjPos.get(p.id) : p.posRank);
+  /* Disagreement (Steven, Oct 8): on the SPAM board, a quiet "Alan WR8 · Steven WR19" line when the two boards are
+     noticeably apart on him (position ranks on a position tab, overall ranks on All): at least 3 spots and 20% of the
+     better rank. Base SPAM view only (league-adjusted ranks aren't either person's). */
+  function splitOf(p) {
+    if (personal() || leagueView() || !RB.P.alan || !RB.P.steven) return null;
+    const a = RB.P.alan.byId.get(p.id), s = RB.P.steven.byId.get(p.id), pos = EDIT_POS.includes(posFilter);
+    if (!a || !s) return null;
+    const ra = pos ? a.posNum : a.rank, rs = pos ? s.posNum : s.rank;
+    if (ra == null || rs == null) return null;
+    const d = Math.abs(ra - rs);
+    return d >= Math.max(3, Math.ceil(0.2 * Math.min(ra, rs))) ? { ra, rs, lbl: n => (pos ? p.pos + n : "#" + n) } : null;
+  }
+  function splitTag(p) {
+    const x = splitOf(p); if (!x) return "";
+    return `<span class="bd-split" title="Alan and Steven rank him ${Math.abs(x.ra - x.rs)} spots apart; SPAM uses the average">Alan ${x.lbl(x.ra)} · Steven ${x.lbl(x.rs)}</span>`;
+  }
   function renderRankings() {
     $("rk-sort-wrap").hidden = posFilter === "PICK";
     if (prodOn()) return renderProd();
     if ($("rk-head-row").dataset.prod) { $("rk-head-row").innerHTML = RK_HEAD; delete $("rk-head-row").dataset.prod; }
     let list, rk, group;
-    const editing = editor.on && !leagueView();
-    maxValue = Math.max(1, ...players.map(dv));
+    const editing = editor.on && !leagueView() && personal();   // the SPAM board is the average: edit Alan's or Steven's
+    maxValue = Math.max(1, ...BP().map(dv));
     const canReorder = editing && (EDIT_POS.includes(posFilter) || (posFilter === "ALL" && hasOverall()));
     const numOf = p => posFilter === "ALL" ? p.rank : p.posNum;
     if (posFilter === "PICK") {
-      list = players.filter(p => p.pos === "PICK").sort((a, b) => b.value - a.value);
+      list = BP().filter(p => p.pos === "PICK").sort((a, b) => b.value - a.value);
       rk = () => "–"; group = () => null;
     } else if (posFilter === "ALL") {
-      list = players.filter(p => p.pos !== "PICK");
+      list = BP().filter(p => p.pos !== "PICK");
       if (leagueView()) {
         list.sort((a, b) => (LG.adjRank.get(a.id) ?? 1e9) - (LG.adjRank.get(b.id) ?? 1e9));
         rk = p => (LG.adjRank.get(p.id) ?? "–") + boardMove(p.rank, LG.adjRank.get(p.id));
@@ -4718,11 +4773,11 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
         group = p => POS_NAMES[p.pos] || p.pos;
       }
     } else if (leagueView()) {
-      list = players.filter(p => p.pos === posFilter).sort((a, b) => (LG.adjPos.get(a.id) ?? 1e9) - (LG.adjPos.get(b.id) ?? 1e9));
+      list = BP().filter(p => p.pos === posFilter).sort((a, b) => (LG.adjPos.get(a.id) ?? 1e9) - (LG.adjPos.get(b.id) ?? 1e9));
       rk = p => (LG.adjPos.get(p.id) ?? "–") + boardMove(p.posNum, LG.adjPos.get(p.id));
       group = () => null;
     } else {
-      list = players.filter(p => p.pos === posFilter).sort(byPos);
+      list = BP().filter(p => p.pos === posFilter).sort(byPos);
       rk = p => p.posNum ?? "–";
       group = p => p.tier ? tierLabel(p.pos, p.tier) : null;
     }
@@ -4774,7 +4829,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       const own = LG.active && LG.ownerOf.get(p.id);
       out.push(`<tr class="player${own && own.mine ? " mine" : ""}" data-id="${p.id}">${editCol}
         <td class="rk">${rk(p)}</td>
-        <td><div class="pl-cell">${face(p.sleeperId, p.name)}<div class="pl-text">${nameLink(p.sleeperId, p.name)}${editing && p.source === "auto" ? `<span class="src-auto" title="Auto-ranked: added under your rankings. Move, re-tier or set his value and save to make him yours.">Auto</span>` : ""}${nflTag(p.team)}${ownerTag(p)}</div></div></td>
+        <td><div class="pl-cell">${face(p.sleeperId, p.name)}<div class="pl-text">${nameLink(p.sleeperId, p.name)}${editing && p.source === "auto" ? `<span class="src-auto" title="Auto-ranked: added under your rankings. Move, re-tier or set his value and save to make him yours.">Auto</span>` : ""}${nflTag(p.team)}${ownerTag(p)}${splitTag(p)}</div></div></td>
         <td class="pos-col"><span class="pos ${esc(p.pos)}">${esc(posLabel(p))}</span>${posFilter === "ALL" && p.tier ? tierTag(p) : ""}</td>
         <td class="val">${editing ? valueCellEdit(p) : valueCell(p)}</td>
       </tr>`);
@@ -4812,7 +4867,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     }
     const min = rkMin(), spamRk = p => (leagueView() ? LG.adjRank.get(p.id) : p.rank) ?? 1e9;
     if ($("rk-min").value !== String(min)) $("rk-min").value = String(min);   // the week's default once stats are in
-    let pool = players.filter(p => EDIT_POS.includes(p.pos) && (posFilter === "ALL" || p.pos === posFilter));
+    let pool = BP().filter(p => EDIT_POS.includes(p.pos) && (posFilter === "ALL" || p.pos === posFilter));
     let none = 0, under = 0;
     const rows = [];
     pool.forEach(p => {
@@ -4835,11 +4890,11 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       const num = fp(r.v);
       const star = r.short ? `<span class="inj-star" title="${esc(`Includes ${shortCount(r.short)} (left early with an injury); the game still counts`)}">*</span>` : "";
       const sub = M.n ? (r.gp < M.n ? `<span class="psub thin" title="Only ${r.n} game${r.n === 1 ? "" : "s"} played this season">last ${r.n}</span>` : `<span class="psub">last ${r.n}</span>`) : `<span class="psub">${r.gp} GP</span>`;
-      const sr = spamRk(p), spamTxt = sr < 1e9 ? `SPAM #${sr}` : "SPAM —";
+      const sr = spamRk(p), bn = BOARD_NAMES[RB.board], spamTxt = sr < 1e9 ? `${bn} #${sr}` : `${bn} —`;
       return `<tr class="player prod${own && own.mine ? " mine" : ""}" data-id="${p.id}">
         <td class="rk">${r.rank}</td>
         <td><div class="pl-cell">${face(p.sleeperId, p.name)}<div class="pl-text">${nameLink(p.sleeperId, p.name)}${nflTag(p.team)}${ownerTag(p)}</div></div></td>
-        <td class="pos-col"><span class="pos ${esc(p.pos)}">${esc(posLabel(p))}</span>${posFilter === "ALL" && p.tier ? tierTag(p) : ""}<span class="spam-rk" title="${leagueView() ? "League-adjusted SPAM rank" : "SPAM Board rank"}">${spamTxt}</span></td>
+        <td class="pos-col"><span class="pos ${esc(p.pos)}">${esc(posLabel(p))}</span>${posFilter === "ALL" && p.tier ? tierTag(p) : ""}<span class="spam-rk" title="${leagueView() ? "League-adjusted SPAM rank" : personal() ? BOARD_NAMES[RB.board] + "'s rank" : "SPAM Board rank"}">${spamTxt}</span></td>
         <td class="prod-col"><div class="prodbar" style="--c: var(--${p.pos.toLowerCase()}, var(--ink))"><div class="track"><div class="fill" style="width:${pct.toFixed(1)}%"></div></div><span class="pnum">${num}${star}</span>${sub}</div></td>
         <td class="val val-2"><span class="num-2" title="${leagueView() ? "League-adjusted SPAM value" : "SPAM value"}">${p.hasValue === false ? "—" : fmt(dv(p))}</span></td>
       </tr>`;
@@ -5930,7 +5985,9 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
      of these controls. */
   const REPO = SITE.repo, FILE = "index.html", BRANCH = "main", TOKEN_KEY = "spm_editor_token";
   const CSV_RE = /(const RANKINGS_CSV = `\n)([\s\S]*?)(\n`;)/;
-  const EDIT_COLS = ["rank", "pos_rank", "tier", "value", "source", "tier_name"];
+  const EDIT_COLS = ["rank", "pos_rank", "tier", "value", "source", "tier_name"];   // one board's ranking columns
+  // what an edit can change: Alan's and Steven's columns only (the SPAM base columns are rebuilt from them)
+  const PERSON_COLS = PEOPLE.flatMap(w => EDIT_COLS.map(c => w + "_" + c));
   const LOCAL_KEY = "spm_local_edits";
   let publishedCsv = RANKINGS_CSV.trim();   // what everyone sees on the live site
   // savedCsv = published + edits saved in this browser; draft = unsaved work on top of that
@@ -5945,7 +6002,60 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   }
   const keyOf = (t, r) => (r[colOf(t, "player")] + "|" + r[colOf(t, "pos")]).toLowerCase();
 
+  /* A personal board as a full table: the same rows (so player ids match across boards) with this person's columns in
+     the base column names. A player with no ranking on that board yet (a new row) keeps the SPAM columns. */
+  function boardView(t, who) {
+    const pairs = EDIT_COLS.map(c => [colOf(t, c), colOf(t, who + "_" + c)]), iR = colOf(t, who + "_rank");
+    return { head: t.head.slice(), rows: t.rows.map(r => { const v = r.slice(); if (String(r[iR] ?? "").trim() !== "") pairs.forEach(([b, w]) => { v[b] = r[w] ?? ""; }); return v; }) };
+  }
+  /* SPAM consensus (Steven, Oct 8): rebuilds the base columns of table t from Alan's and Steven's boards and returns
+     both boards' players.
+       rank   = sorted by (Alan's overall rank + Steven's) / 2; ties: the better of the two ranks, then the current SPAM
+                rank (stable), then name. Players both put in Out for season stay at the very bottom.
+       tier   = per position, the average of the two tiers (x.5 rounds down the ladder), never above the tier of the
+                player ranked ahead at his position; a tag tier (Hurt, Out …) only when both boards tag him, otherwise
+                the other board's ladder tier. Tier names: Alan's name for that tier number, else Steven's, else preset.
+       value  = blank (the value model prices the consensus rank and tiers), or, when either of you typed a value for
+                him, the average of his two board values.
+       source = manual if he's manual on either board. */
+  function consensus(t) {
+    const P = {};
+    PEOPLE.forEach(w => { const pl = loadPlayers(tableToCsv(boardView(t, w))); P[w] = { players: pl, byId: new Map(pl.map(p => [p.id, p])) }; });
+    const iR = colOf(t, "rank"), iPR = colOf(t, "pos_rank"), iT = colOf(t, "tier"), iV = colOf(t, "value"), iS = colOf(t, "source"), iN = colOf(t, "tier_name");
+    const A = P.alan.byId, S = P.steven.byId, cur = i => Number(t.rows[i][iR]) || 1e9;
+    const out = p => String(p.tier) === String(OUT_TIER);
+    const L = [];
+    t.rows.forEach((r, i) => {
+      const a = A.get(i), s = S.get(i) || a;
+      if (!a || a.pos === "PICK" || a.rank == null || s.rank == null) return;
+      L.push({ i, a, s, avg: (a.rank + s.rank) / 2, best: Math.min(a.rank, s.rank), out: out(a) && out(s), manual: a.source === "manual" || s.source === "manual" });
+    });
+    L.sort((x, y) => (x.out - y.out) || (x.avg - y.avg) || (x.best - y.best) || (cur(x.i) - cur(y.i)) || x.a.name.localeCompare(y.a.name));
+    const names = new Map();
+    ["steven", "alan"].forEach(w => P[w].players.forEach(p => { if (p.tierName && p.tier !== "") names.set(p.pos + "|" + p.tier, p.tierName); }));   // Alan's win
+    const counts = {}, prevT = {};
+    L.forEach((x, k) => {
+      const r = t.rows[x.i], pos = x.a.pos, ta = String(x.a.tier ?? ""), ts = String(x.s.tier ?? "");
+      const tagA = ta !== "" && isTagTier(ta), tagS = ts !== "" && isTagTier(ts);
+      let tier;
+      if (tagA && tagS) tier = Number(ta) <= Number(ts) ? ta : ts;
+      else {
+        const la = tagA ? "" : ta, ls = tagS ? "" : ts;
+        const v = la !== "" && ls !== "" ? Math.round((Number(la) + Number(ls)) / 2) : la !== "" ? Number(la) : ls !== "" ? Number(ls) : null;
+        if (v == null) tier = "";
+        else { const m = Math.max(v, prevT[pos] || 0); prevT[pos] = m; tier = String(m); }
+      }
+      counts[pos] = (counts[pos] || 0) + 1;
+      r[iR] = String(k + 1); r[iPR] = String(counts[pos]); r[iT] = tier;
+      r[iN] = tier !== "" ? names.get(pos + "|" + tier) || "" : "";
+      r[iV] = x.a.custom || x.s.custom ? String(Math.round((x.a.value + x.s.value) / 2)) : "";
+      r[iS] = x.manual ? "manual" : "auto";
+    });
+    return P;
+  }
+
   function rebuild() {
+    RB.P = consensus(draft);
     players = loadPlayers(tableToCsv(draft));
     byId = new Map(players.map(p => [p.id, p]));
     maxValue = Math.max(1, ...players.map(p => p.value));
@@ -5961,7 +6071,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const baseMap = new Map(base.rows.map(r => [keyOf(base, r), r]));
     return draft.rows.filter(r => {
       const b = baseMap.get(keyOf(draft, r));
-      return !b || EDIT_COLS.some(c => (r[colOf(draft, c)] ?? "") !== (b[colOf(base, c)] ?? ""));
+      return !b || PERSON_COLS.some(c => (r[colOf(draft, c)] ?? "") !== (b[colOf(base, c)] ?? ""));
     });
   }
 
@@ -5978,13 +6088,13 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   };
   function valueCheck() {
     const out = [], tag = p => p.tier === "" || p.tier == null || isTagTier(p.tier);
-    const ranked = players.filter(p => p.pos !== "PICK" && p.rank != null && p.value != null).sort((a, b) => a.rank - b.rank);
+    const ranked = BP().filter(p => p.pos !== "PICK" && p.rank != null && p.value != null).sort((a, b) => a.rank - b.rank);
     for (let i = 1; i < ranked.length; i++) {
       const a = ranked[i - 1], b = ranked[i];
       if (b.value > a.value && b.modelValued) out.push({ kind: "order", text: `#${b.rank} ${b.name} (${fmt(b.value)}) is worth more than #${a.rank} ${a.name} (${fmt(a.value)})` });
     }
     for (const pos of EDIT_POS) {
-      const L = players.filter(p => p.pos === pos && p.posNum != null && p.rank != null).sort((a, b) => a.posNum - b.posNum);
+      const L = BP().filter(p => p.pos === pos && p.posNum != null && p.rank != null).sort((a, b) => a.posNum - b.posNum);
       for (let i = 1; i < L.length; i++) {
         const a = L[i - 1], b = L[i], d = a.value > 0 ? (a.value - b.value) / a.value : 0;
         if (b.value > a.value && b.modelValued) out.push({ kind: "order", text: `${pos}${b.posNum} ${b.name} is worth more than ${pos}${a.posNum} ${a.name}` });
@@ -6016,7 +6126,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const W = valueCheck(), real = W.filter(w => w.kind !== "rank");
     b.hidden = false;
     b.textContent = real.length ? `${real.length} value warning${real.length === 1 ? "" : "s"}` : "Values OK";
-    b.title = "Value-curve check: cliffs, tier gaps and tier sizes on the SPAM Board (warnings only, nothing changes)";
+    b.title = `Value-curve check: cliffs, tier gaps and tier sizes on ${personal() ? BOARD_NAMES[RB.board] + "'s board" : "the SPAM Board"} (warnings only, nothing changes)`;
     const li = w => `<li class="${w.kind}">${esc(w.text)}</li>`;
     box.innerHTML = `<p>Warnings only: nothing on the board changes. Rank gaps are listed last: they come from your overall order, not the formula.</p>`
       + (W.length ? `<ul>${real.map(li).join("")}${W.filter(w => w.kind === "rank").map(li).join("")}</ul>` : "<p>No issues found.</p>");
@@ -6031,15 +6141,19 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     $("editor-bar").hidden = !editor.on;
     if (!editor.on || savedCsv == null) return;
     const n = changedRows().length, local = Object.keys(localEdits).length;
+    // the SPAM board isn't edited by hand: its editor bar only appears to save or publish edits made on a personal board
+    // (signed-in editors, or ?debug, still see it there for the value-curve check)
+    $("editor-bar").hidden = !personal() && !n && !local && !editor.saving && !editor.token && !/[?&]debug\b/.test(location.search);
+    $("editor-bar").dataset.board = RB.board;
     $("eb-who").textContent = editor.login ? "@" + editor.login : "";
     $("eb-count").textContent = n ? `${n} unsaved` : "All saved";
     $("eb-save").disabled = $("eb-cancel").disabled = n === 0 || editor.saving;
-    $("eb-hint").textContent = leagueView() ? `${adjName()} view is read-only. Switch to SPAM Board to edit rankings.`
-      : posFilter === "ALL"
+    $("eb-hint").textContent = !personal() ? "SPAM is the average of Alan's and Steven's boards. Edit them on their tabs."
+      : (`${BOARD_NAMES[RB.board]}'s board · `) + (posFilter === "ALL"
       ? "Drag or use the arrows to reorder. Click a value to override it."
       : EDIT_POS.includes(posFilter)
         ? `Reordering ${posFilter}s within their overall spots. Click a value to override it.`
-        : "Click a value to override it.";
+        : "Click a value to override it.");
     $("eb-local").hidden = local === 0 && !editor.saving;
     $("eb-local-text").textContent = editor.saving ? "Publishing…" : `${local} unpublished`;
     $("eb-local-text").title = `${local} player${local > 1 ? "s" : ""} edited in this browser and not on the live site yet`;
@@ -6047,6 +6161,29 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     $("eb-publish").title = n > 0 ? "Save or cancel your changes first" : "";
     $("eb-signout").hidden = !editor.token;
   }
+
+  /* Board tabs: SPAM (consensus, read-only) · Alan · Steven. Switching drops in-progress tier-editing state (empty
+     tiers, pending deletes, renames), which belongs to the board it was made on; saved and unsaved edits stay. */
+  function setBoard(b) {
+    if (!BOARD_NAMES[b]) b = "spam";
+    if (b !== RB.board) {
+      for (const k of Object.keys(TIER_EMPTY)) delete TIER_EMPTY[k];
+      TIER_DEL = TIER_REN = null; REVALUED.clear(); hideBendWarn();
+      RB.board = b;
+    }
+    document.querySelectorAll("#rk-boards .rkb-tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.board === b)));
+    $("panel-rankings").dataset.board = b;
+    $("rkb-note").textContent = b === "spam" ? "Average of Alan's and Steven's rankings" : "";
+    const ban = $("rkb-banner");
+    ban.hidden = b === "spam";
+    if (b !== "spam") {
+      const other = BOARD_NAMES[PEOPLE.find(w => w !== b)];
+      ban.innerHTML = `<span class="rkb-dot" aria-hidden="true"></span><span><b>${BOARD_NAMES[b]}'s rankings</b> · ${editor.on ? `Edits here change only ${BOARD_NAMES[b]}'s board.` : `${BOARD_NAMES[b]}'s personal board.`} SPAM updates as the average of ${BOARD_NAMES[b]}'s and ${other}'s.</span>`;
+    }
+    $("league-controls").hidden = !LG.fmtOn || personal();
+    renderRankings();
+  }
+  $("rk-boards").addEventListener("click", e => { const t = e.target.closest(".rkb-tab"); if (t) setBoard(t.dataset.board); });
 
   /* Moving players. The overall order (rank) is the source of truth and every
      position rank is derived from it. A player who lands in a new position spot
@@ -6071,13 +6208,13 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
 
   // Write an overall order: rank 1..N, every position rank re-derived, mover's tier
   function writeOrder(order, me, forceTier, opts) {
-    const iRank = colOf(draft, "rank"), iPos = colOf(draft, "pos_rank"), iTier = colOf(draft, "tier");
-    const oldPos = players.filter(p => p.pos === me.pos && p.posNum != null).sort((a, b) => a.posNum - b.posNum);
+    const iRank = colOf(draft, bpref() + "rank"), iPos = colOf(draft, bpref() + "pos_rank"), iTier = colOf(draft, bpref() + "tier");
+    const oldPos = BP().filter(p => p.pos === me.pos && p.posNum != null).sort((a, b) => a.posNum - b.posNum);
     const newPos = order.filter(p => p.pos === me.pos);
     const newTier = forceTier != null ? String(forceTier) : tierFor(me, newPos, oldPos);
     if (newTier !== String(me.tier)) {   // joining a tier: take its name too
       materializeTierNames(me.pos);
-      draft.rows[me.id][colOf(draft, "tier_name")] = tierNameOf(me.pos, newTier) || "";
+      draft.rows[me.id][colOf(draft, bpref() + "tier_name")] = tierNameOf(me.pos, newTier) || "";
       if (TIER_EMPTY[me.pos]) TIER_EMPTY[me.pos] = TIER_EMPTY[me.pos].filter(e => String(e.tier) !== newTier);
     }
     const tierChanged = newTier !== String(me.tier);
@@ -6090,19 +6227,19 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     });
     /* Typed values win (Alan, Oct 5): a typed value is never overwritten by a move. A notice offers "Recalculate
        from tier" (back to the model value for his new spot) and says when keeping it bends players outside his tier. */
-    const iVal = colOf(draft, "value"), had = draft.rows[me.id][iVal], moved = tierChanged || Number(draft.rows[me.id][iRank]) !== me.rank;
-    const before = new Map(players.map(p => [p.id, p.value])), oldVal = me.value;
+    const iVal = colOf(draft, bpref() + "value"), had = draft.rows[me.id][iVal], moved = tierChanged || Number(draft.rows[me.id][iRank]) !== me.rank;
+    const before = new Map(BP().map(p => [p.id, p.value])), oldVal = me.value;
     makeManual(me.id);
     rebuild();
-    const now = byId.get(me.id);
+    const now = BM().get(me.id);
     if (!moved || !now || (opts && opts.quiet)) return;
     if (had !== "" && had != null) { typedMoveNotice(me.id, Number(had), before); return; }
     REVALUED.add(me.id); renderRankings();
     if (opts && opts.revalue) toast(`${now.name} revalued from tier: ${fmt(oldVal)} → ${fmt(now.value)} · #${now.rank} overall, ${now.posRank}.`);
   }
   function typedMoveNotice(id, typed, before) {
-    const me = byId.get(id); if (!me) return;
-    const bent = players.filter(p => p.id !== id && isPlayerRow(p) && before.get(p.id) > 0 && !(p.pos === me.pos && String(p.tier) === String(me.tier))
+    const me = BM().get(id); if (!me) return;
+    const bent = BP().filter(p => p.id !== id && isPlayerRow(p) && before.get(p.id) > 0 && !(p.pos === me.pos && String(p.tier) === String(me.tier))
       && Math.abs(p.value / before.get(p.id) - 1) > 0.05).length;
     const box = $("ed-warn");
     box.innerHTML = `<p><b>${esc(me.name)}</b> moved to #${me.rank} (${esc(me.posRank)}) and kept your typed value <b>${fmt(typed)}</b>${bent ? `, which moves ${bent} player${bent > 1 ? "s" : ""} outside his tier by more than 5%` : ""}.</p>
@@ -6115,21 +6252,21 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
      someone else moved stay auto, and an auto player put back exactly where he was
      stays auto. */
   function makeManual(id) {
-    const iSrc = colOf(draft, "source");
+    const iSrc = colOf(draft, bpref() + "source");
     if (String(draft.rows[id][iSrc] || "").toLowerCase() === "auto") draft.rows[id][iSrc] = "manual";
     const base = csvToTable(savedCsv), bm = new Map(base.rows.map(r => [keyOf(base, r), r]));
     draft.rows.forEach(r => {
       const b = bm.get(keyOf(draft, r));
-      if (b && String(b[colOf(base, "source")] || "").toLowerCase() === "auto" && r[iSrc] === "manual"
-          && ["rank", "pos_rank", "tier", "value"].every(c => (r[colOf(draft, c)] ?? "") === (b[colOf(base, c)] ?? ""))) r[iSrc] = "auto";
+      if (b && String(b[colOf(base, bpref() + "source")] || "").toLowerCase() === "auto" && r[iSrc] === "manual"
+          && ["rank", "pos_rank", "tier", "value"].every(c => (r[colOf(draft, bpref() + c)] ?? "") === (b[colOf(base, bpref() + c)] ?? ""))) r[iSrc] = "auto";
     });
   }
 
-  const overallOrder = () => players.filter(p => isPlayerRow(p) && p.rank != null).sort((a, b) => a.rank - b.rank);
+  const overallOrder = () => BP().filter(p => isPlayerRow(p) && p.rank != null).sort((a, b) => a.rank - b.rank);
 
   // All view: move a player to overall rank targetRank
   function moveOverall(id, targetRank, opts) {
-    const me = byId.get(id);
+    const me = BM().get(id);
     if (!me || me.rank == null) return;
     const order = overallOrder();
     const from = order.indexOf(me), to = Math.max(0, Math.min(order.length - 1, targetRank - 1));
@@ -6161,21 +6298,21 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
      with a value of 0 (a 0 higher up would pull everyone ranked below him to 0, since values follow rank). */
   function sendOut(me) {
     const order = overallOrder().filter(p => p !== me); order.push(me);
-    draft.rows[me.id][colOf(draft, "value")] = "0";
+    draft.rows[me.id][colOf(draft, bpref() + "value")] = "0";
     writeOrder(order, me, String(OUT_TIER), { quiet: true });
-    const now = byId.get(me.id);
+    const now = BM().get(me.id);
     toast(`${me.name} is out for the season: #${now ? now.rank : order.length} overall, ${now ? now.posRank : ""}, value 0.`);
   }
   function movePlayer(id, targetNum, forceTier) {
-    const me = byId.get(id);
+    const me = BM().get(id);
     if (!me || me.posNum == null) return;
     if (forceTier != null && String(forceTier) === String(OUT_TIER)) { if (String(me.tier) !== String(OUT_TIER)) sendOut(me); return; }
-    const group = players.filter(p => p.pos === me.pos && p.posNum != null).sort((a, b) => a.posNum - b.posNum);
+    const group = BP().filter(p => p.pos === me.pos && p.posNum != null).sort((a, b) => a.posNum - b.posNum);
     const from = group.indexOf(me), to = Math.max(0, Math.min(group.length - 1, targetNum - 1));
     if (from === to && (forceTier == null || String(forceTier) === String(me.tier))) return;
     const newGroup = group.filter(p => p !== me); newGroup.splice(to, 0, me);
     const tier = forceTier != null ? String(forceTier) : String(tierFor(me, newGroup, group));
-    const iVal = colOf(draft, "value"), typed = draft.rows[me.id][iVal];
+    const iVal = colOf(draft, bpref() + "value"), typed = draft.rows[me.id][iVal];
     const hasTyped = typed !== "" && typed != null;
     const target = hasTyped ? Number(typed) : tierTarget(newGroup[to - 1], newGroup[to + 1], tier);
     if (isTagTier(tier) || target == null || me.rank == null) {   // old behaviour: the position keeps its overall spots
@@ -6194,7 +6331,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   }
 
   function setValue(id, v) {
-    const before = new Map(players.map(p => [p.id, p.value])), iVal = colOf(draft, "value"), prevTyped = draft.rows[id][iVal];
+    const before = new Map(BP().map(p => [p.id, p.value])), iVal = colOf(draft, bpref() + "value"), prevTyped = draft.rows[id][iVal];
     draft.rows[id][iVal] = v == null ? "" : String(Math.round(v));
     makeManual(id);
     rebuild();
@@ -6205,8 +6342,8 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
      with his rank, that bends players outside his own tier (Oct 5 audit: Cousins at 3,624 on #81 lifted #54-#87 by
      up to 31%). Warn when anyone outside his tier moves more than 5%, and offer the rank where the value fits. */
   function bendCheck(id, typed, before, prevTyped) {
-    const me = byId.get(id); if (!me) return;
-    const bent = players.filter(p => p.id !== id && isPlayerRow(p) && before.get(p.id) > 0 && !(p.pos === me.pos && String(p.tier) === String(me.tier))
+    const me = BM().get(id); if (!me) return;
+    const bent = BP().filter(p => p.id !== id && isPlayerRow(p) && before.get(p.id) > 0 && !(p.pos === me.pos && String(p.tier) === String(me.tier))
       && Math.abs(p.value / before.get(p.id) - 1) > 0.05).map(p => ({ p, d: p.value / before.get(p.id) - 1 })).sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
     if (!bent.length) { hideBendWarn(); return; }
     const others = overallOrder().filter(p => p.id !== id);
@@ -6222,17 +6359,17 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const box = $("ed-warn"), id = Number(box.dataset.id);
     const mv = e.target.closest("[data-bend-move]");
     if (mv) {   // move him to where his typed value fits, and keep that value
-      const iVal = colOf(draft, "value"), typed = draft.rows[id][iVal];
+      const iVal = colOf(draft, bpref() + "value"), typed = draft.rows[id][iVal];
       hideBendWarn(); moveOverall(id, Number(mv.dataset.bendMove), { quiet: true });
       if (draft.rows[id][iVal] !== typed) { draft.rows[id][iVal] = typed; rebuild(); }
-      const me = byId.get(id); toast(`${me.name} moved to #${me.rank}, keeping his value ${fmt(Number(typed))}.`);
+      const me = BM().get(id); toast(`${me.name} moved to #${me.rank}, keeping his value ${fmt(Number(typed))}.`);
       return;
     }
-    if (e.target.closest("[data-bend-undo]")) { hideBendWarn(); draft.rows[id][colOf(draft, "value")] = box.dataset.prev || ""; rebuild(); return; }
+    if (e.target.closest("[data-bend-undo]")) { hideBendWarn(); draft.rows[id][colOf(draft, bpref() + "value")] = box.dataset.prev || ""; rebuild(); return; }
     if (e.target.closest("[data-bend-recalc]")) {   // drop the typed value: the model values him for his tier and spot
-      hideBendWarn(); const was = byId.get(id).value;
-      draft.rows[id][colOf(draft, "value")] = ""; rebuild(); REVALUED.add(id); renderRankings();
-      const me = byId.get(id); toast(`${me.name} recalculated from tier: ${fmt(was)} → ${fmt(me.value)}.`);
+      hideBendWarn(); const was = BM().get(id).value;
+      draft.rows[id][colOf(draft, bpref() + "value")] = ""; rebuild(); REVALUED.add(id); renderRankings();
+      const me = BM().get(id); toast(`${me.name} recalculated from tier: ${fmt(was)} → ${fmt(me.value)}.`);
       return;
     }
     if (e.target.closest("[data-bend-keep]")) hideBendWarn();
@@ -6242,26 +6379,26 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
      Tiers are data: each player's tier number plus tier_name, saved and published like ranks.
      Empty tiers exist only while editing (TIER_EMPTY) until a player is dragged in. */
   function tierNums(pos) {
-    const set = new Set(players.filter(p => p.pos === pos && p.tier !== "" && !isTagTier(p.tier)).map(p => Number(p.tier)));
+    const set = new Set(BP().filter(p => p.pos === pos && p.tier !== "" && !isTagTier(p.tier)).map(p => Number(p.tier)));
     (TIER_EMPTY[pos] || []).forEach(e => set.add(Number(e.tier)));
     return [...set].sort((a, b) => a - b);
   }
   // write every tier's current name onto its players, so names survive renumbering
   function materializeTierNames(pos) {
-    const iN = colOf(draft, "tier_name");
-    players.filter(p => p.pos === pos && p.tier !== "").forEach(p => { if (!draft.rows[p.id][iN]) draft.rows[p.id][iN] = tierNameOf(pos, p.tier) || ""; });
+    const iN = colOf(draft, bpref() + "tier_name");
+    BP().filter(p => p.pos === pos && p.tier !== "").forEach(p => { if (!draft.rows[p.id][iN]) draft.rows[p.id][iN] = tierNameOf(pos, p.tier) || ""; });
   }
   function shiftTiers(pos, from, delta) {   // every (non-tag) tier >= from moves by delta (reads the draft, so earlier edits count)
-    const iT = colOf(draft, "tier");
-    players.filter(p => p.pos === pos).forEach(p => {
+    const iT = colOf(draft, bpref() + "tier");
+    BP().filter(p => p.pos === pos).forEach(p => {
       const cur = draft.rows[p.id][iT];
       if (cur !== "" && cur != null && !isTagTier(cur) && Number(cur) >= from) draft.rows[p.id][iT] = String(Number(cur) + delta);
     });
     (TIER_EMPTY[pos] || []).forEach(e => { if (e.tier >= from) e.tier += delta; });
   }
   function tierAction(act, pos, tier, value) {
-    const t = Number(tier), iT = colOf(draft, "tier"), iN = colOf(draft, "tier_name");
-    const members = players.filter(p => p.pos === pos && String(p.tier) === String(tier));
+    const t = Number(tier), iT = colOf(draft, bpref() + "tier"), iN = colOf(draft, bpref() + "tier_name");
+    const members = BP().filter(p => p.pos === pos && String(p.tier) === String(tier));
     if (act === "rename") {
       const name = String(value || "").trim().replace(/\s+/g, " ");
       members.forEach(p => { draft.rows[p.id][iN] = name; });
@@ -6296,7 +6433,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     }
   }
   $("rank-body").addEventListener("click", e => {
-    const b = e.target.closest("[data-tier-act]"); if (!b || !editor.on) return;
+    const b = e.target.closest("[data-tier-act]"); if (!b || !editor.on || !personal()) return;
     const row = b.closest("tr[data-tier]"); if (!row) return;
     e.stopPropagation();
     if (b.dataset.tierAct === "rename") {
@@ -6326,12 +6463,12 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
 
   /* Clicks: arrows, value editing, back-to-auto */
   $("rank-body").addEventListener("click", e => {
-    if (!editor.on) return;
+    if (!editor.on || !personal()) return;
     const arrow = e.target.closest(".arrow");
     if (arrow && !arrow.disabled) {
       const id = Number(arrow.closest("tr").dataset.id), dir = Number(arrow.dataset.dir);
-      if (posFilter === "ALL") moveOverall(id, byId.get(id).rank + dir);
-      else movePlayer(id, byId.get(id).posNum + dir);
+      if (posFilter === "ALL") moveOverall(id, BM().get(id).rank + dir);
+      else movePlayer(id, BM().get(id).posNum + dir);
       requestAnimationFrame(() => {
         const again = $("rank-body").querySelector(`tr[data-id="${id}"] .arrow[data-dir="${dir}"]`);
         if (again && !again.disabled) again.focus();
@@ -6340,12 +6477,12 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     }
     const auto = e.target.closest(".auto-btn");
     if (auto) {   // Reset: back to the published value if there is one, else to the model
-      const p = byId.get(Number(auto.dataset.id)), pub = p && publishedValueOf(p);
+      const p = BM().get(Number(auto.dataset.id)), pub = p && publishedValueOf(p);
       setValue(Number(auto.dataset.id), pub ? parseFloat(pub.replace(/,/g, "")) : null); return;
     }
     const num = e.target.closest(".num-btn");
     if (num) {
-      const id = Number(num.dataset.id), p = byId.get(id);
+      const id = Number(num.dataset.id), p = BM().get(id);
       const input = document.createElement("input");
       input.type = "number"; input.min = "0"; input.step = "1"; input.className = "val-input";
       input.value = Math.round(p.value);
@@ -6375,18 +6512,18 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     drag = null;
     clearMarks(); tr.classList.remove("dragging"); document.body.classList.remove("is-dragging");
     if (!commit || !target) return;
-    const me = byId.get(id);
+    const me = BM().get(id);
     if (!me) return;
     if (target.dataset.tier != null && !target.classList.contains("player")) {   // a tier header or an empty tier
       const t = Number(target.dataset.tier);
-      const rest = players.filter(p => p.pos === me.pos && p.posNum != null && p !== me).sort((a, b) => a.posNum - b.posNum);
+      const rest = BP().filter(p => p.pos === me.pos && p.posNum != null && p !== me).sort((a, b) => a.posNum - b.posNum);
       const first = rest.findIndex(p => Number(p.tier) === t && !isTagTier(p.tier));
       let idx = first;
       if (idx < 0) { idx = 0; rest.forEach((p, k) => { if (!isTagTier(p.tier) && Number(p.tier) < t) idx = k + 1; }); }
       movePlayer(id, idx + 1, t);
       return;
     }
-    const tp = byId.get(Number(target.dataset.id));
+    const tp = BM().get(Number(target.dataset.id));
     if (!tp) return;
     const all = posFilter === "ALL", key = p => all ? p.rank : p.posNum;
     let num = key(tp) + (after ? 1 : 0);
@@ -6396,7 +6533,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   }
   $("rank-body").addEventListener("pointerdown", e => {
     const h = e.target.closest(".handle");
-    if (!h || h.disabled || !editor.on) return;
+    if (!h || h.disabled || !editor.on || !personal()) return;
     e.preventDefault();
     h.setPointerCapture(e.pointerId);
     const tr = h.closest("tr.player");
@@ -6448,12 +6585,18 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   /* Edits saved in this browser are stored as just the changed fields, keyed by
      player, and laid over the live rankings on load. The weekly projection
      refresh keeps flowing in underneath them. */
-  function readLocal() { try { return JSON.parse(localStorage.getItem(LOCAL_KEY) || "{}") || {}; } catch (e) { return {}; } }
+  function readLocal() {
+    let x = {};
+    try { x = JSON.parse(localStorage.getItem(LOCAL_KEY) || "{}") || {}; } catch (e) { return {}; }
+    // edits saved before the Alan / Steven boards (Oct 8) were SPAM-board edits: carry them onto both boards
+    Object.values(x).forEach(e => { if (e && !PERSON_COLS.some(c => c in e)) EDIT_COLS.forEach(c => { if (c in e) PEOPLE.forEach(w => { e[w + "_" + c] = e[c]; }); }); });
+    return x;
+  }
   function applyEdits(csv, edits) {
     const t = csvToTable(csv);
     for (const r of t.rows) {
       const e = edits[keyOf(t, r)];
-      if (e) for (const c of EDIT_COLS) if (c in e) r[colOf(t, c)] = e[c];
+      if (e) for (const c of PERSON_COLS) if (c in e) r[colOf(t, c)] = e[c];
     }
     return t;
   }
@@ -6464,7 +6607,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       const k = keyOf(t, r), b = bm.get(k);
       if (!b) continue;
       const e = {};
-      for (const c of EDIT_COLS) { const v = r[colOf(t, c)] ?? ""; if (v !== (b[colOf(base, c)] ?? "")) e[c] = v; }
+      for (const c of PERSON_COLS) { const v = r[colOf(t, c)] ?? ""; if (v !== (b[colOf(base, c)] ?? "")) e[c] = v; }
       if (Object.keys(e).length) out[k] = e;
     }
     return out;
@@ -6505,8 +6648,9 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     rebuild(); toast("Browser edits discarded. Showing the live rankings.");
   }
 
-  // Apply only the fields edited in this browser onto the latest version on GitHub,
-  // so the weekly projection refresh and anyone else's published edits are kept.
+  // Apply only the fields edited in this browser (Alan's / Steven's columns) onto the latest version on GitHub, so the
+  // weekly projection refresh and anyone else's published edits are kept, then rebuild the SPAM columns from the
+  // merged boards (never from this browser's possibly stale copy).
   function mergeInto(latestCsv) {
     const base = csvToTable(publishedCsv), src = csvToTable(savedCsv), latest = csvToTable(latestCsv);
     const baseMap = new Map(base.rows.map(r => [keyOf(base, r), r]));
@@ -6514,14 +6658,20 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     for (const r of src.rows) {
       const k = keyOf(src, r), b = baseMap.get(k), l = latestMap.get(k);
       if (!l) continue;
-      for (const c of EDIT_COLS) {
+      for (const c of PERSON_COLS) {
         const v = r[colOf(src, c)] ?? "";
         if (!b || v !== (b[colOf(base, c)] ?? "")) l[colOf(latest, c)] = v;
       }
     }
+    consensus(latest);
     return tableToCsv(latest);
   }
 
+  // "Alan's board: 3 players, Steven's board: 1 player" for the commit message
+  function editSummary() {
+    const n = {}; Object.values(localEdits).forEach(e => PEOPLE.forEach(w => { if (EDIT_COLS.some(c => (w + "_" + c) in e)) n[w] = (n[w] || 0) + 1; }));
+    return PEOPLE.filter(w => n[w]).map(w => `${BOARD_NAMES[w]}'s board: ${n[w]} player${n[w] > 1 ? "s" : ""}`).join(", ") || "rankings";
+  }
   async function publishLive() {
     const count = Object.keys(localEdits).length;
     if (!count || editor.saving) return;
@@ -6540,7 +6690,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
           await gh(`/repos/${REPO}/contents/${FILE}`, {
             method: "PUT",
             body: JSON.stringify({
-              message: `Rankings edit${editor.login ? " by @" + editor.login : ""} (${count} player${count > 1 ? "s" : ""})`,
+              message: `Rankings edit${editor.login ? " by @" + editor.login : ""} (${editSummary()})`,
               content: b64encode(newText), sha: file.sha, branch: BRANCH
             })
           });
@@ -7145,7 +7295,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     tabs.myteam.hidden = tabs.league.hidden = tabs.finder.hidden = !d;
     document.body.classList.toggle("has-league", !!d);
     // Rankings view row: shown for a connected league or hand-picked settings
-    $("league-controls").hidden = !LG.fmtOn;
+    $("league-controls").hidden = !LG.fmtOn || personal();   // personal boards always show their own base values
     $("owner-filter-wrap").hidden = !d;
     $("view-adj").textContent = adjName();
     $("league-controls").querySelectorAll("[data-view]").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === LG.mode));
@@ -10341,7 +10491,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
         </div>
         <div class="pm-stats">
           ${stat("Overall", p ? "#" + (leagueView() ? overallRank(p) : p.rank ?? "–") : "–", "")}
-          ${stat("Position", p ? esc(posLabel(p)) : "–", [p && posLabel(p) !== p.posRank ? "SPAM Board " + esc(p.posRank) : "", p && p.tier ? esc(tierLabel(p.pos, p.tier)) : ""].filter(Boolean).join(" · "))}
+          ${stat("Position", p ? esc(posLabel(p)) : "–", [p && posLabel(p) !== p.posRank ? "SPAM Board " + esc(p.posRank) : "", p && p.tier ? esc(tierLabel(p.pos, p.tier, players)) : ""].filter(Boolean).join(" · "))}
           ${stat("Value", p ? fmt(dv(p)) : "–", p ? (leagueView() ? (LG.active ? "League-adj." : "Your settings") : "Base") : "Unranked")}
           ${stat(`${STATS_SEASONS[0]} PPG`, curT && curT.g ? fp(curT.ppg) : "–", curT && curT.g ? (curT.short ? `<span title="${esc(ppgNote(curT))}">${curT.g} G · ${curT.short} injury-shortened</span>` : `${curT.g} G · ${activeData() ? "league" : "site"} scoring`) : "No games")}
         </div>
@@ -10939,7 +11089,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       PP.charts.push({ type: "line", points: h.map(x => ({ label: x.ts, y: x.posRank })), invert: true, title: "Position rank", fmt: v => info.pos + v });
       PP.charts.push({ type: "line", points: h.map(x => ({ label: x.ts, y: x.value })), title: "SPAM Value", fmt: v => fmt(v) });
     }
-    const tierCell = (x, prev) => x.tier === "" || x.tier == null ? "–" : isTagTier(x.tier) ? esc(tierLabel(info.pos, x.tier)) : `T${esc(String(x.tier))}${prev && prev.tier !== "" && prev.tier != null && String(prev.tier) !== String(x.tier) ? ` <span class="mv ${Number(x.tier) < Number(prev.tier) ? "up" : "down"}">${Number(x.tier) < Number(prev.tier) ? "▲" : "▼"}</span>` : ""}`;
+    const tierCell = (x, prev) => x.tier === "" || x.tier == null ? "–" : isTagTier(x.tier) ? esc(tierLabel(info.pos, x.tier, players)) : `T${esc(String(x.tier))}${prev && prev.tier !== "" && prev.tier != null && String(prev.tier) !== String(x.tier) ? ` <span class="mv ${Number(x.tier) < Number(prev.tier) ? "up" : "down"}">${Number(x.tier) < Number(prev.tier) ? "▲" : "▼"}</span>` : ""}`;
     const rows = h.slice().reverse().map((x, i, arr) => {
       const prev = arr[i + 1];
       return `<tr><td class="gl-wk">${esc(longWhen(x.ts))}</td><td>#${x.rank}</td><td>${prev ? moveTag(prev.rank - x.rank) : "–"}</td>
@@ -11815,7 +11965,11 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     }
     throw new Error("the history file kept changing");
   }
-  window.SPM = { rankingSnapshot, historyText, normalizeHistory, addSnapshot, formatCheck, projectionCheck, scoringCheck, calculateFantasyPoints, valueCheck };   // helpers for the scheduled snapshot and tests
+  // boards(): each board's {sleeper_id: [rank, posRank, tier, value, pos]} (tests); boardsCsv(): the working CSV with the SPAM columns rebuilt
+  const boardSnap = list => Object.fromEntries(list.filter(p => p.sleeperId && p.pos !== "PICK").map(p => [p.sleeperId, [p.rank, p.posNum, String(p.tier), Math.round(p.value), p.pos]]));
+  const boards = () => ({ spam: boardSnap(players), alan: boardSnap(RB.P.alan.players), steven: boardSnap(RB.P.steven.players) });
+  const boardsCsv = () => { const t = csvToTable(tableToCsv(draft)); consensus(t); return tableToCsv(t); };
+  window.SPM = { rankingSnapshot, historyText, normalizeHistory, addSnapshot, formatCheck, projectionCheck, scoringCheck, calculateFantasyPoints, valueCheck, setBoard, boards, boardsCsv, consensusOf: csv => { const t = csvToTable(csv); consensus(t); return tableToCsv(t); } };   // helpers for the scheduled snapshot and tests
 
   // Start-up: restore a saved connection
   sl = readSl();

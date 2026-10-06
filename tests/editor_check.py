@@ -1,6 +1,8 @@
 """Editor check: moving a player re-values him. A typed (published) value is cleared when he moves to a new spot or tier,
 and the model recomputes it from the new rank, his projection and his tiermates; nothing is published (no token).
 
+Edits happen on a personal board (Alan's): the SPAM board is the read-only average of Alan's and Steven's.
+
 Run from the repo root:  python3 tests/editor_check.py   (CHROMIUM=/path/to/chromium if needed)
 """
 import functools, http.server, os, re, socketserver, sys, threading
@@ -25,6 +27,7 @@ with sync_playwright() as p:
     pg.route("https://api.github.com/**", lambda r: r.abort())
     pg.route(re.compile(r"https://(sleepercdn\.com|a\.espncdn\.com|api\.sleeper\.app)/.*"), lambda r: r.abort())
     pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/#rankings"); pg.wait_for_timeout(4500)
+    pg.click("#rk-boards [data-board=alan]"); pg.wait_for_timeout(400)
     TIERED = """() => [...document.querySelectorAll('#rank-body tr')].reduce((o, tr) => { if (tr.dataset.tier && !tr.classList.contains('player')) o.t = tr.dataset.tier;
       if (tr.classList.contains('player')) o.rows.push({ id: tr.dataset.id, name: tr.querySelector('.pl-name').textContent.trim(), tier: tr.dataset.tier || o.t,
         v: Number(tr.querySelector('.val .num, .val .num-btn').textContent.replace(/\\D/g, '')) }); return o; }, { t: null, rows: [] }).rows"""
@@ -61,6 +64,7 @@ with sync_playwright() as p:
     ok(v3[target] < v2[target] and ordered(rows2), f"Recalculate from tier: {v2[target]} → {v3[target]}, board in order")
     # typing a value far above his rank bends players outside his tier: warn and offer the rank where it fits
     pg.reload(); pg.wait_for_timeout(4500)
+    pg.click("#rk-boards [data-board=alan]"); pg.wait_for_timeout(400)
     rows3 = pg.evaluate(ROWS)
     far = rows3[100]; hi = rows3[40]["v"]
     pg.locator(f'#rank-body tr.player[data-id="{far["id"]}"] .num-btn').click(); pg.wait_for_timeout(200)

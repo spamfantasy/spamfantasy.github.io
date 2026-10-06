@@ -29,6 +29,12 @@ The sun/moon button in the header switches between light mode (warm cream + burg
 
 All colors come from one set of theme tokens at the top of the stylesheet (`:root` for dark, `:root[data-theme="light"]` for light): page background, header, surface, raised surface (modals and dropdowns), table header, row hover, tier rows, controls, text (primary, strong, secondary, muted), headings, borders, primary and secondary accents, hover and active states, buttons, danger, editor panels, the QB/RB/WR/TE colors, shadows and the modal backdrop. Older names used across the stylesheet (`--bg`, `--surface`, `--gold`, `--cream`…) are aliases of those tokens. Charts draw with the same variables, so they switch with the theme. To adjust a color, change it in the token block for that theme.
 
+## Alan, Steven and SPAM rankings
+
+The Rankings tab has three boards: **SPAM** (the default), **Alan** and **Steven**. Alan and Steven each keep their own rankings, tiers and typed values (stored as `alan_*` / `steven_*` columns next to the shared player data in `RANKINGS_CSV`), edited on their own tab with the usual editor (drag, arrows, values, tiers). Editing one person's board never changes the other's.
+
+The SPAM board is never edited by hand. It's rebuilt from the two boards: players are sorted by their average overall rank ((Alan rank + Steven rank) / 2, ties to the better of the two ranks), tiers are the averaged tiers kept in order down each position, values come from the value model on that consensus (a value typed on either board is averaged with the other board's value). Where the boards disagree noticeably, the SPAM board shows a small "Alan WR8 · Steven WR19" line. Everything else on the site (trade tools, league values, power rankings, ranking history) uses the SPAM board.
+
 ## How player values work
 
 1. **Positional rank → points per game.** Each rank (WR1, WR2, …) maps to the average points per game that finish produced in 2023–2025 under this league's scoring (pass yd 0.04, pass TD 4, INT −2, rush/rec yd 0.1, TD 6, reception 1, TE reception +0.5, fumble lost −2). Source: [nflverse](https://github.com/nflverse/nflverse-data).
