@@ -167,8 +167,8 @@ Keaton Mitchell,RB,LAC,156,50,10,,7.53,4,8.69,9511,manual,Dead,148,43,9,,manual,
 Brian Robinson,RB,ATL,159,51,10,,10.33,4,10.56,8154,manual,Dead,150,45,9,,manual,Bench/Handcuff,164,51,10,,manual,Bench/Handcuff
 Chris Rodriguez,RB,JAX,171,53,11,,4.68,4,6.79,10219,manual,Dead,176,53,10,,manual,Dead,167,52,10,,manual,Bench/Handcuff
 Jonathon Brooks,RB,CAR,168,52,11,,4.78,2,7.89,11583,manual,Dead,168,51,10,,manual,Dead,169,53,11,,manual,Dead
-Jaxon Smith-Njigba,WR,SEA,3,1,1,9866,22.48,4,18.66,9488,manual,Elite WR1,4,1,1,9787,manual,Elite WR1,2,1,1,9944,manual,Elite WR1
-Ja'Marr Chase,WR,CIN,12,4,2,8275,13.26,4,12.51,7564,manual,High WR1,14,5,2,8244,manual,High WR1,9,4,2,8305,manual,High WR1
+Jaxon Smith-Njigba,WR,SEA,3,1,1,9807,22.48,4,18.66,9488,manual,Elite WR1,4,1,1,9787,manual,Elite WR1,2,1,1,9944,manual,Elite WR1
+Ja'Marr Chase,WR,CIN,12,4,2,8142,13.26,4,12.51,7564,manual,High WR1,14,5,2,8244,manual,High WR1,9,4,2,8305,manual,High WR1
 Amon-Ra St. Brown,WR,DET,8,3,2,8316,20.36,4,17.24,7547,manual,High WR1,10,3,2,8316,manual,High WR1,8,3,2,8316,manual,High WR1
 CeeDee Lamb,WR,DAL,7,2,1,,23.46,4,19.31,6786,manual,Elite WR1,9,2,1,,manual,Elite WR1,5,2,1,,manual,Elite WR1
 Puka Nacua,WR,LAR,14,5,2,,20.05,2,15.53,9493,manual,High WR1,12,4,2,,manual,High WR1,13,5,2,,manual,High WR1
@@ -1362,6 +1362,24 @@ body.editing #panel-rankings td.val { min-width: 330px; }
 .bal-or { align-self: center; font-size: 0.62rem; font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0 4px; }
 
 /* ---------- Trade calculator: toolbar, cards, progressive disclosure ---------- */
+/* Trade calculator: import + share (Oct 12) */
+.tc-import { margin: 0 0 14px; border: 1px solid var(--line-soft); border-radius: var(--radius); background: var(--surface); }
+.tc-import > summary { cursor: pointer; padding: 9px 14px; font-size: 0.82rem; font-weight: 700; color: var(--ink); list-style: none; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.tc-import > summary::-webkit-details-marker { display: none; }
+.tc-import > summary::before { content: "+"; color: var(--muted); font-weight: 700; width: 10px; }
+.tc-import[open] > summary::before { content: "–"; }
+.tc-imp-hint { font-size: 0.72rem; font-weight: 500; color: var(--muted); }
+.tc-imp-body { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px 14px; align-items: end; padding: 4px 14px 14px; }
+.tc-imp-f { display: flex; flex-direction: column; gap: 4px; }
+.tc-imp-f textarea { width: 100%; min-height: 54px; resize: vertical; padding: 8px 10px; font: inherit; font-size: 0.84rem; line-height: 1.35; }
+.tc-imp-go { display: flex; flex-direction: column; gap: 6px; max-width: 260px; }
+.tc-imp-msg { margin: 0; font-size: 0.72rem; color: var(--ink-2); }
+.tc-imp-msg .imp-miss { color: var(--st-out, var(--st-dnp)); }
+.tc-imp-msg .imp-note { color: var(--muted); }
+@media (max-width: 760px) { .tc-imp-body { grid-template-columns: 1fr; } .tc-imp-go { max-width: none; } }
+.share-out { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0 0; }
+.share-out .search { flex: 1 1 280px; min-width: 0; font-size: 0.78rem; }
+.share-note { font-size: 0.7rem; color: var(--muted); }
 .tc-bar {
   display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin-bottom: 16px;
   padding: 10px 14px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--radius);
@@ -2058,6 +2076,28 @@ dialog.signin label.im-mine input { width: 16px; height: 16px; padding: 0; }
 .mt-main { min-width: 0; }
 .mt-side { display: flex; flex-direction: column; gap: 12px; }
 .mt-card { padding: 14px 16px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--radius); }
+/* My Team: lineup check (Oct 12) */
+.mt-lineup { margin-bottom: 14px; }
+.mt-lineup.warn { border-color: color-mix(in srgb, var(--mine-accent) 55%, var(--line-soft)); box-shadow: inset 4px 0 0 var(--mine-accent); }
+.lu-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.lu-head .rr-label { margin: 0; }
+.lu-tot { font-size: 0.74rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lu-ok { margin: 8px 0 0; font-size: 0.82rem; color: var(--ink-2); display: flex; align-items: center; gap: 8px; }
+.lu-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rb); flex: none; }
+.lu-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; }
+.lu-alert { color: var(--ink); padding-left: 14px; position: relative; }
+.lu-alert::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 7px; height: 7px; border-radius: 50%; background: var(--st-out, var(--st-dnp)); }
+.lu-swap { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.lu-in { color: var(--ink); } .lu-in::before { content: "↑ "; color: var(--rb); font-weight: 700; }
+.lu-out { color: var(--ink-2); } .lu-out::before { content: "↓ "; color: var(--muted); font-weight: 700; }
+.lu-name { font-weight: 650; }
+.lu-sub { font-size: 0.72rem; color: var(--muted); }
+.lu-gain { margin: 8px 0 0; font-size: 0.8rem; color: var(--ink-2); }
+.lu-gain .up { color: var(--rb); }
+.lu-note { margin: 6px 0 0; font-size: 0.68rem; color: var(--muted); }
+.lu-tag { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 4px; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; vertical-align: 1px; }
+.lu-tag.start { color: var(--rb); border: 1px solid color-mix(in srgb, var(--rb) 50%, transparent); }
+.lu-tag.bench { color: var(--muted); border: 1px solid var(--line); }
 .mt-card .rr-text b { color: var(--cream); }
 .mt-card .rr-sub { display: block; margin-top: 6px; }
 .mt-card .trade-with { margin-top: 6px; }
@@ -3671,6 +3711,14 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       <span class="tc-badge" id="tc-badge"></span>
     </div>
     <div class="tc-warn" id="tc-warn" role="status" hidden></div>
+    <details class="tc-import" id="tc-import">
+      <summary>Import a trade <span class="tc-imp-hint">type or paste player names instead of searching one by one</span></summary>
+      <div class="tc-imp-body">
+        <label class="tc-imp-f"><span class="tc-lbl" id="imp-lbl-A">You get</span><textarea class="search" id="imp-A" rows="2" placeholder="e.g. Bijan Robinson, Puka Nacua"></textarea></label>
+        <label class="tc-imp-f"><span class="tc-lbl" id="imp-lbl-B">They get</span><textarea class="search" id="imp-B" rows="2" placeholder="e.g. Gibbs"></textarea></label>
+        <div class="tc-imp-go"><button class="btn primary" id="imp-go" type="button">Load into calculator</button><p class="tc-imp-msg" id="imp-msg" role="status"></p></div>
+      </div>
+    </details>
 
     <div class="trade-grid">
       <div class="side A">
@@ -3734,8 +3782,10 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
           <button class="btn link" id="bal-undo" type="button" hidden>Undo</button>
           <button class="btn" id="swap-btn" type="button">Swap sides</button>
           <button class="btn" id="clear-btn" type="button">Clear</button>
+          <button class="btn" id="share-btn" type="button" title="Copy a link that opens this trade in the calculator">Share</button>
         </div>
       </div>
+      <div class="share-out" id="share-out" hidden><input class="search" id="share-url" type="text" readonly aria-label="Link to this trade"><button class="btn" id="share-copy" type="button">Copy link</button><span class="share-note" id="share-note"></span></div>
       <div id="meter-wrap">
         <div class="meter idle" id="meter"><div class="ma" id="meter-a" style="width:50%"></div><div class="mb"></div></div>
         <div class="meter-labels"><span id="score-A">You</span><span id="score-B">They</span></div>
@@ -4506,7 +4556,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   (() => { const m = document.querySelector(".masthead"); if (!m) return;
     const set = () => document.documentElement.style.setProperty("--mast-h", m.offsetHeight + "px");
     set(); if (window.ResizeObserver) new ResizeObserver(set).observe(m); else window.addEventListener("resize", set); })();
-  const BUILD_ID = "2026-10-08T15:00Z";
+  const BUILD_ID = "2026-10-12T19:00Z";
   let lastBuildCheck = 0;
   async function checkForUpdate() {
     if (Date.now() - lastBuildCheck < 5 * 60e3) return;
@@ -5970,7 +6020,97 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const a = $("team-A").value; $("team-A").value = $("team-B").value; $("team-B").value = a;   // teams follow their players
     renderTrade();
   });
-  $("clear-btn").addEventListener("click", () => { sides.A = []; sides.B = []; sides.C = []; origin.clear(); renderTrade(); });
+  $("clear-btn").addEventListener("click", () => { sides.A = []; sides.B = []; sides.C = []; origin.clear(); renderTrade(); $("share-out").hidden = true; });
+
+  /* Share a trade (Steven, Oct 12): a link that opens this exact trade in the calculator. ?trade=<side A>~<side B>[~<side C>],
+     each side a "-"-joined list of Sleeper IDs (3-team: "id.X" = sent by team X). Your hand-picked format rides along as
+     ?fmt= (a connected league's settings can't, so values follow each viewer's own league or format). Nothing about the
+     league itself goes in the link; a leaguemate with the same league connected gets the teams filled in from the owners. */
+  function tradeLink() {
+    const sid = id => (byId.get(id) || {}).sleeperId;
+    const part = s => sides[s].map(id => { const x = sid(id); return x ? (TC3.on && origin.get(id) ? x + "." + origin.get(id) : x) : null; }).filter(Boolean).join("-");
+    const parts = (TC3.on ? ["A", "B", "C"] : ["A", "B"]).map(part);
+    if (!parts.some(Boolean)) return null;
+    const u = new URL(location.origin + location.pathname);
+    u.searchParams.set("trade", parts.join("~"));
+    if (FMT && !(LG.active && !usingCustom())) u.searchParams.set("fmt", fmtToUrl(FMT));
+    return u.toString() + "#trade";
+  }
+  $("share-btn").addEventListener("click", async () => {
+    const url = tradeLink();
+    if (!url) { toast("Add players to the trade first."); return; }
+    $("share-url").value = url; $("share-out").hidden = false;
+    $("share-note").textContent = LG.active && !usingCustom() ? "Values follow each viewer's own league settings." : "";
+    let ok = false; try { await navigator.clipboard.writeText(url); ok = true; } catch (e) {}
+    if (ok) toast("Link copied. Anyone who opens it sees this trade in the calculator.");
+    else { $("share-url").focus(); $("share-url").select(); }
+  });
+  $("share-copy").addEventListener("click", async () => {
+    const inp = $("share-url"); inp.select();
+    try { await navigator.clipboard.writeText(inp.value); toast("Link copied."); } catch (e) { toast("Select the link and copy it."); }
+  });
+  function applySharedTrade() {
+    let q = null; try { q = new URLSearchParams(location.search).get("trade"); } catch (e) {}
+    if (!q) return;
+    const map = bySleeper(), parts = q.split("~").slice(0, 3);
+    const three = parts.length === 3 && parts[2] !== "";
+    setThree(three); origin.clear();
+    let missing = 0;
+    ["A", "B", "C"].forEach((s, i) => {
+      sides[s] = (parts[i] || "").split("-").filter(Boolean).map(tok => {
+        const [sid, from] = tok.split("."), p = map.get(sid);
+        if (!p) { missing++; return null; }
+        if (three && from && ["A", "B", "C"].includes(from)) origin.set(p.id, from);
+        return p.id;
+      }).filter(id => id != null);
+    });
+    if (!three) sides.C = [];
+    try { const u = new URL(location.href); u.searchParams.delete("trade"); history.replaceState(null, "", u.pathname + u.search + "#trade"); } catch (e) {}
+    renderTeamRosters(); renderTrade(); showTab("trade");
+    toast(`Shared trade loaded with today's values.${missing ? ` ${missing} player${missing > 1 ? "s aren't" : " isn't"} on the SPAM Board and was left out.` : ""}`);
+  }
+
+  /* Import a trade: player names typed or pasted per side ("Bijan, Puka Nacua" or one per line). Names are matched to the
+     SPAM Board: full name, then last or first name, initial + last name, a few common nicknames, then a unique partial
+     match; ambiguous names take the higher-valued player and say so. Teams fill in from the owners, as with search. */
+  const NICK = { jsn: "jaxon smith-njigba", cmc: "christian mccaffrey", arsb: "amon-ra st. brown", "amon ra": "amon-ra st. brown", kw3: "kenneth walker iii", mhj: "marvin harrison jr.", btj: "brian thomas jr.", dk: "dk metcalf", aj: "a.j. brown", tj: "t.j. hockenson", jt: "jonathan taylor" };
+  const normName = v => String(v || "").toLowerCase().replace(/\(.*?\)/g, " ").replace(/[’'.]/g, "").replace(/\b(jr|sr|ii|iii|iv|v)\b/g, "").replace(/[^a-z0-9 -]/g, " ").replace(/\s+/g, " ").trim();
+  function findByName(raw, taken) {
+    const pool = players.filter(p => p.pos !== "PICK" && !taken.has(p.id));
+    let q = normName(raw); if (!q) return null;
+    if (NICK[q]) q = normName(NICK[q]);
+    const N = p => normName(p.name), parts = p => N(p).split(" ");
+    const byVal = list => list.slice().sort((a, b) => tv(b) - tv(a));
+    const tries = [
+      p => N(p) === q,
+      p => N(p).replace(/-/g, " ") === q.replace(/-/g, " "),
+      p => parts(p).slice(1).join(" ") === q || parts(p)[parts(p).length - 1] === q,
+      p => parts(p)[0] === q,
+      p => { const m = q.match(/^([a-z])\s+(.+)$/); return !!m && N(p).startsWith(m[1]) && N(p).endsWith(" " + m[2]); },
+      p => q.length >= 3 && N(p).includes(q)
+    ];
+    for (const t of tries) {
+      const hit = byVal(pool.filter(t));
+      if (hit.length) return { p: hit[0], also: hit.slice(1, 3) };
+    }
+    return null;
+  }
+  $("imp-go").addEventListener("click", () => {
+    const split = v => String(v || "").split(/[,;\n+&]|\band\b/i).map(x => x.trim()).filter(Boolean);
+    const taken = new Set(), notes = [], miss = [], got = { A: [], B: [] };
+    ["A", "B"].forEach(sd => split($("imp-" + sd).value).forEach(name => {
+      const r = findByName(name, taken);
+      if (!r) { miss.push(name); return; }
+      taken.add(r.p.id); got[sd].push(r.p.id);
+      if (r.also.length && normName(r.p.name) !== normName(name)) notes.push(`"${name}" → ${r.p.name} (also ${r.also.map(x => x.name).join(", ")})`);
+    }));
+    if (!got.A.length && !got.B.length) { $("imp-msg").textContent = miss.length ? `No SPAM-ranked player found for: ${miss.join(", ")}.` : "Type at least one player name."; return; }
+    setThree(false); origin.clear(); sides.A = got.A; sides.B = got.B; sides.C = [];
+    if (tcLeague()) { $("team-A").value = ""; $("team-B").value = ""; }   // filled in from the owners
+    renderTeamRosters(); renderTrade();
+    const n = got.A.length + got.B.length;
+    $("imp-msg").innerHTML = `Loaded ${n} player${n > 1 ? "s" : ""}.` + (miss.length ? ` <span class="imp-miss">Not found: ${esc(miss.join(", "))}.</span>` : "") + (notes.length ? ` <span class="imp-note">Check: ${esc(notes.join("; "))}.</span>` : "");
+  });
   $("add-third").addEventListener("click", () => { setThree(true); renderTrade(); });
   $("remove-third").addEventListener("click", () => { setThree(false); renderTrade(); });
   ["A", "B", "C"].forEach(s => $("roster-" + s).addEventListener("change", e => {
@@ -6051,6 +6191,19 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       r[iV] = x.a.custom || x.s.custom ? String(Math.round((x.a.value + x.s.value) / 2)) : "";
       r[iS] = x.manual ? "manual" : "auto";
     });
+    // values follow the SPAM order (rule 5): an averaged typed value worth more than the player ranked just above him on
+    // the SPAM board comes down to just under that player (Oct 12: Bijan #2 9,832 vs Smith-Njigba #3 9,866, Chase's
+    // averaged 8,275 above McBride #11). Repeated until the board has no such inversion.
+    const step = Number(VALUE_MODEL.minRankStep) || 0.0025;
+    for (let pass = 0; pass < 6; pass++) {
+      const sp = loadPlayers(tableToCsv(t)).filter(p => p.pos !== "PICK" && p.rank != null).sort((a, b) => a.rank - b.rank);
+      let changed = false;
+      for (let k = 1; k < sp.length; k++) {
+        const a = sp[k - 1], b = sp[k];
+        if (b.custom && a.value > 0 && b.value >= a.value) { t.rows[b.id][iV] = String(Math.floor(a.value * (1 - step))); changed = true; }
+      }
+      if (!changed) break;
+    }
     return P;
   }
 
@@ -8116,6 +8269,65 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     // Trade with sits at the bottom of this card (Alan, Oct 5: one card, not two)
     return rows.length || extra ? `<section class="mt-card mt-ctx">${rows.length ? `<h3 class="rr-label">Team insights</h3><ul class="tc-list">${rows.join("")}</ul>` : ""}${extra}</section>` : "";
   }
+  /* Lineup check (Steven, Oct 12): Sleeper's set lineup vs the best lineup this week's projections allow, from the
+     shared weekOutlook (projection before kickoff, actual points once final). Players whose games are live or final are
+     locked where they are (Sleeper locks at kickoff), and so are starters with no projection (a guess would be worse than
+     nothing). An Out / bye / empty starting slot is always flagged; other swaps only when they add at least 1 point. */
+  const LU_EXTRA = { K: ["K"], DEF: ["DEF"], DL: ["DL"], LB: ["LB"], DB: ["DB"], IDP_FLEX: ["DL", "LB", "DB"] };
+  const luElig = slot => ELIG[slot] || LU_EXTRA[slot] || null;   // ELIG is defined further down (read at call time)
+  function lineupCheck(me, slots, starterIds, map) {
+    const wk = currentWeek(), d = activeData();
+    if (!wk || !d) return null;
+    const data = typeof LT !== "undefined" ? LT.mx[mxKey(d.league.league_id, wk)] : null;
+    const m = data && data.list.find(x => x.roster_id === LG.myRosterId), pp = (m && m.players_points) || {};
+    const outIds = new Set([...(me.roster.reserve || []), ...(me.roster.taxi || [])].map(String));
+    const info = new Map();
+    const look = sid => {
+      if (info.has(sid)) return info.get(sid);
+      const e = rosterEntry(sid, map), o = weekOutlook(e, wk, { pts: pp[sid] != null ? Number(pp[sid]) : undefined });
+      const zero = o.kind === "bye" || o.kind === "out";
+      const x = { sid, e, o, locked: o.kind === "final" || o.kind === "live", val: zero ? 0 : o.missing ? null : (o.est ?? null), zero };
+      info.set(sid, x); return x;
+    };
+    const cur = slots.map((slot, i) => { const sid = String(starterIds[i] || "0"); return { slot, sid: sid === "0" ? null : sid }; });
+    // fixed: locked starters and starters we can't project (unless they're Out / on bye, which counts as 0)
+    const fixed = cur.map(c => !!c.sid && (look(c.sid).locked || look(c.sid).val == null));
+    const usedFixed = new Set(cur.filter((c, i) => fixed[i]).map(c => c.sid));
+    const pool = (me.roster.players || []).map(String).filter(sid => !outIds.has(sid) && !usedFixed.has(sid)).map(look).filter(x => !x.locked && x.val != null && !x.zero);   // never suggest starting someone Out or on bye
+    const order = cur.map((c, i) => i).filter(i => !fixed[i]).sort((a, b) => (luElig(cur[a].slot) || []).length - (luElig(cur[b].slot) || []).length);
+    const best = cur.map(c => c.sid), taken = new Set();
+    order.forEach(i => {
+      const el = luElig(cur[i].slot); if (!el) return;
+      // anyone eligible, plus whoever Sleeper has in the slot now (he's allowed there even if his listed position differs)
+      const cand = pool.filter(x => !taken.has(x.sid) && (el.includes(x.e.pos) || x.sid === cur[i].sid)).sort((a, b) => (b.val - a.val) || ((b.sid === cur[i].sid) - (a.sid === cur[i].sid)));
+      best[i] = cand[0] ? cand[0].sid : null; if (cand[0]) taken.add(cand[0].sid);
+    });
+    const valOf = sid => (sid ? look(sid).val || 0 : 0);
+    const nowTot = cur.reduce((a, c) => a + valOf(c.sid), 0);
+    if (best.reduce((a, sid) => a + valOf(sid), 0) < nowTot) cur.forEach((c, i) => { best[i] = c.sid; });   // never suggest a worse lineup
+    const bestTot = best.reduce((a, sid) => a + valOf(sid), 0);
+    const curSet = new Set(cur.map(c => c.sid).filter(Boolean)), bestSet = new Set(best.filter(Boolean));
+    const ins = [...bestSet].filter(sid => !curSet.has(sid)).map(look).sort((a, b) => b.val - a.val);
+    const outs = [...curSet].filter(sid => !bestSet.has(sid)).map(look).sort((a, b) => a.val - b.val);
+    const alerts = cur.map((c, i) => ({ c, i })).filter(({ c, i }) => !fixed[i] || (c.sid && look(c.sid).zero))
+      .filter(({ c }) => !c.sid || look(c.sid).zero).map(({ c }) => c.sid ? { sid: c.sid, slot: c.slot, why: look(c.sid).o.kind === "bye" ? "on bye" : "Out" } : { sid: null, slot: c.slot, why: "empty" });
+    const gain = bestTot - nowTot, act = alerts.length > 0 || gain >= 1;
+    return { best, wk, nowTot, bestTot, gain, act, alerts, swaps: act ? ins.map((x, k) => ({ start: x, bench: outs[k] || null })) : [], startSet: new Set(act ? ins.map(x => x.sid) : []), benchSet: new Set(act ? outs.map(x => x.sid) : []),
+             partial: cur.some((c, i) => c.sid && fixed[i] && look(c.sid).val == null && !look(c.sid).locked) };
+  }
+  function lineupCard(L) {
+    if (!L) return "";
+    const nm = x => `${EDIT_POS.includes(x.e.pos) ? nameLink(x.e.sid, x.e.name, "lu-name") : `<span class="lu-name">${esc(x.e.name)}</span>`} <span class="lu-sub">${esc(x.e.pos || "")}${x.zero ? ` · ${x.o.kind === "bye" ? "Bye" : "Out"}` : ` · proj ${fp(x.val)}`}</span>`;
+    const head = `<div class="lu-head"><h3 class="rr-label">Lineup check <span class="rr-when">Week ${L.wk}</span></h3><span class="lu-tot" title="Projected points for your current starters (actual points for games already played), in your league's scoring">${fp(L.nowTot)} projected</span></div>`;
+    if (!L.act) return `<section class="mt-card mt-lineup ok">${head}<p class="lu-ok"><span class="lu-dot" aria-hidden="true"></span>Your lineup is set: it's your best projected lineup${L.partial ? " (starters without a projection left as they are)" : ""}.</p></section>`;
+    const al = L.alerts.map(a => `<li class="lu-alert">${a.sid ? `<b>${esc(rosterEntry(a.sid, bySleeper()).name)}</b> is ${a.why === "Out" ? "<b>Out</b>" : "on bye"} in your ${esc(SLOT_LABEL[a.slot] || a.slot)} slot` : `Your <b>${esc(SLOT_LABEL[a.slot] || a.slot)}</b> slot is empty`}</li>`).join("");
+    const sw = L.swaps.map(w => `<li class="lu-swap"><span class="lu-in">Start ${nm(w.start)}</span>${w.bench ? `<span class="lu-out">Bench ${nm(w.bench)}</span>` : ""}</li>`).join("");
+    return `<section class="mt-card mt-lineup warn">${head}
+      ${al ? `<ul class="lu-list">${al}</ul>` : ""}
+      ${sw ? `<ul class="lu-list">${sw}</ul>` : ""}
+      ${L.gain >= 0.05 ? `<p class="lu-gain">Best lineup: <b>${fp(L.bestTot)}</b> projected · <b class="up">+${fp(L.gain)}</b></p>` : ""}
+      <p class="lu-note">From SPAM's weekly projections in your league's scoring. Make the change in Sleeper; games already started are locked.</p></section>`;
+  }
   function renderMyTeam() {
     const box = $("myteam-body"), d = activeData();
     if (!d) { box.innerHTML = ""; return; }
@@ -8128,13 +8340,14 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const map = bySleeper(), r = me.roster, lu = lineupOf(d.league);
     const slots = d.league.roster_positions.filter(s => s !== "BN");
     const used = new Set([...r.starters, ...r.reserve, ...r.taxi].filter(x => x && x !== "0"));
+    let LU = null;
     const row = (slot, sid) => {
       if (!sid || sid === "0") return `<tr class="mt-row empty-slot"><td class="slot">${esc(slot)}</td><td colspan="6" class="muted">Empty</td></tr>`;
-      const e = rosterEntry(sid, map);
+      const e = rosterEntry(sid, map), luTag = LU && LU.startSet.has(String(sid)) ? `<span class="lu-tag start" title="Lineup check: start him">Start</span>` : LU && LU.benchSet.has(String(sid)) ? `<span class="lu-tag bench" title="Lineup check: bench him">Bench</span>` : "";
       const badge = e.pos ? `<span class="pos ${esc(e.pos)}">${esc(e.ranked ? posLabel(e.p) : e.pos)}</span>` : "";
       return `<tr class="mt-row">
         <td class="slot">${esc(slot)}</td>
-        <td><div class="pl-cell">${face(e.sid, e.name)}<div class="pl-text">${nameLink(EDIT_POS.includes(e.pos) ? e.sid : "", e.name)}${nflTag(e.team)}</div></div></td>
+        <td><div class="pl-cell">${face(e.sid, e.name)}<div class="pl-text">${nameLink(EDIT_POS.includes(e.pos) ? e.sid : "", e.name)}${nflTag(e.team)}${luTag}</div></div></td>
         <td class="pos-col">${badge}</td>
         <td class="rk">${e.ranked ? overallRank(e.p) : `<span class="muted">—</span>`}</td>
         ${mtWeek(e)}
@@ -8151,6 +8364,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       starterIds = slots.map(sl => { const lab = SLOT_LABEL[sl] || sl, i = left.findIndex(p => (mineEv.role.get(p.id) || "") === lab); return i >= 0 ? String(left.splice(i, 1)[0].sleeperId) : "0"; });
       starterIds.forEach(x => { if (x !== "0") used.add(x); });
     }
+    try { if (!noLineup) LU = lineupCheck(me, slots, starterIds, map); } catch (err) { console.error(err); LU = null; }
     const starters = slots.map((s, i) => row(SLOT_LABEL[s] || s, starterIds[i])).join("");
     const benchIds = r.players.filter(x => !used.has(x))
       .sort((a, b) => { const pa = map.get(a), pb = map.get(b); return (pb ? dv(pb) : -1) - (pa ? dv(pa) : -1); });
@@ -8177,6 +8391,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       <div class="strength-grid mt-strength">${strength}</div>
 
       <div class="mt-dash"><div class="mt-main">
+      ${lineupCard(LU)}
       <h3 class="section-label">Roster${noLineup ? `<span class="tier-sub">No lineup set in Sleeper yet: starters are SPAM's best lineup</span>` : ""}</h3>
       <div class="table-scroll"><table class="mt-table">
         <thead><tr><th scope="col">Slot</th><th scope="col">Player</th><th scope="col" class="pos-col">Pos</th><th scope="col" class="rk">Rk</th><th scope="col" class="mt-wk" title="${currentWeek() ? "Week " + currentWeek() + ": " : ""}his projection before kickoff, points (+ Live proj) during his game, his points once it's final, in your league's scoring (same as Matchups and Waiver Wire). Hover a cell for the opponent.">This week</th><th scope="col" class="mt-l3" title="His last three weeks, oldest to newest (BYE = team bye, OUT = his team played without him), the average of the games he played, and whether that's above or below his usual output">Recent form</th><th scope="col">Value</th></tr></thead>
@@ -11965,11 +12180,15 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     }
     throw new Error("the history file kept changing");
   }
+  applySharedTrade();   // ?trade= links (after the calculator is set up; a saved league fills the teams in when it loads)
   // boards(): each board's {sleeper_id: [rank, posRank, tier, value, pos]} (tests); boardsCsv(): the working CSV with the SPAM columns rebuilt
   const boardSnap = list => Object.fromEntries(list.filter(p => p.sleeperId && p.pos !== "PICK").map(p => [p.sleeperId, [p.rank, p.posNum, String(p.tier), Math.round(p.value), p.pos]]));
   const boards = () => ({ spam: boardSnap(players), alan: boardSnap(RB.P.alan.players), steven: boardSnap(RB.P.steven.players) });
   const boardsCsv = () => { const t = csvToTable(tableToCsv(draft)); consensus(t); return tableToCsv(t); };
-  window.SPM = { rankingSnapshot, historyText, normalizeHistory, addSnapshot, formatCheck, projectionCheck, scoringCheck, calculateFantasyPoints, valueCheck, setBoard, boards, boardsCsv, consensusOf: csv => { const t = csvToTable(csv); consensus(t); return tableToCsv(t); } };   // helpers for the scheduled snapshot and tests
+  const myLineup = () => { const d = activeData(), me = d && LG.teams.find(t => t.mine); if (!me) return null;
+    const slots = d.league.roster_positions.filter(x => x !== "BN"), L = lineupCheck(me, slots, me.roster.starters, bySleeper());
+    return L && { order: L.best, wk: L.wk, now: L.nowTot, best: L.bestTot, gain: L.gain, act: L.act, start: [...L.startSet], bench: [...L.benchSet], alerts: L.alerts.map(a => a.why) }; };
+  window.SPM = { myLineup, rankingSnapshot, historyText, normalizeHistory, addSnapshot, formatCheck, projectionCheck, scoringCheck, calculateFantasyPoints, valueCheck, setBoard, boards, boardsCsv, consensusOf: csv => { const t = csvToTable(csv); consensus(t); return tableToCsv(t); } };   // helpers for the scheduled snapshot and tests
 
   // Start-up: restore a saved connection
   sl = readSl();

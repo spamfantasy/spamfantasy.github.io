@@ -57,7 +57,9 @@ with sync_playwright() as p:
     ok([t.split("\n")[0] for t in tabs] == ["SPAM", "Alan", "Steven"] and pg.get_attribute("[data-board=spam]", "aria-selected") == "true", f"Tabs SPAM | Alan | Steven, SPAM selected: {tabs}")
     ok(pg.locator("#rank-body .handle").count() == 0 and pg.locator("#rank-body .num-btn").count() == 0 and pg.locator("#rkb-banner").is_hidden(), "SPAM board is read-only (no drag handles, no editable values, no banner)")
     B0 = pg.evaluate("() => SPM.boards()")
-    ok(B0["alan"] == B0["steven"] == B0["spam"], f"All three boards start identical ({len(B0['spam'])} players)")
+    ok(expected_order(B0) == sorted(B0["spam"], key=lambda k: B0["spam"][k][0]), f"The published SPAM board is the consensus of the published boards ({len(B0['spam'])} players)")
+    sp0 = sorted(B0["spam"].values(), key=lambda v: v[0])
+    ok(all(sp0[i][3] <= sp0[i - 1][3] for i in range(1, len(sp0))), "SPAM values never rise down the SPAM order (averaged typed values included)")
 
     # 2. the formula on the example from the request (synthetic CSV)
     head = "player,pos,team,rank,pos_rank,tier,value,proj_ppg,games,proj_score,sleeper_id,source,tier_name," + ",".join(f"{w}_{c}" for w in ("alan", "steven") for c in ("rank", "pos_rank", "tier", "value", "source", "tier_name"))
@@ -94,8 +96,12 @@ with sync_playwright() as p:
     pg.click("#rk-boards [data-board=spam]"); pg.wait_for_timeout(300)
     pg.click("#pos-chips button:has-text('WR')"); pg.wait_for_timeout(300)
     rows = pg.evaluate(ROWS); me = next(r for r in rows if r["name"] == mover["name"])
-    ok(me["split"] == "Alan WR19 · Steven WR5", f"SPAM shows the disagreement: {me['split']!r}")
-    ok(sum(1 for r in rows if r["split"]) <= 3, f"Only players the boards really disagree on get the line ({sum(1 for r in rows if r['split'])})")
+    st_wr = B1["steven"][msid][1]
+    ok(me["split"] == f"Alan WR19 · Steven WR{st_wr}", f"SPAM shows the disagreement: {me['split']!r}")
+    import math
+    def far(k): a, b = B1["alan"][k][1], B1["steven"][k][1]; return a is not None and b is not None and abs(a - b) >= max(3, math.ceil(0.2 * min(a, b)))
+    want = sum(1 for k, v in B1["spam"].items() if v[4] == "WR" and far(k))
+    ok(sum(1 for r in rows if r["split"]) == want, f"The line shows exactly for players the boards are far apart on ({want})")
     # 5. a value typed on Steven's board averages with Alan's value
     pg.click("#rk-boards [data-board=steven]"); pg.wait_for_timeout(300)
     pg.click("#pos-chips button:has-text('All')"); pg.wait_for_timeout(300)
@@ -106,7 +112,7 @@ with sync_playwright() as p:
     pg.fill(".val-input", str(typed)); pg.press(".val-input", "Enter"); pg.wait_for_timeout(600)
     B2 = pg.evaluate("() => SPM.boards()")
     av = round((B2["alan"][tsid][3] + typed) / 2)
-    ok(B2["steven"][tsid][3] == typed and abs(B2["spam"][tsid][3] - av) <= 1 and B2["alan"] == B1["alan"], f"Steven types {typed} for {tgt['name']}: SPAM value {B2['spam'][tsid][3]} = average with Alan's {B2['alan'][tsid][3]}; Alan's board unchanged")
+    ok(B2["steven"][tsid][3] == typed and (abs(B2["spam"][tsid][3] - av) <= 1 or B2["spam"][tsid][3] < av) and B2["alan"] == B1["alan"], f"Steven types {typed} for {tgt['name']}: SPAM value {B2['spam'][tsid][3]} = average with Alan's {B2['alan'][tsid][3]}; Alan's board unchanged")
     # 6. save in this browser (no token) and reload
     pg.click("#eb-save"); pg.wait_for_timeout(800)
     pg.reload(); pg.wait_for_timeout(4500)

@@ -149,6 +149,10 @@ The calculator shows both layers: the raw (market) difference and each team's **
 
 Four sliders under **Roster impact** (QB, RB, WR, TE) say how your team stands at each position: 1 Desperately need, 2 Need, 3 Average, 4 Good, 5 Set. Every player at that position in the trade, on either side, counts as a multiplier × his value: ×1.08, ×1.04, ×1.00, ×0.96, ×0.92. A position you need helps whichever side receives it, a position you're set at counts for less, and Average changes nothing. The result shows as a **Need adjustment** next to the waiver adjustment. Settings are saved in your browser; the multipliers are `NEED_MULTIPLIERS` in `index.html`. The Trade Finder doesn't use the sliders.
 
+### Sharing and importing trades
+
+**Share** (next to Swap / Clear) copies a link that opens the same trade in the calculator for anyone. **Import a trade** (above the cards) takes typed or pasted player names for each side, including last names and common nicknames, and fills the calculator in one step.
+
 ## Trade finder
 
 A league-wide trade discovery tool (needs a connected Sleeper league).
@@ -243,7 +247,7 @@ Data is kept in three separate layers:
 With a league connected:
 - The header shows the league and its format; click it to switch leagues, refresh, change account or disconnect.
 - Rankings get a **SPAM Board / League-adjusted** toggle, an owner label on each player (My Team, manager name, FA), and an owner filter. Editing works in the Base view.
-- **My Team:** lineup by slot, bench, IR and taxi with overall rank, position rank and value; roster strength by position and power rank (same calculation as the League tab); **Trade with** buttons that open the trade calculator with both rosters.
+- **My Team:** a **Lineup check** card (your Sleeper lineup vs the best lineup this week's projections allow: Out / bye / empty slots flagged, Start / Bench swaps when they add a point or more; games already started stay locked), then lineup by slot, bench, IR and taxi with overall rank, position rank and value; roster strength by position and power rank (same calculation as the League tab); **Trade with** buttons that open the trade calculator with both rosters.
 - **League:** three views.
   - **Power Rankings:** a compact list (rank, team, manager, record, PF/PA, team score, best and weakest position, top players). Click a row (or its arrow) to open that team right underneath: power rank, team score, its QB/RB/WR/TE ranks in the league with strength / weak-spot flags and value vs the league average, then a roster board by position (photo, name, NFL team, position rank, overall rank, starting slot or BN, SPAM Value), plus kickers/defenses, IR and taxi. Buttons: **Trade with** (calculator with both teams) and **Find trades** (Trade Finder against that team). One team opens at a time; tick **Keep teams open to compare** or hold Shift/Cmd/Ctrl to open several.
   - **Trade History:** completed trades from Sleeper's transaction log, newest first, with what each team received (players, draft picks, FAAB), totals and the calculator's verdict and difference. 3-team trades get a verdict per team (received vs sent). Values are the SPAM values from the trade date when ranking history covers every player (closest entry at or before the trade, or within 3 days after); otherwise current values, labeled "Evaluated using current SPAM values". Draft picks are listed but not valued. **Full analysis** shows the adjustments, the verdict text and how the players are valued now; **Analyze trade** loads the trade into the calculator. Sleeper leagues only.
