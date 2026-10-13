@@ -69,12 +69,12 @@ jobs:
           python build_depth_charts.py || echo "Depth charts not refreshed (kept the last file)"
           python build_market.py || echo "Market values not refreshed (kept the last file)"
 
-      - name: Player props for this week (Wed evening for Thursday's game, Sat for the rest; needs the ODDS_API_KEY secret)
+      - name: Player props for this week (Wed evening for the whole week, Sat fills games still missing; needs the ODDS_API_KEY secret)
         if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 22 * * 3' || github.event.schedule == '45 16 * * 6'
         working-directory: pipeline
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: python build_props.py ${{ github.event.schedule == '0 22 * * 3' && '2' || '3' }} || echo "Player props not refreshed (kept the last file)"
+        run: python build_props.py 7 ${{ github.event.schedule == '45 16 * * 6' && '--fill' || '' }} || echo "Player props not refreshed (kept the last file)"
 
       - name: Refresh projections and stats (weekly / manual runs only)
         if: github.event_name != 'push' && steps.mode.outputs.stats != 'true'

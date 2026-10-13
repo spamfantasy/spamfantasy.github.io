@@ -10,12 +10,13 @@ Writes data/props/<season>.json (the contract in CLAUDE.md):
 Each line is the median across bookmakers of the Over/Under point; atd is the median no-vig probability of an anytime
 touchdown (just the implied probability when a book only offers "Yes"). Only QB/RB/WR/TE matched to a Sleeper ID.
 
-Credits (free plan: 500 a month): each game costs one credit per market (7 markets, US books only). To stay inside the
-free plan, a run only asks for games that haven't kicked off and kick off within LOOKAHEAD_DAYS, and the workflow runs
-it twice a week (Wednesday for Thursday's game, Saturday for the rest). It stops early when the API says fewer than
-MIN_LEFT credits remain. Lines from earlier runs in the same week are kept.
+Credits (free plan: 500 a month): each game costs one credit per market (7 markets, US books only). A run only asks
+for games that haven't kicked off and kick off within LOOKAHEAD_DAYS (default 7: the whole week). With --fill it skips
+games whose two teams already have lines from an earlier run this week, so the Saturday run only fills games the
+books hadn't posted yet (keeps a normal week around 100-130 credits, inside the free plan). It stops early when the API
+says fewer than MIN_LEFT credits remain. Lines from earlier runs in the same week are kept.
 
-Run from the pipeline folder: ODDS_API_KEY=... python build_props.py [days ahead, default 3]
+Run from the pipeline folder: ODDS_API_KEY=... python build_props.py [days ahead, default 7] [--fill]
 """
 import json, os, re, sys, time, statistics, urllib.request, urllib.parse
 from datetime import datetime, timezone, timedelta
@@ -28,7 +29,9 @@ MARKETS = {   # The Odds API market key -> our field
     "player_rush_reception_yds": "rush_rec_yd", "player_pass_yds": "pass_yd", "player_pass_tds": "pass_td",
     "player_anytime_td": "atd",
 }
-LOOKAHEAD_DAYS = float(sys.argv[1]) if len(sys.argv) > 1 else 3
+ARGS = [a for a in sys.argv[1:] if not a.startswith("--")]
+FILL = "--fill" in sys.argv
+LOOKAHEAD_DAYS = float(ARGS[0]) if ARGS else 7
 MIN_LEFT = 20
 OUT = os.path.join("..", "data", "props", f"{SEASON}.json")
 TEAMS = {   # full name (as The Odds API writes it) -> our abbreviation
@@ -92,6 +95,11 @@ def main():
                 return r[0]
         return None
 
+    try:
+        old = json.load(open(OUT))
+    except (OSError, ValueError):
+        old = {}
+    have_teams = {players[sid][2] for sid in old.get("players", {}) if sid in players and len(players[sid]) > 2}
     raw, books, weeks = {}, set(), []
     for e in events:
         if left is not None and left < MIN_LEFT + len(MARKETS):
@@ -99,6 +107,8 @@ def main():
         w = week_of(e)
         if w is None: continue
         weeks.append(w)
+        if FILL and old.get("week") == w and {TEAMS.get(e["home_team"]), TEAMS.get(e["away_team"])} <= have_teams:
+            continue   # this game already has lines from earlier in the week
         try:
             odds = get(f"/events/{e['id']}/odds", regions="us", markets=",".join(MARKETS), oddsFormat="american")
         except Exception as err:
@@ -127,13 +137,9 @@ def main():
         print("No games matched the schedule"); return
     week = min(weeks)
     out = {"updated": now.strftime("%Y-%m-%dT%H:%MZ"), "week": week, "source": "The Odds API", "books": sorted(books), "players": {}}
-    try:   # keep lines from an earlier run this week (e.g. Wednesday's for Thursday's game)
-        old = json.load(open(OUT))
-        if old.get("week") == week:
-            out["players"].update(old.get("players", {}))
-            out["books"] = sorted(set(out["books"]) | set(old.get("books", [])))
-    except (OSError, ValueError):
-        pass
+    if old.get("week") == week:   # keep lines from an earlier run this week
+        out["players"].update(old.get("players", {}))
+        out["books"] = sorted(set(out["books"]) | set(old.get("books", [])))
     for sid, f in raw.items():
         out["players"][sid] = {k: round(statistics.median(v), 3 if k == "atd" else 1) for k, v in f.items() if v}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
