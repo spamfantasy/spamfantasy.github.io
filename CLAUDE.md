@@ -10,7 +10,7 @@ Owners: **Steven** (GitHub `stevenp36`) and **Alan** (GitHub `adequate-alan`), b
 
 ## 1. What SPAM is
 
-- **SPAM** is the product: fantasy football rankings, values and trade tools. Brand mark is the one-word wordmark **`SPAM.`** (the period is part of the logo: burgundy word + warm accent dot in light mode, cream word in dark mode). The old name was SPMetrics. Never bring that name back in the UI, metadata or copy.
+- **SPAM** is the product: fantasy football rankings, values and trade tools. Brand mark is the one-word wordmark **`SPAM.`** (the period is part of the logo: burgundy word + warm accent dot in light mode, cream word in dark mode). **Logo: the yard-line stripe** (Steven, Oct 13, picked from seven concepts): the wordmark sits on a small rounded field with faint yard lines and hash marks (`.brand-name` background, tokens `--field-bg` / `--field-line`: cream field + burgundy lines in light mode, burgundy field + cream lines in dark mode). Icons use the same design: `favicon.svg` (switches with the system's light/dark setting; the letters are outlined paths from Archivo Black so they don't depend on installed fonts) and `apple-touch-icon.png` / `icon-192.png` / `icon-512.png` (the burgundy field, full-bleed, maskable; listed in `manifest.webmanifest`). The old name was SPMetrics. Never bring that name back in the UI, metadata or copy.
 - Live site: **https://spamfantasy.github.io/** (rankings at `#rankings`). Repo: **`spamfantasy/spamfantasy.github.io`** (Oct 4, 2026: transferred from `stevenp36/spam` to the `spamfantasy` account and renamed so Pages serves it at the root; before that it was `spmetrics-fantasy`). GitHub redirects the old git URL, but **Pages URLs don't redirect**: `stevenp36.github.io/spam/` no longer serves the site. Never create a new `stevenp36/spam` repo (it would break GitHub's git redirect); a redirect page for the old URL would go in a `stevenp36/stevenp36.github.io` repo at `spam/index.html`. Browser-saved data (`spm_*`: leagues, edits, tokens, theme) is per web address, so everyone starts fresh on the new URL.
 - Base format: **12-team, Full PPR, Superflex, TE premium (+0.5), redraft.** That's what the SPAM Board means.
 - The **SPAM Board** (Steven & Alan's manual rankings, tiers and published values) is the **core source of truth**. Everything else (league-adjusted values, trade verdicts, power rankings, Trade Finder) is *derived* from it.
@@ -78,7 +78,7 @@ data/platform_ids.json         ESPN/Yahoo ID → Sleeper ID (for ESPN/Yahoo impo
 data/curve_components.json     points-by-rank curve inputs used to re-score other formats
 pipeline/                      Python data jobs (see §8)
 .github/workflows/site.yml     the only workflow: deploy on push + scheduled data refreshes
-favicon.svg, manifest.webmanifest
+favicon.svg, apple-touch-icon.png, icon-192.png, icon-512.png, manifest.webmanifest   (logo icons)
 README.md                      detailed feature reference
 CLAUDE.md                      this file
 ```

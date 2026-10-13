@@ -30,6 +30,7 @@
 <meta name="twitter:title" content="SPAM Fantasy Rankings">
 <meta name="twitter:description" content="SPAM Rankings, SPAM Values and a trade calculator for redraft fantasy football.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <style>
   /* base reset (the claude.ai host used to add this) */
@@ -725,6 +726,8 @@ const TRADE_VERDICTS = [
   /* brand + accents */
   --brand: #F3EDE4;
   --brand-accent: #F4B979;
+  --field-bg: #3A1A24;                 /* logo field (yard-line banner behind the SPAM. wordmark) */
+  --field-line: rgba(243, 237, 228, 0.14);
   --accent-primary: #F4B979;     /* CTAs, active tabs, selected states */
   --accent-hover: #F8CA96;
   --accent-text: #1A1314;        /* text on the accent */
@@ -792,6 +795,8 @@ const TRADE_VERDICTS = [
   --border-strong: #C6B4A6;
   --brand: #5A1F32;
   --brand-accent: #D96B5B;
+  --field-bg: #F1E8DC;
+  --field-line: rgba(90, 31, 50, 0.16);
   --accent-primary: #5A1F32;     /* burgundy: buttons, active states, emphasis */
   --accent-hover: #7A3A4A;
   --accent-text: #F7F2EB;
@@ -919,6 +924,13 @@ button { -webkit-tap-highlight-color: transparent; }
 .brand-name {
   font-weight: 850; font-stretch: 112%; font-size: 1.75rem; line-height: 1; letter-spacing: -0.035em;
   margin: 0; color: var(--brand);
+  /* logo 7 (Steven, Oct 13): the wordmark sits on a small field: yard lines every 1em, three hash marks between them, top and bottom */
+  align-self: center; padding: 0.24em 0.5em 0.3em; border-radius: 0.3em;
+  background:
+    repeating-linear-gradient(90deg, var(--field-line) 0 1.5px, transparent 1.5px 0.25em) 0.2em 0.12em / 100% 0.14em no-repeat,
+    repeating-linear-gradient(90deg, var(--field-line) 0 1.5px, transparent 1.5px 0.25em) 0.2em calc(100% - 0.12em) / 100% 0.14em no-repeat,
+    repeating-linear-gradient(90deg, var(--field-line) 0 1.5px, transparent 1.5px 1em) 0.2em 0 / 100% 100%,
+    var(--field-bg);
 }
 .brand-name::after {   /* the brand's period: gold in dark mode, coral in light mode (part of the SPAM. wordmark) */
   content: ""; display: inline-block; width: 0.2em; height: 0.2em; margin-left: 0.07em; background: var(--brand-accent);
@@ -4556,7 +4568,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   (() => { const m = document.querySelector(".masthead"); if (!m) return;
     const set = () => document.documentElement.style.setProperty("--mast-h", m.offsetHeight + "px");
     set(); if (window.ResizeObserver) new ResizeObserver(set).observe(m); else window.addEventListener("resize", set); })();
-  const BUILD_ID = "2026-10-12T19:00Z";
+  const BUILD_ID = "2026-10-13T16:30Z";
   let lastBuildCheck = 0;
   async function checkForUpdate() {
     if (Date.now() - lastBuildCheck < 5 * 60e3) return;

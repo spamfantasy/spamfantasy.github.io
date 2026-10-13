@@ -19,7 +19,7 @@ GitHub Pages can keep serving a browser its cached copy of the page for a few mi
 
 ## Brand
 
-The product name is **SPAM** (SPAM Rankings, SPAM Values, SPAM Board). The wordmark is one word in the brand color (deep burgundy in light mode, cream in dark mode) with a small accent square (coral / warm gold). `SITE.name` and `SITE.author` at the top of `index.html` set it; the favicon is `favicon.svg` and the install name comes from `manifest.webmanifest`.
+The product name is **SPAM** (SPAM Rankings, SPAM Values, SPAM Board). The wordmark is one word in the brand color (deep burgundy in light mode, cream in dark mode) with a small accent square (coral / warm gold), set on a small field with faint yard lines (the yard-line stripe logo). `SITE.name` and `SITE.author` at the top of `index.html` set it; the favicon is `favicon.svg`, the home-screen icons are `apple-touch-icon.png`, `icon-192.png` and `icon-512.png`, and the install name comes from `manifest.webmanifest`.
 
 ## Light and dark themes
 
