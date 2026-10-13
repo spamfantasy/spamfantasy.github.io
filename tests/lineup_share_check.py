@@ -57,6 +57,8 @@ with sync_playwright() as p:
     best = [x or "0" for x in L["order"]]
     sl = json.loads(pg.evaluate("() => localStorage.getItem('spm_sleeper')"))
     d = sl["data"]["L1"]; me = next(r for r in d["rosters"] if r["roster_id"] == 1); me["starters"] = best
+    MOCK_ME = next(r for r in LEAGUES["L1"]["rosters"] if r["roster_id"] == 1)   # Sleeper's own copy (matchups read it)
+    MOCK_ME["starters"] = list(best)
     pg.evaluate("v => localStorage.setItem('spm_sleeper', v)", json.dumps(sl))
     pg.reload(); pg.wait_for_timeout(3500); pg.click("#tab-myteam"); pg.wait_for_timeout(1500)
     L2 = pg.evaluate("() => SPM.myLineup()")
@@ -65,20 +67,28 @@ with sync_playwright() as p:
     # a clearly better bench player: swap the FLEX starter for the weakest bench player → "Start" him back
     slots = [x for x in d["league"]["roster_positions"] if x != "BN"]; fi = slots.index("FLEX")
     star = best[fi]; weak = next(x for x in me["players"] if x not in best and x != "0")
-    me["starters"] = best[:fi] + [weak] + best[fi + 1:]
+    me["starters"] = best[:fi] + [weak] + best[fi + 1:]; MOCK_ME["starters"] = list(me["starters"])
     pg.evaluate("v => localStorage.setItem('spm_sleeper', v)", json.dumps(sl))
     pg.reload(); pg.wait_for_timeout(3500); pg.click("#tab-myteam"); pg.wait_for_timeout(1500)
     L4 = pg.evaluate("() => SPM.myLineup()")
     ok(star in L4["start"] and weak in L4["bench"] and L4["gain"] >= 1, f"Bench player clearly better than the FLEX starter: suggests starting him (+{round(L4['gain'], 1)})")
     ok("Start" in pg.inner_text(".mt-lineup") and pg.locator(".mt-row .lu-tag.start").count() >= 1, "The card and the roster show the Start suggestion")
     # an empty starting slot is flagged
-    me["starters"] = best[:-1] + ["0"]
+    me["starters"] = best[:-1] + ["0"]; MOCK_ME["starters"] = list(me["starters"])
     pg.evaluate("v => localStorage.setItem('spm_sleeper', v)", json.dumps(sl))
     pg.reload(); pg.wait_for_timeout(3500); pg.click("#tab-myteam"); pg.wait_for_timeout(1500)
     txt = pg.inner_text(".mt-lineup")
     ok("slot is empty" in txt and pg.locator(".mt-lineup.warn").count() == 1 and "Bye" not in txt.split("Start", 1)[-1][:0] , f"An empty starting slot is flagged: {txt[:120]!r}")
     L3 = pg.evaluate("() => SPM.myLineup()")
     ok(not any(pg.evaluate(f"() => {{ const p = [...document.querySelectorAll('.mt-row')].find(r => r.querySelector('.lu-tag.start') && /BYE|OUT/.test(r.innerText)); return !!p; }}") for _ in [0]), "Never suggests starting a player who's Out or on bye")
+
+    # the saved roster is stale (FLEX = weak) but Sleeper's matchup for this week has the lineup already changed
+    # (Steven, Oct 13): My Team follows the matchup's lineup, so the benched player shows on the bench, not as a starter
+    me["starters"] = best[:fi] + [weak] + best[fi + 1:]; MOCK_ME["starters"] = list(best)
+    pg.evaluate("v => localStorage.setItem('spm_sleeper', v)", json.dumps(sl))
+    pg.reload(); pg.wait_for_timeout(3500); pg.click("#tab-myteam"); pg.wait_for_timeout(2000)
+    L5 = pg.evaluate("() => SPM.myLineup()")
+    ok(weak not in (L5["start"] or []) and star not in (L5["bench"] or []) and not L5["start"] and not L5["bench"], f"Stale saved lineup, fresh Sleeper matchup: My Team uses the matchup's lineup (no swaps: {L5['start']} / {L5['bench']})")
 
     # 2. import a trade by names
     pg.click("#tab-trade"); pg.wait_for_timeout(600)

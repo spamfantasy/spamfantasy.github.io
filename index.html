@@ -4568,7 +4568,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   (() => { const m = document.querySelector(".masthead"); if (!m) return;
     const set = () => document.documentElement.style.setProperty("--mast-h", m.offsetHeight + "px");
     set(); if (window.ResizeObserver) new ResizeObserver(set).observe(m); else window.addEventListener("resize", set); })();
-  const BUILD_ID = "2026-10-13T17:50Z";
+  const BUILD_ID = "2026-10-13T18:10Z";
   let lastBuildCheck = 0;
   async function checkForUpdate() {
     if (Date.now() - lastBuildCheck < 5 * 60e3) return;
@@ -6953,7 +6953,8 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   }
   async function slGet(path) {
     let res;
-    try { res = await fetch(SL_API + path); }
+    // no-store: lineups and rosters change minute to minute, so never answer from the browser's HTTP cache
+    try { res = await fetch(SL_API + path, { cache: "no-store" }); }
     catch (e) { throw new Error("Couldn't reach Sleeper. Check your connection and try again."); }
     if (!res.ok) throw new Error(`Sleeper returned an error (${res.status}). Try again in a minute.`);
     const text = await res.text();   // Sleeper answers unknown users with an empty/null body
@@ -7646,6 +7647,8 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       const list = await slGet(`/user/${sl.userId}/leagues/nfl/${sl.season}`).catch(() => null);
       if (list) sl.leagues = list.map(summary);
       await syncLeague(sl.activeId);
+      // this week's matchups carry the live lineups (My Team, Rosters, Matchups): fetch them again too
+      if (typeof LT !== "undefined") { LT.mxError[sl.activeId] = ""; const wk = currentWeek(); if (wk) await loadMatchups(wk, true); if (LT.mWeek && LT.mWeek !== wk) loadMatchups(LT.mWeek, true); }
       toast("League refreshed. Your rankings weren't changed.");
     } catch (err) { toast("Refresh failed: " + err.message); }
     finally { slBusy = false; }
@@ -8340,6 +8343,12 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       ${L.gain >= 0.05 ? `<p class="lu-gain">Best lineup: <b>${fp(L.bestTot)}</b> projected · <b class="up">+${fp(L.gain)}</b></p>` : ""}
       <p class="lu-note">From SPAM's weekly projections in your league's scoring. Make the change in Sleeper; games already started are locked.</p></section>`;
   }
+  // A roster's starters this week from Sleeper's matchup entry for the current week (loaded with My Team), or null
+  function liveStarters(d, r, slots) {
+    const wk = currentWeek(), mx = wk && typeof LT !== "undefined" ? LT.mx[mxKey(d.league.league_id, wk)] : null;
+    const m = mx && mx.list.find(x => String(x.roster_id) === String(r.roster_id));
+    return m && Array.isArray(m.starters) && m.starters.length === slots.length && m.starters.some(x => x && x !== "0") ? m.starters.map(String) : null;
+  }
   function renderMyTeam() {
     const box = $("myteam-body"), d = activeData();
     if (!d) { box.innerHTML = ""; return; }
@@ -8369,8 +8378,13 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const section = (title, rowsHtml) => rowsHtml ? `<tr class="tier mt-sec"><td colspan="7">${title}<span class="mt-sec-n">${(rowsHtml.match(/<tr class="mt-row(?! empty-slot)/g) || []).length}</span></td></tr>${rowsHtml}` : "";
     // Sleeper's lineup; before one is set (all slots empty), SPAM's best lineup by value
     const ev = evaluateTeams(), mineEv = ev.list.find(x => x.team.mine);
-    const noLineup = !(r.starters || []).some(x => x && x !== "0");
-    let starterIds = r.starters;
+    // This week's lineup: Sleeper's matchup entry for the current week when it's loaded (it tracks lineup changes
+    // right away; the rosters list can lag behind them), else the roster's starters (Steven, Oct 13: a benched
+    // bye-week player still showed as a starter after a refresh)
+    const mxStarters = liveStarters(d, r, slots);
+    if (mxStarters) { r.starters.forEach(x => used.delete(x)); mxStarters.forEach(x => { if (x !== "0") used.add(x); }); }
+    const noLineup = !(mxStarters || r.starters || []).some(x => x && x !== "0");
+    let starterIds = mxStarters || r.starters;
     if (noLineup && mineEv) {
       const left = mineEv.starters.slice();
       starterIds = slots.map(sl => { const lab = SLOT_LABEL[sl] || sl, i = left.findIndex(p => (mineEv.role.get(p.id) || "") === lab); return i >= 0 ? String(left.splice(i, 1)[0].sleeperId) : "0"; });
@@ -12198,7 +12212,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   const boards = () => ({ spam: boardSnap(players), alan: boardSnap(RB.P.alan.players), steven: boardSnap(RB.P.steven.players) });
   const boardsCsv = () => { const t = csvToTable(tableToCsv(draft)); consensus(t); return tableToCsv(t); };
   const myLineup = () => { const d = activeData(), me = d && LG.teams.find(t => t.mine); if (!me) return null;
-    const slots = d.league.roster_positions.filter(x => x !== "BN"), L = lineupCheck(me, slots, me.roster.starters, bySleeper());
+    const slots = d.league.roster_positions.filter(x => x !== "BN"), L = lineupCheck(me, slots, liveStarters(d, me.roster, slots) || me.roster.starters, bySleeper());
     return L && { order: L.best, wk: L.wk, now: L.nowTot, best: L.bestTot, gain: L.gain, act: L.act, start: [...L.startSet], bench: [...L.benchSet], alerts: L.alerts.map(a => a.why) }; };
   window.SPM = { myLineup, rankingSnapshot, historyText, normalizeHistory, addSnapshot, formatCheck, projectionCheck, scoringCheck, calculateFantasyPoints, valueCheck, setBoard, boards, boardsCsv, consensusOf: csv => { const t = csvToTable(csv); consensus(t); return tableToCsv(t); } };   // helpers for the scheduled snapshot and tests
 
