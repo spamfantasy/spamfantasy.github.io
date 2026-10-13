@@ -2099,9 +2099,16 @@ dialog.signin label.im-mine input { width: 16px; height: 16px; padding: 0; }
 .lu-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; }
 .lu-alert { color: var(--ink); padding-left: 14px; position: relative; }
 .lu-alert::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 7px; height: 7px; border-radius: 50%; background: var(--st-out, var(--st-dnp)); }
-.lu-swap { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.lu-swap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
 .lu-in { color: var(--ink); } .lu-in::before { content: "↑ "; color: var(--rb); font-weight: 700; }
-.lu-out { color: var(--ink-2); } .lu-out::before { content: "↓ "; color: var(--muted); font-weight: 700; }
+.lu-out { color: var(--ink-2); }
+.lu-move { flex-basis: 100%; padding-left: 16px; font-size: 0.72rem; color: var(--muted); }
+/* Waiver pickup when no one on the roster can fill a bye / Out / empty slot (Steven, Oct 13) */
+.lu-pick { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; color: var(--ink); padding-left: 14px; position: relative; }
+.lu-pick::before { content: "+"; position: absolute; left: 0; color: var(--rb); font-weight: 800; }
+.lu-mv { color: var(--ink); } .lu-mv::before { content: "⇄ "; color: var(--muted); font-weight: 700; }
+.lu-pick-h { color: var(--ink-2); }
+.lu-alt { flex-basis: 100%; padding-left: 14px; font-size: 0.72rem; color: var(--muted); }
 .lu-name { font-weight: 650; }
 .lu-sub { font-size: 0.72rem; color: var(--muted); }
 .lu-gain { margin: 8px 0 0; font-size: 0.8rem; color: var(--ink-2); }
@@ -4588,7 +4595,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   (() => { const m = document.querySelector(".masthead"); if (!m) return;
     const set = () => document.documentElement.style.setProperty("--mast-h", m.offsetHeight + "px");
     set(); if (window.ResizeObserver) new ResizeObserver(set).observe(m); else window.addEventListener("resize", set); })();
-  const BUILD_ID = "2026-10-13T19:30Z";
+  const BUILD_ID = "2026-10-13T19:50Z";
   let lastBuildCheck = 0;
   async function checkForUpdate() {
     if (Date.now() - lastBuildCheck < 5 * 60e3) return;
@@ -8343,12 +8350,38 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     if (best.reduce((a, sid) => a + valOf(sid), 0) < nowTot) cur.forEach((c, i) => { best[i] = c.sid; });   // never suggest a worse lineup
     const bestTot = best.reduce((a, sid) => a + valOf(sid), 0);
     const curSet = new Set(cur.map(c => c.sid).filter(Boolean)), bestSet = new Set(best.filter(Boolean));
-    const ins = [...bestSet].filter(sid => !curSet.has(sid)).map(look).sort((a, b) => b.val - a.val);
-    const outs = [...curSet].filter(sid => !bestSet.has(sid)).map(look).sort((a, b) => a.val - b.val);
+    // Each new starter is paired with the player he actually replaces (Steven, Oct 13: "Start X" should say over whom).
+    // He takes slot i; if that slot's current starter only slides to another slot, follow the chain to whoever ends up benched.
+    const swaps = [];
+    cur.forEach((c, i) => {
+      const nb = best[i]; if (!nb || curSet.has(nb)) return;
+      let k = i, over = c.sid, guard = 0, moved = null;
+      while (over && bestSet.has(over) && guard++ < 20) { const nk = best.indexOf(over); if (k === i) moved = { x: look(over), to: cur[nk].slot }; k = nk; over = cur[k].sid; }
+      swaps.push({ start: look(nb), bench: over ? look(over) : null, slot: c.slot, emptySlot: over ? null : cur[k].slot, moved });
+    });
+    swaps.sort((a, b) => (b.start.val - (b.bench ? b.bench.val || 0 : 0)) - (a.start.val - (a.bench ? a.bench.val || 0 : 0)));
     const alerts = cur.map((c, i) => ({ c, i })).filter(({ c, i }) => !fixed[i] || (c.sid && look(c.sid).zero))
-      .filter(({ c }) => !c.sid || look(c.sid).zero).map(({ c }) => c.sid ? { sid: c.sid, slot: c.slot, why: look(c.sid).o.kind === "bye" ? "on bye" : "Out" } : { sid: null, slot: c.slot, why: "empty" });
-    const gain = bestTot - nowTot, act = alerts.length > 0 || gain >= 1;
-    return { best, wk, nowTot, bestTot, gain, act, alerts, swaps: act ? ins.map((x, k) => ({ start: x, bench: outs[k] || null })) : [], startSet: new Set(act ? ins.map(x => x.sid) : []), benchSet: new Set(act ? outs.map(x => x.sid) : []),
+      .filter(({ c }) => !c.sid || look(c.sid).zero).map(({ c, i }) => ({ ...(c.sid ? { sid: c.sid, slot: c.slot, why: look(c.sid).o.kind === "bye" ? "on bye" : "Out" } : { sid: null, slot: c.slot, why: "empty" }), i }));
+    /* A starting slot nobody on the roster can fill this week, even after the best lineup is set (Steven, Oct 13: Joe Burrow
+       on bye and no other QB): suggest the free agents eligible for that slot with the highest projection this week
+       (SPAM-ranked players nobody in the league has; never someone on bye, Out or whose game already started). */
+    const owned = new Set(LG.teams.flatMap(t => [...(t.roster.players || []), ...(t.roster.reserve || []), ...(t.roster.taxi || [])].map(String)));
+    const picked = new Set(), needs = [];
+    cur.forEach((c, i) => {
+      if (best[i] || fixed[i]) return;
+      const el = luElig(c.slot); if (!el) return;
+      const pickup = players.filter(p => p.sleeperId && el.includes(p.pos) && !owned.has(String(p.sleeperId)) && !picked.has(String(p.sleeperId)))
+        .map(p => look(String(p.sleeperId))).filter(x => !x.locked && !x.zero && x.val != null && x.val > 0)
+        .sort((x, y) => y.val - x.val).slice(0, 3);
+      pickup.slice(0, 1).forEach(x => picked.add(x.sid));
+      needs.push({ slot: c.slot, i, pickup });
+    });
+    // starters who only change slots (e.g. an RB in the FLEX moving to an open RB spot); same-label moves aren't news
+    const chained = new Set(swaps.filter(w => w.moved).map(w => w.moved.x.sid));
+    const moves = cur.map((c, i) => ({ c, i })).filter(({ c }) => c.sid && bestSet.has(c.sid) && !chained.has(c.sid))
+      .map(({ c }) => ({ x: look(c.sid), from: c.slot, to: cur[best.indexOf(c.sid)].slot })).filter(m => (SLOT_LABEL[m.from] || m.from) !== (SLOT_LABEL[m.to] || m.to));
+    const gain = bestTot - nowTot, act = alerts.length > 0 || needs.length > 0 || gain >= 1;
+    return { best, wk, nowTot, bestTot, gain, act, alerts, needs, moves: act ? moves : [], swaps: act ? swaps : [], startSet: new Set(act ? swaps.map(w => w.start.sid) : []), benchSet: new Set(act ? swaps.filter(w => w.bench).map(w => w.bench.sid) : []),
              partial: cur.some((c, i) => c.sid && fixed[i] && look(c.sid).val == null && !look(c.sid).locked) };
   }
   function lineupCard(L) {
@@ -8356,11 +8389,17 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const nm = x => `${EDIT_POS.includes(x.e.pos) ? nameLink(x.e.sid, x.e.name, "lu-name") : `<span class="lu-name">${esc(x.e.name)}</span>`} <span class="lu-sub">${esc(x.e.pos || "")}${x.zero ? ` · ${x.o.kind === "bye" ? "Bye" : "Out"}` : ` · proj ${fp(x.val)}`}</span>`;
     const head = `<div class="lu-head"><h3 class="rr-label">Lineup check <span class="rr-when">Week ${L.wk}</span></h3><span class="lu-tot" title="Projected points for your current starters (actual points for games already played), in your league's scoring">${fp(L.nowTot)} projected</span></div>`;
     if (!L.act) return `<section class="mt-card mt-lineup ok">${head}<p class="lu-ok"><span class="lu-dot" aria-hidden="true"></span>Your lineup is set: it's your best projected lineup${L.partial ? " (starters without a projection left as they are)" : ""}.</p></section>`;
-    const al = L.alerts.map(a => `<li class="lu-alert">${a.sid ? `<b>${esc(rosterEntry(a.sid, bySleeper()).name)}</b> is ${a.why === "Out" ? "<b>Out</b>" : "on bye"} in your ${esc(SLOT_LABEL[a.slot] || a.slot)} slot` : `Your <b>${esc(SLOT_LABEL[a.slot] || a.slot)}</b> slot is empty`}</li>`).join("");
-    const sw = L.swaps.map(w => `<li class="lu-swap"><span class="lu-in">Start ${nm(w.start)}</span>${w.bench ? `<span class="lu-out">Bench ${nm(w.bench)}</span>` : ""}</li>`).join("");
+    const slotName = sl => esc(SLOT_LABEL[sl] || sl);
+    const fa = x => { const w = x.e.p && waiverUntil(x.e.p); return w ? `on waivers · clears ${esc(new Date(w).toLocaleDateString(undefined, { weekday: "short" }))}` : "free agent"; };
+    const al = L.alerts.map(a => `<li class="lu-alert">${a.sid ? `<b>${esc(rosterEntry(a.sid, bySleeper()).name)}</b> is ${a.why === "Out" ? "<b>Out</b>" : "on bye"} in your ${slotName(a.slot)} slot` : `Your <b>${slotName(a.slot)}</b> slot is empty`}</li>`).join("")
+      + L.needs.map(n => `<li class="lu-pick">${n.pickup.length
+        ? `<span class="lu-pick-h">No one on your roster can fill your <b>${slotName(n.slot)}</b> slot. Pick up</span> ${nm(n.pickup[0])} <span class="lu-sub">· ${fa(n.pickup[0])}</span>${n.pickup.length > 1 ? `<span class="lu-alt">Also: ${n.pickup.slice(1).map(x => `${nameLink(x.e.sid, x.e.name, "lu-name")} <span class="lu-sub">proj ${fp(x.val)}</span>`).join(" · ")}</span>` : ""}`
+        : `<span class="lu-pick-h">No one on your roster or the waiver wire can fill your <b>${slotName(n.slot)}</b> slot this week.</span>`}</li>`).join("");
+    const mv = L.moves.map(m => `<li class="lu-swap"><span class="lu-mv">Move ${nm(m.x)}</span><span class="lu-out">from ${slotName(m.from)} to ${slotName(m.to)}</span></li>`).join("");
+    const sw = L.swaps.map(w => `<li class="lu-swap"><span class="lu-in">Start ${nm(w.start)}</span>${w.bench ? `<span class="lu-out">over ${nm(w.bench)}</span>` : `<span class="lu-out">in your empty ${slotName(w.emptySlot || w.slot)} slot</span>`}${w.moved ? `<span class="lu-move">${esc(w.moved.x.e.name)} moves to ${slotName(w.moved.to)}</span>` : ""}</li>`).join("");
     return `<section class="mt-card mt-lineup warn">${head}
       ${al ? `<ul class="lu-list">${al}</ul>` : ""}
-      ${sw ? `<ul class="lu-list">${sw}</ul>` : ""}
+      ${sw || mv ? `<ul class="lu-list">${sw}${mv}</ul>` : ""}
       ${L.gain >= 0.05 ? `<p class="lu-gain">Best lineup: <b>${fp(L.bestTot)}</b> projected · <b class="up">+${fp(L.gain)}</b></p>` : ""}
       <p class="lu-note">From SPAM's weekly projections in your league's scoring. Make the change in Sleeper; games already started are locked.</p></section>`;
   }
@@ -12323,7 +12362,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   const boardsCsv = () => { const t = csvToTable(tableToCsv(draft)); consensus(t); return tableToCsv(t); };
   const myLineup = () => { const d = activeData(), me = d && LG.teams.find(t => t.mine); if (!me) return null;
     const slots = d.league.roster_positions.filter(x => x !== "BN"), L = lineupCheck(me, slots, liveStarters(d, me.roster, slots) || me.roster.starters, bySleeper());
-    return L && { order: L.best, wk: L.wk, now: L.nowTot, best: L.bestTot, gain: L.gain, act: L.act, start: [...L.startSet], bench: [...L.benchSet], alerts: L.alerts.map(a => a.why) }; };
+    return L && { order: L.best, wk: L.wk, now: L.nowTot, best: L.bestTot, gain: L.gain, act: L.act, start: [...L.startSet], bench: [...L.benchSet], alerts: L.alerts.map(a => a.why), pickups: L.needs.map(n => n.pickup.map(x => x.sid)), moves: L.moves.map(m => [m.x.sid, m.to]), pairs: L.swaps.map(w => [w.start.sid, w.bench ? w.bench.sid : null]) }; };
   window.SPM = { myLineup, rankingSnapshot, historyText, normalizeHistory, addSnapshot, formatCheck, projectionCheck, scoringCheck, calculateFantasyPoints, valueCheck, setBoard, boards, boardsCsv, consensusOf: csv => { const t = csvToTable(csv); consensus(t); return tableToCsv(t); } };   // helpers for the scheduled snapshot and tests
 
   // Start-up: restore a saved connection

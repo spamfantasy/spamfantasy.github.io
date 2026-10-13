@@ -73,6 +73,10 @@ with sync_playwright() as p:
     L4 = pg.evaluate("() => SPM.myLineup()")
     ok(star in L4["start"] and weak in L4["bench"] and L4["gain"] >= 1, f"Bench player clearly better than the FLEX starter: suggests starting him (+{round(L4['gain'], 1)})")
     ok("Start" in pg.inner_text(".mt-lineup") and pg.locator(".mt-row .lu-tag.start").count() >= 1, "The card and the roster show the Start suggestion")
+    ok([star, weak] in L4["pairs"], f"The swap says whom he replaces: start {star} over {weak} ({L4['pairs']})")
+    card = pg.inner_text(".mt-lineup")
+    if os.environ.get("SHOTS"): pg.locator(".mt-lineup").screenshot(path=os.path.join(os.environ["SHOTS"], "lineup_over.png"))
+    ok(re.search(r"Start .*\bover ", card, re.S) is not None, f"The card reads 'Start X over Y': {card[:160]!r}")
     # an empty starting slot is flagged
     me["starters"] = best[:-1] + ["0"]; MOCK_ME["starters"] = list(me["starters"])
     pg.evaluate("v => localStorage.setItem('spm_sleeper', v)", json.dumps(sl))
@@ -81,6 +85,39 @@ with sync_playwright() as p:
     ok("slot is empty" in txt and pg.locator(".mt-lineup.warn").count() == 1 and "Bye" not in txt.split("Start", 1)[-1][:0] , f"An empty starting slot is flagged: {txt[:120]!r}")
     L3 = pg.evaluate("() => SPM.myLineup()")
     ok(not any(pg.evaluate(f"() => {{ const p = [...document.querySelectorAll('.mt-row')].find(r => r.querySelector('.lu-tag.start') && /BYE|OUT/.test(r.innerText)); return !!p; }}") for _ in [0]), "Never suggests starting a player who's Out or on bye")
+
+    # a QB on bye in the QB slot and no other QB on the roster: suggest the best free-agent QB (Steven, Oct 13)
+    csv_rows = list(csv.DictReader(io.StringIO(re.search(r"RANKINGS_CSV\s*=\s*`(.*?)`", open(os.path.join(ROOT, "index.html"), encoding="utf-8").read(), re.S).group(1).strip())))
+    pos_of = {r["sleeper_id"]: r["pos"] for r in csv_rows if r["sleeper_id"]}
+    team_of = {r["sleeper_id"]: r["team"] for r in csv_rows if r["sleeper_id"]}
+    bye5 = {t for t, rws in STATS["schedule"].items() if not any(r[0] == 5 for r in rws)}
+    owned_all = {x for L in LEAGUES.values() for r in L["rosters"] for x in r["players"]}
+    byeqb = next((s for s in sids if pos_of.get(s) == "QB" and team_of.get(s) in bye5), None)
+    if byeqb:
+        keep = [x for x in me["players"] if pos_of.get(x) != "QB" and x != byeqb]
+        me["players"] = keep + [byeqb]
+        qslot = slots.index("QB"); sfslot = slots.index("SUPER_FLEX")
+        st = [x if pos_of.get(x) != "QB" else "0" for x in best]
+        nonq = [x for x in keep if x not in st]
+        st[qslot] = byeqb; st[sfslot] = nonq[0] if nonq else "0"
+        me["starters"] = st
+        MOCK_ME["players"] = list(me["players"]); MOCK_ME["starters"] = list(st)
+        for L in LEAGUES.values():
+            for r in L["rosters"]:
+                if r is not MOCK_ME and byeqb in r["players"]: r["players"].remove(byeqb)
+        pg.evaluate("v => localStorage.setItem('spm_sleeper', v)", json.dumps(sl))
+        pg.reload(); pg.wait_for_timeout(3500); pg.click("#tab-myteam"); pg.wait_for_timeout(2000)
+        L6 = pg.evaluate("() => SPM.myLineup()")
+        if os.environ.get("SHOTS"): pg.locator(".mt-lineup").screenshot(path=os.path.join(os.environ["SHOTS"], "lineup_pickup.png"))
+        txt = pg.inner_text(".mt-lineup")
+        picks = [p for ps in L6["pickups"] for p in ps]
+        owned_now = {x for r in LEAGUES["L1"]["rosters"] for x in r["players"]}   # this league only
+        qpicks = next((ps for ps in L6["pickups"] if ps and all(pos_of.get(p) == "QB" for p in ps)), [])
+        ok(qpicks and all(p not in owned_now for p in picks) and "Pick up" in txt and "fill your QB slot" in txt and "on bye" in txt,
+           f"QB on bye with no other QB: suggests picking up a free-agent QB ({[name_of.get(p) for p in qpicks]}): {txt[:200]!r}")
+        ok(L6["pickups"] and L6["pickups"][0] and name_of.get(L6["pickups"][0][0], "") in txt, "The top pickup is named on the card")
+    else:
+        ok(True, "No QB on bye in Week 5 in this data (pickup check skipped)")
 
     # the saved roster is stale (FLEX = weak) but Sleeper's matchup for this week has the lineup already changed
     # (Steven, Oct 13): My Team follows the matchup's lineup, so the benched player shows on the bench, not as a starter
