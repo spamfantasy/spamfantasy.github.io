@@ -4595,7 +4595,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   (() => { const m = document.querySelector(".masthead"); if (!m) return;
     const set = () => document.documentElement.style.setProperty("--mast-h", m.offsetHeight + "px");
     set(); if (window.ResizeObserver) new ResizeObserver(set).observe(m); else window.addEventListener("resize", set); })();
-  const BUILD_ID = "2026-10-13T19:50Z";
+  const BUILD_ID = "2026-10-13T20:45Z";
   let lastBuildCheck = 0;
   async function checkForUpdate() {
     if (Date.now() - lastBuildCheck < 5 * 60e3) return;
@@ -9405,8 +9405,18 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     if (!LT.mWeek) LT.mWeek = mxCurrentWeek(d);
     loadMatchups(LT.mWeek);
   }
-  // Sleeper's current week (its NFL state), else the league's, else our schedule's
-  const mxCurrentWeek = d => Math.max(1, Number((LT.nfl && LT.nfl !== "loading" && (LT.nfl.display_week || LT.nfl.week)) || (d.league.settings && d.league.settings.leg) || currentWeek() || 1));
+  // Sleeper's week, but never behind our schedule's week (which turns over Tuesday 14:00 UTC, a day before Sleeper's)
+  const mxCurrentWeek = d => Math.max(1, Number((LT.nfl && LT.nfl !== "loading" && (LT.nfl.display_week || LT.nfl.week)) || (d.league.settings && d.league.settings.leg) || 0), Number(currentWeek()) || 0);
+  // A page left open over the Tuesday turnover moves on with the week, unless someone picked another week
+  function followWeek(d, k) {
+    const cur = mxCurrentWeek(d), seen = LT[k + "Cur"];
+    if (seen != null && seen !== cur && LT[k] === seen) {
+      LT[k] = cur;
+      if (k === "mWeek") { LT.mOpen = new Set(); if (!LT.mx[mxKey(d.league.league_id, cur)]) loadMatchups(cur); }
+      else LT.rOpen = new Set();
+    }
+    LT[k + "Cur"] = cur;
+  }
   const LIVE_PROJ_TIP = "Live proj = projected final score. Before kickoff it's the expected final score; during games it's points so far plus each player's projection for the part of his game that's left (an estimate from time since kickoff, not a real-time game model). Final games count their actual points.";
   // inputs behind one player's projection, for tooltips (sources, not weights)
   const projTip = o => (o && o.inputs ? o.inputs.join(" · ") : "");
@@ -9420,6 +9430,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const id = d.league.league_id;
     if (LT.nfl && LT.nfl !== "loading" && !LT.mWeek) LT.mWeek = mxCurrentWeek(d);   // Sleeper's week may already be known (Standings, Rosters)
     if (!LT.nfl || LT.nfl === "loading" || !LT.mWeek) return `<p class="empty-note lg-loading">Loading this week's matchups…</p>`;
+    followWeek(d, "mWeek");
     const cur = mxCurrentWeek(d), w = LT.mWeek, key = mxKey(id, w), data = LT.mx[key], err = LT.mxError[id];
     const lastWeek = Math.max(cur, 17, Number(d.league.settings && d.league.settings.playoff_week_start || 0) + 2);
     const weekSel = `<div class="tx-filters mx-filters"><span class="tx-selects">
@@ -9568,6 +9579,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     if (sleeper && (!LT.nfl || LT.nfl === "loading")) return `<p class="empty-note lg-loading">Loading rosters…</p>`;
     const cur = sleeper ? mxCurrentWeek(d) : (currentWeek() || 1);
     if (!LT.rWeek) LT.rWeek = cur;
+    if (sleeper) followWeek(d, "rWeek");
     const w = sleeper ? LT.rWeek : cur, id = d.league.league_id;
     if (LT.rLeague !== id) { LT.rLeague = id; LT.rTeam = null; LT.rOpen = new Set(); }   // another league: start on your team
     const order = ev.list.slice().sort((a, b) => (b.team.mine - a.team.mine) || (a.power - b.power));
@@ -10652,9 +10664,26 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const g = rows.find(r => r[4] == null);
     return g ? { week: g[0], opp: g[1], home: g[2], date: g[3], time: g[6] || null, spread: g[7] ?? null, total: g[8] ?? null, roof: g[9] || null, stadium: g[10] || null } : null;
   }
-  // The week being played now: the earliest week any team still has to play
+  /* The week being played now. Each NFL week turns over on the Tuesday after its last game at 14:00 UTC
+     (about 9-10 AM ET, the time of the weekly refresh; Steven, Oct 13: Sleeper's own week only flips on
+     Wednesday, so Matchups still said Week 5 on Tuesday). Before that it stays on the week just played,
+     even when every score is in. Without dates it falls back to the earliest week any team still has to play. */
+  const WEEK_FLIP_UTC_HOUR = 14;
+  function weekFlipMs(dateStr) {   // the first Tuesday after the ET date of the week's last game, 14:00 UTC
+    const [y, m, d] = String(dateStr).split("-").map(Number); if (!y || !m || !d) return null;
+    const t = new Date(Date.UTC(y, m - 1, d + 1, WEEK_FLIP_UTC_HOUR));
+    t.setUTCDate(t.getUTCDate() + ((2 - t.getUTCDay() + 7) % 7));
+    return t.getTime();
+  }
   function currentWeek() {
     const d = statsCache[STATS_SEASONS[0]]; if (!d || !d.schedule) return null;
+    const last = {};   // week -> date of its last game
+    for (const rows of Object.values(d.schedule)) for (const r of rows) if (r[3] && (!last[r[0]] || r[3] > last[r[0]])) last[r[0]] = r[3];
+    const weeks = Object.keys(last).map(Number).sort((a, b) => a - b), now = Date.now();
+    if (weeks.length) {
+      for (const w of weeks) { const f = weekFlipMs(last[w]); if (f == null || now < f) return w; }
+      return weeks[weeks.length - 1];   // season over: stay on the last week
+    }
     const w = Object.values(d.schedule).map(rows => (rows.find(r => r[4] == null) || [Infinity])[0]);
     const m = Math.min(...w); return isFinite(m) ? m : null;
   }
