@@ -1,6 +1,14 @@
 {
  "note": "Manual injury-shortened corrections (SPAM editors). short: true marks a game the detection missed; false clears a wrong flag.",
  "seasons": {
-  "2026": {}
+  "2026": {
+   "11560": {
+    "2": {
+     "short": true,
+     "by": "stevenp36",
+     "on": "2026-10-13"
+    }
+   }
+  }
  }
 }
