@@ -109,6 +109,9 @@ with sync_playwright() as p:
     errs = []
     pg = br.new_page(viewport={"width": 1440, "height": 1000})
     pg.on("pageerror", lambda e: errs.append(str(e)))
+    # Week 4 is the current week (the mock Sleeper state says 4): Tuesday morning after its games, before the
+    # site turns the week over at 14:00 UTC (otherwise the real clock would put the site in a later week)
+    pg.clock.install(time="2026-10-06T12:00:00Z")
     pg.route("https://api.sleeper.app/**", sleeper)
     pg.route(re.compile(r"https://(sleepercdn\.com|a\.espncdn\.com)/.*"), lambda r: r.abort())
     pg.goto(f"http://127.0.0.1:{port}/#rankings"); pg.wait_for_timeout(2000)
@@ -326,7 +329,7 @@ with sync_playwright() as p:
     ok(len(wk) >= 9 and "THIS WEEK" in pg.inner_text(".mt-table thead").upper() and not any("LIVE · LIVE PROJ" in t or "FINAL ·" in t for t in wk), f"One weekly state per row: {wk[:4]}")
     # Trade Finder goals: Slight edge / Best value ideas favor you within their range and are labelled as such (never "steal")
     pg.click("#tab-finder"); pg.wait_for_timeout(1200)
-    pv = pg.evaluate("() => [...document.getElementById('tf-player').options].map(o => o.value)")[:6]
+    pv = pg.evaluate("() => [...document.getElementById('tf-player').options].map(o => o.value).filter(v => v !== '*any')")[:6]
     for goal, lo, hi, word in (("edge", 3, 10, "SLIGHT EDGE TO YOU"), ("value", 8, 15, "GOOD VALUE FOR YOU")):
         pg.evaluate(f"() => {{ const s = document.getElementById('tf-goal'); s.value = '{goal}'; s.dispatchEvent(new Event('change', {{bubbles:true}})); }}"); pg.wait_for_timeout(300)
         seen, good = 0, True

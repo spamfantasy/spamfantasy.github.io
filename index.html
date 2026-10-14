@@ -4595,7 +4595,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   (() => { const m = document.querySelector(".masthead"); if (!m) return;
     const set = () => document.documentElement.style.setProperty("--mast-h", m.offsetHeight + "px");
     set(); if (window.ResizeObserver) new ResizeObserver(set).observe(m); else window.addEventListener("resize", set); })();
-  const BUILD_ID = "2026-10-13T20:45Z";
+  const BUILD_ID = "2026-10-14T15:10Z";
   let lastBuildCheck = 0;
   async function checkForUpdate() {
     if (Date.now() - lastBuildCheck < 5 * 60e3) return;
@@ -9759,7 +9759,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       return;
     }
     if (fw) {
-      TF.src = "mine"; TF.sid = null; TF.sid2 = ""; TF.from = "auto"; TF.against = fw.dataset.findWith; TF.pos = "ANY"; TF.openFull = new Set();
+      TF.src = "mine"; TF.sid = null; TF.sid2 = ""; TF.sid3 = ""; TF.from = "auto"; TF.against = fw.dataset.findWith; TF.pos = "ANY"; TF.openFull = new Set();
       showTab("finder"); history.replaceState(null, "", "#finder"); window.scrollTo({ top: 0 });
       return;
     }
@@ -11790,15 +11790,16 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
      premium via league values, bench depth, roster spots) ranks the value-matched ideas.
      Optional 3-team ideas only appear when every team improves its lineup and the direct
      2-team swap wouldn't work for the partner. */
-  const TF = { src: "mine", sid: null, sid2: "", srcTeam: "", from: "auto", against: "ANY", pos: "ANY", size: "all", three: false,
+  const TF = { src: "mine", sid: null, sid2: "", sid3: "", srcTeam: "", from: "auto", against: "ANY", pos: "ANY", size: "all", three: false,
                gap: 10, fair: false, goal: "fair", sort: "best", q: "", ideas: [], ideas3: [], openFull: new Set(), show: 10, showKey: "" };
   const TF_PAGE = 10;   // ideas shown at first; "Show more" adds this many
   // Trade types (Steven, Oct 4): 1-for-1, 1-for-2, 2-for-1 or All packages (incl. 2-for-2), counted from the starting team's side.
-  // A 2-player package already fixes one side at 2: shopping it (give) allows 2-for-1, getting it allows 1-for-2.
-  const tfSizeOk = (k, pkg, mode) => k === "all" || !pkg || (mode === "give" ? k[0] === "2" : k[1] === "2");
+  // A 2-player package already fixes one side at 2: shopping it (give) allows 2-for-1, getting it allows 1-for-2;
+  // a 3-player package (Steven, Oct 14) fits none of the fixed shapes, so only All packages.
+  const tfSizeOk = (k, pkg, mode) => k === "all" || !pkg || (mode === "give" ? k[0] : k[1]) === String(pkg.length);
   const tfSize = (pkg, mode) => (tfSizeOk(TF.size, pkg, mode) ? TF.size : "all");
   function openFinder(sid) {
-    TF.sid = String(sid); TF.sid2 = ""; TF.from = "auto"; TF.against = "ANY"; TF.pos = "ANY"; TF.openFull = new Set();
+    TF.sid = String(sid); TF.sid2 = ""; TF.sid3 = ""; TF.from = "auto"; TF.against = "ANY"; TF.pos = "ANY"; TF.openFull = new Set();
     const p = bySleeper().get(TF.sid), o = p ? LG.ownerOf.get(p.id) : null;
     TF.src = o && o.mine ? "mine" : "any";
     showTab("finder"); history.replaceState(null, "", "#finder"); window.scrollTo({ top: 0 });
@@ -11869,8 +11870,48 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     if (fT.net < (strict ? -8 : -10)) return false;                                     // roster-adjusted, still close for them
     return true;
   }
-  // target: one player, or a 2-player package from the same roster (shopped together)
+  // One trade idea scored for both teams (S gives `give`, gets `get` from T); null when it doesn't work
+  function evalIdea(K, S, T, give, get, opts, xv) {
+    const V = K.V, sum = list => list.reduce((a, p) => a + V(p), 0);
+    const m = runModel(get.map(p => p.id), give.map(p => p.id), dv);   // A = what S receives, B = what T receives
+    if (m.error || !(m.a > 0 && m.b > 0)) return null;
+    const more = Math.round(1000 * Math.abs(m.a - m.b) / Math.min(m.a, m.b)) / 10;
+    if (more > opts.gap) return null;
+    const sAfter = K.after(S, give, get, get.map(() => T)), tAfter = K.after(T, get, give, give.map(() => S));
+    const dS = sAfter.score - K.base.get(S.rosterId).score, dT = tAfter.score - K.base.get(T.rosterId).score;
+    const scale = Math.max(1000, xv || Math.max(sum(give), sum(get))), clamp = v => Math.max(-1, Math.min(1, v));
+    const fit = 0.5 * clamp((dS + dT) / scale) + 0.5 * clamp(Math.min(dS, dT) / scale);   // both teams better = best
+    const places = K.placeMoves(new Map([[S.rosterId, sAfter], [T.rosterId, tAfter]]), give.concat(get));
+    // team-specific value: what each side gets is worth less if it would sit on that bench
+    const fitOf = (team, L, inc, out) => {
+      const pool = L.starters.concat(L.bench, L.cut);
+      return fitValues({ before: K.base.get(team.rosterId), after: L, incoming: inc, outgoing: out, places: places[team.rosterId], n: LG.teams.length, league: K.d.league,
+                         without: list => K.strength(pool.filter(p => !list.includes(p))) });
+    };
+    const fS = fitOf(S, sAfter, get, give), fT = fitOf(T, tAfter, give, get), fitMin = Math.min(fS.net, fT.net);
+    if (fitMin < -20) return null;   // fair on paper but no practical sense for one of the teams
+    const size = give.length + get.length - 2, c01 = v => Math.max(0, Math.min(1, v));
+    let score;
+    const edge = GOAL_RANGE[opts.goal];
+    if (edge) {
+      // Slight edge / Best value (Alan, Oct 4): S comes out ahead by the goal's range in adjusted value, and the deal
+      // still has to make roster sense for the other team (never just the biggest value gap)
+      if (!(m.a > m.b) || more < edge[0] || more > edge[1]) return null;
+      if (!plausibleForThem(K, T, get, tAfter, dT, fT, places[T.rosterId], opts.goal)) return null;
+      score = 0.4 * c01((fS.net + 5) / 25) + 0.45 * c01((fT.net + 12) / 20) + 0.15 * (fit + 1) / 2 - 0.05 * size;
+    } else {
+      const fair = more < 3 ? 1 : 1 - (more - 3) / Math.max(opts.gap - 3, 1);   // inside the fair range every trade is equally fair
+      const fitScore = c01((fitMin + 15) / 25);
+      score = 0.35 * fair + 0.45 * fitScore + 0.2 * (fit + 1) / 2 - 0.05 * size;
+    }
+    return { team: T, S, give, get, m, more, dS, dT, sAfter, tAfter, places, fS, fT, score, scale, goal: edge ? opts.goal : "" };
+  }
+  // target: one player, or a 2- or 3-player package from the same roster (shopped together)
+  // target null = Any players (Steven, Oct 14): S gives any 1-3 of its players, the other team sends 1-2,
+  // the main piece S gets at the wanted position.
+  const ANY_SID = "*any";
   function findTrades(target, mode, S, opts) {
+    if (!target) return findAny(S, opts);
     const K = leagueKit(), V = K.V, byVal = K.byVal, sum = list => list.reduce((a, p) => a + V(p), 0);
     const pkg = Array.isArray(target) ? target : null;
     if (pkg) target = pkg[0];
@@ -11910,38 +11951,8 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
           const side = mode === "give" ? get : give, main = side.slice().sort(byVal)[0];
           if (main.pos !== opts.pos) continue;
         }
-        const m = runModel(get.map(p => p.id), give.map(p => p.id), dv);   // A = what S receives, B = what T receives
-        if (m.error || !(m.a > 0 && m.b > 0)) continue;
-        const more = Math.round(1000 * Math.abs(m.a - m.b) / Math.min(m.a, m.b)) / 10;
-        if (more > opts.gap) continue;
-        const sAfter = K.after(S, give, get, get.map(() => T)), tAfter = K.after(T, get, give, give.map(() => S));
-        const dS = sAfter.score - K.base.get(S.rosterId).score, dT = tAfter.score - K.base.get(T.rosterId).score;
-        const scale = Math.max(1000, xv), clamp = v => Math.max(-1, Math.min(1, v));
-        const fit = 0.5 * clamp((dS + dT) / scale) + 0.5 * clamp(Math.min(dS, dT) / scale);   // both teams better = best
-        const places = K.placeMoves(new Map([[S.rosterId, sAfter], [T.rosterId, tAfter]]), give.concat(get));
-        // team-specific value: what each side gets is worth less if it would sit on that bench
-        const fitOf = (team, L, inc, out) => {
-          const pool = L.starters.concat(L.bench, L.cut);
-          return fitValues({ before: K.base.get(team.rosterId), after: L, incoming: inc, outgoing: out, places: places[team.rosterId], n: LG.teams.length, league: K.d.league,
-                             without: list => K.strength(pool.filter(p => !list.includes(p))) });
-        };
-        const fS = fitOf(S, sAfter, get, give), fT = fitOf(T, tAfter, give, get), fitMin = Math.min(fS.net, fT.net);
-        if (fitMin < -20) continue;   // fair on paper but no practical sense for one of the teams
-        const size = give.length + get.length - 2, c01 = v => Math.max(0, Math.min(1, v));
-        let score;
-        const edge = GOAL_RANGE[opts.goal];
-        if (edge) {
-          // Slight edge / Best value (Alan, Oct 4): S comes out ahead by the goal's range in adjusted value, and the deal
-          // still has to make roster sense for the other team (never just the biggest value gap)
-          if (!(m.a > m.b) || more < edge[0] || more > edge[1]) continue;
-          if (!plausibleForThem(K, T, get, tAfter, dT, fT, places[T.rosterId], opts.goal)) continue;
-          score = 0.4 * c01((fS.net + 5) / 25) + 0.45 * c01((fT.net + 12) / 20) + 0.15 * (fit + 1) / 2 - 0.05 * size;
-        } else {
-          const fair = more < 3 ? 1 : 1 - (more - 3) / Math.max(opts.gap - 3, 1);   // inside the fair range every trade is equally fair
-          const fitScore = c01((fitMin + 15) / 25);
-          score = 0.35 * fair + 0.45 * fitScore + 0.2 * (fit + 1) / 2 - 0.05 * size;
-        }
-        ideas.push({ team: T, S, give, get, m, more, dS, dT, sAfter, tAfter, places, fS, fT, score, scale, goal: edge ? opts.goal : "" });
+        const it = evalIdea(K, S, T, give, get, opts, xv);
+        if (it) ideas.push(it);
       }
     }
     ideas.sort((a, b) => b.score - a.score);
@@ -11953,6 +11964,64 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       seen.add(key); perTeam.set(tk, { all: n.all + 1, big: n.big + (big ? 1 : 0) });
       out.push(it);
       if (out.length >= 30) break;
+    }
+    return out;
+  }
+
+  // Any players: every combination of up to 3 of S's players for 1-2 players from each other team.
+  // Value-matched first (raw values within the gap + 9%), then the closest packages per target are scored in full.
+  function findAny(S, opts) {
+    const K = leagueKit(), V = K.V, byVal = K.byVal, sum = list => list.reduce((a, p) => a + V(p), 0);
+    const r = 1 + (opts.gap + 9) / 100, ok = (n, m) => !opts.shape || (opts.shape[0] === n && opts.shape[1] === m);
+    const sPool = K.tradable(S).filter(p => V(p) > 0).slice(0, 18);
+    const giveSets = sPool.map(p => [p]);   // no filler: every extra piece is worth at least 20% of the best one
+    if (opts.packages) for (let i = 0; i < sPool.length; i++) for (let j = i + 1; j < sPool.length; j++) {
+      if (V(sPool[j]) < 0.2 * V(sPool[i])) continue;
+      giveSets.push([sPool[i], sPool[j]]);
+      for (let k = j + 1; k < sPool.length; k++) if (V(sPool[k]) >= 0.2 * V(sPool[i])) giveSets.push([sPool[i], sPool[j], sPool[k]]);
+    }
+    const gs = giveSets.map(g => ({ g, v: sum(g) })).sort((a, b) => a.v - b.v);
+    const lowIdx = v => { let lo = 0, hi = gs.length; while (lo < hi) { const m = (lo + hi) >> 1; if (gs[m].v < v) lo = m + 1; else hi = m; } return lo; };
+    const adjEst = (give, get) => {   // [give, get] after the package discount
+      const best = Math.max(V(give[0]), V(get[0])), more = give.length > get.length ? give : get.length > give.length ? get : null;
+      const disc = more ? more.slice(Math.min(give.length, get.length)).reduce((a, p) => a + V(p) * (1 - V(p) / best), 0) : 0;
+      return [sum(give) - (more === give ? disc : 0), sum(get) - (more === get ? disc : 0)];
+    };
+    const ideas = [];
+    for (const T of LG.teams) {
+      if (T === S || (opts.against !== "ANY" && String(T.rosterId) !== opts.against)) continue;
+      const tPool = K.tradable(T).filter(p => V(p) > 0);
+      const getSets = tPool.map(p => [p]);
+      if (opts.packages) { const top = tPool.slice(0, 14); for (let i = 0; i < top.length; i++) for (let j = i + 1; j < top.length; j++) if (V(top[j]) >= 0.2 * V(top[i])) getSets.push([top[i], top[j]]); }
+      for (const get of getSets) {
+        if (opts.pos !== "ANY" && get[0].pos !== opts.pos) continue;   // the main piece is at the wanted position
+        const G = sum(get), cands = [];
+        // the calculator discounts a package's extra players, so a fair 2- or 3-for-1 has a bigger raw total:
+        // match on that estimate (each extra piece counts at value × value / best piece in the deal)
+        for (let i = lowIdx(G / (r * 1.7)); i < gs.length && gs[i].v <= G * r * 1.7; i++) {
+          const g = gs[i].g;
+          if (!ok(g.length, get.length) || (g.length + get.length > 4 && get.length > 1)) continue;
+          const est = adjEst(g, get), lo = Math.min(est[0], est[1]);
+          if (lo > 0 && Math.abs(est[0] - est[1]) / lo * 100 <= opts.gap + 6) cands.push({ g, d: Math.abs(est[0] - est[1]) / lo });
+        }
+        cands.sort((a, b) => a.d - b.d || a.g.length - b.g.length);
+        let n = 0;
+        for (const c of cands.slice(0, 10)) {
+          if (c.g.length === 2 && get.length === 2 && Math.min(V(c.g[1]), V(get[1])) < 0.3 * Math.min(V(c.g[0]), V(get[0]))) continue;
+          const it = evalIdea(K, S, T, c.g, get, opts, 0);
+          if (it) { ideas.push(it); if (++n >= 3) break; }
+        }
+      }
+    }
+    ideas.sort((a, b) => b.score - a.score);
+    const out = [], perTeam = new Map(), perGet = new Map(), seen = new Set(), one = opts.against !== "ANY";
+    for (const it of ideas) {
+      const gk = it.get.map(p => p.id).sort().join("+"), key = it.give.map(p => p.id).sort().join("+") + ">" + gk, tk = it.team.rosterId;
+      const n = perTeam.get(tk) || 0, g = perGet.get(gk) || 0;
+      if (seen.has(key) || g >= 2 || n >= (one ? 30 : 8)) continue;   // each target at most twice, 8 ideas per team
+      seen.add(key); perTeam.set(tk, n + 1); perGet.set(gk, g + 1);
+      out.push(it);
+      if (out.length >= 60) break;
     }
     return out;
   }
@@ -12080,23 +12149,35 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
 
   /* Controls */
   function finderTarget() {
-    const map = bySleeper(), X = TF.sid ? map.get(TF.sid) : null;
+    const map = bySleeper();
+    if (TF.src === "mine" && TF.sid === ANY_SID) {   // Any players: shop the whole roster
+      const me = LG.teams.find(t => t.mine) || null;
+      return { any: true, X: null, Y: null, Z: null, owner: me, S: me, mode: me ? "give" : null, pkg: null };
+    }
+    const X = TF.sid ? map.get(TF.sid) : null;
     const owner = X ? LG.ownerOf.get(X.id) || null : null;
     const S = TF.from !== "auto" ? LG.teams.find(t => String(t.rosterId) === TF.from) || null : owner;
     const mode = X && S ? (owner && owner === S ? "give" : "get") : null;
     // optional second player: a 2-player package from the same roster
     let Y = TF.sid2 ? map.get(TF.sid2) : null;
-    if (Y && (Y === X || !owner || LG.ownerOf.get(Y.id) !== owner)) { Y = null; TF.sid2 = ""; }
-    return { X, Y, owner, S, mode, pkg: Y ? [X, Y].sort((a, b) => dv(b) - dv(a)) : null };
+    if (Y && (Y === X || !owner || LG.ownerOf.get(Y.id) !== owner)) { Y = null; TF.sid2 = ""; TF.sid3 = ""; }
+    // optional third player (Steven, Oct 14): a 3-player package
+    let Z = Y && TF.sid3 ? map.get(TF.sid3) : null;
+    if (Z && (Z === X || Z === Y || LG.ownerOf.get(Z.id) !== owner)) { Z = null; TF.sid3 = ""; }
+    return { X, Y, Z, owner, S, mode, pkg: Y ? [X, Y, Z].filter(Boolean).sort((a, b) => dv(b) - dv(a)) : null };
   }
   // "Package with": a second player from the same roster, to shop two players together
   function pickSecond(map) {
     const X = TF.sid ? map.get(TF.sid) : null, o = X ? LG.ownerOf.get(X.id) : null;
     if (!X || !o) return "";
     const list = (o.roster.players || []).map(String).filter(s => s !== X.sleeperId).map(s => map.get(s)).filter(Boolean).sort((a, b) => dv(b) - dv(a));
-    if (!list.some(p => p.sleeperId === TF.sid2)) TF.sid2 = "";
+    if (!list.some(p => p.sleeperId === TF.sid2)) { TF.sid2 = ""; TF.sid3 = ""; }
+    if (!TF.sid2 || TF.sid3 === TF.sid2 || !list.some(p => p.sleeperId === TF.sid3)) TF.sid3 = "";
+    const opt = (p, cur) => `<option value="${esc(p.sleeperId)}"${p.sleeperId === cur ? " selected" : ""}>${esc(p.name)} · ${esc(posLabel(p))} · ${fmt(dv(p))}</option>`;
     return `<div class="tf-second"><span class="tf-plus" aria-hidden="true">+</span><select class="select" id="tf-player2" aria-label="Package with a second player">
-      <option value="">Add a second player (optional)</option>${list.map(p => `<option value="${esc(p.sleeperId)}"${p.sleeperId === TF.sid2 ? " selected" : ""}>${esc(p.name)} · ${esc(posLabel(p))} · ${fmt(dv(p))}</option>`).join("")}</select></div>`;
+      <option value="">Add a second player (optional)</option>${list.map(p => opt(p, TF.sid2)).join("")}</select></div>` +
+      (TF.sid2 ? `<div class="tf-second"><span class="tf-plus" aria-hidden="true">+</span><select class="select" id="tf-player3" aria-label="Package with a third player">
+      <option value="">Add a third player (optional)</option>${list.filter(p => p.sleeperId !== TF.sid2).map(p => opt(p, TF.sid3)).join("")}</select></div>` : "");
   }
   function renderFinderPick() {
     const map = bySleeper(), me = LG.teams.find(t => t.mine), box = $("tf-pick");
@@ -12106,8 +12187,8 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     if (TF.src === "mine") {
       if (!me) { box.innerHTML = `<p class="pp-note">You don't have a team in this league. Use Any player.</p>`; return; }
       const list = teamPlayers(me);
-      if (!list.some(p => p.sleeperId === TF.sid)) TF.sid = list[0] ? list[0].sleeperId : null;
-      box.innerHTML = `<select class="select" id="tf-player" aria-label="Your player">${list.map(opt).join("")}</select>` + pickSecond(map);
+      if (TF.sid !== ANY_SID && !list.some(p => p.sleeperId === TF.sid)) TF.sid = list[0] ? list[0].sleeperId : null;
+      box.innerHTML = `<select class="select" id="tf-player" aria-label="Your player"><option value="${ANY_SID}">Any players · shop your whole roster</option>${list.map(opt).join("")}</select>` + (TF.sid === ANY_SID ? "" : pickSecond(map));
       if (TF.sid) $("tf-player").value = TF.sid;
     } else if (TF.src === "team") {
       const teams = LG.teams;
@@ -12143,11 +12224,12 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     TF.dirty = false;
     $("tf-sub").textContent = `${d.league.name} · ${formatParts(d.league).join(" · ")} · ${leagueView() ? "League-adjusted" : "Base"} SPAM Values`;
     renderFinderPick();
-    const { X, Y, owner, S, mode, pkg } = finderTarget();
+    const { any, X, Y, owner, S, mode, pkg } = finderTarget();
     const others = LG.teams;
     $("tf-from").innerHTML = `<option value="auto">${owner ? "Owner · " + esc(owner.mine ? "your team" : owner.name) : "Owner"}</option>` +
       others.map(t => `<option value="${t.rosterId}">${esc(t.mine ? t.name + " (you)" : t.name)}</option>`).join("");
-    $("tf-from").value = TF.from;
+    if (any) TF.from = "auto";
+    $("tf-from").value = TF.from; $("tf-from").disabled = !!any;
     $("tf-against").innerHTML = `<option value="ANY">Every team</option>` + others.filter(t => t !== S).map(t => `<option value="${t.rosterId}">${esc(t.name)}</option>`).join("");
     if (![...$("tf-against").options].some(o => o.value === TF.against)) TF.against = "ANY";
     $("tf-against").value = mode === "get" && owner ? String(owner.rosterId) : TF.against;
@@ -12159,14 +12241,14 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     $("tf-goal").value = TF.goal;
     $("tf-gap").value = String(TF.gap); $("tf-gap").disabled = TF.fair || goalOn;
     $("tf-fair").disabled = goalOn;
-    $("tf-fair").checked = TF.fair; $("tf-three").checked = TF.three;
+    $("tf-fair").checked = TF.fair; $("tf-three").checked = TF.three && !any; $("tf-three").disabled = !!any;
     // Trade type, from the starting team's side: 1-for-2 = it gives 1 player and gets 2. A 2-player package fixes one side at 2.
     const size = tfSize(pkg, mode), sWho = S && !S.mine ? S.name : "you";
     $("tf-size").querySelectorAll("button").forEach(b => {
       const k = b.dataset.size, ok = tfSizeOk(k, pkg, mode);
       b.setAttribute("aria-pressed", k === size); b.disabled = !ok;
-      b.title = k === "all" ? "Every shape: 1-for-1, 1-for-2, 2-for-1 and 2-for-2"
-        : !ok ? `Not possible with a 2-player package (${mode === "give" ? sWho + " give" + (sWho === "you" ? "" : "s") + " 2" : sWho + " get" + (sWho === "you" ? "" : "s") + " 2"})`
+      b.title = k === "all" ? (any ? "Every shape: 1-for-1, 1-for-2, 2-for-1, 2-for-2 and 3-for-1" : "Every shape: 1-for-1, 1-for-2, 2-for-1 and 2-for-2")
+        : !ok ? `Not possible with a ${pkg ? pkg.length : 2}-player package (${mode === "give" ? sWho + " give" + (sWho === "you" ? "" : "s") + " 2" : sWho + " get" + (sWho === "you" ? "" : "s") + " 2"})`
         : `${sWho === "you" ? "You give" : sWho + " gives"} ${k[0]} player${k[0] === "1" ? "" : "s"}, ${sWho === "you" ? "get" : "gets"} ${k[1]}`;
     });
     const sName = S ? (S.mine ? "me" : S.name) : "starting team";
@@ -12175,9 +12257,12 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     $("tf-sort").value = TF.sort;
 
     const lead = $("tf-lead");
-    if (!X) { lead.innerHTML = ""; body.innerHTML = `<p class="empty-note">${TF.src === "any" ? "Search for any player to find trades involving him." : "Pick a player."}</p>`; return; }
+    if (any && !S) { lead.innerHTML = ""; body.innerHTML = `<p class="empty-note">You don't have a team in this league.</p>`; return; }
+    if (!X && !any) { lead.innerHTML = ""; body.innerHTML = `<p class="empty-note">${TF.src === "any" ? "Search for any player to find trades involving him." : "Pick a player."}</p>`; return; }
     const who = p => `${face(p.sleeperId, p.name, "sm")}<span class="tf-who"><span class="pl-head"><b>${nameLink(p.sleeperId, p.name)}</b>${nflTag(p.team)}<span class="muted">${esc(posLabel(p))} · ${fmt(dv(p))}</span></span>${ownPill(owner)}</span>`;
-    lead.innerHTML = `<span class="tf-target">${who(X)}${Y ? `<span class="tf-amp">+</span>${who(Y)}<span class="muted tf-pkgsum">= ${fmt(dv(X) + dv(Y))}</span>` : ""}</span>`;
+    const pkgNames = pkg ? pkg.map(p => p.name).join(" + ") : X ? X.name : "";
+    lead.innerHTML = any ? `<span class="tf-target">${teamFace(S, "sm")}<span class="tf-who"><b>Any of your players</b><span class="muted">${TF.pos !== "ANY" ? "for a " + esc(TF.pos) : "for any position"} · combinations of up to 3</span></span></span>`
+      : `<span class="tf-target">${(pkg || [X]).map(who).join(`<span class="tf-amp">+</span>`)}${pkg ? `<span class="muted tf-pkgsum">= ${fmt(pkg.reduce((a, p) => a + dv(p), 0))}</span>` : ""}</span>`;
     if (!S) {
       body.innerHTML = `<p class="empty-note">${esc(X.name)} is a free agent in ${esc(d.league.name)}. Pick a <b>From team</b> to see what trades would look like if a team owned him, or pick him up off waivers.</p>`;
       return;
@@ -12186,7 +12271,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     const gap = TF.goal === "edge" ? 10 : TF.goal === "value" ? 15 : TF.goal === "any" ? Math.max(TF.gap, 15) : TF.fair ? 2.99 : TF.gap;
     const opts = { pos: TF.pos, against: TF.against, gap, packages: tfSize(pkg, mode) !== "11", shape: tfSize(pkg, mode) === "all" ? null : tfSize(pkg, mode).split("").map(Number), goal: TF.goal };
     const within = TF.goal === "edge" ? `with a ${GOAL_RANGE.edge.join("–")}% edge for ${S.mine ? "you" : S.name}` : TF.goal === "value" ? `with a ${GOAL_RANGE.value.join("–")}% edge for ${S.mine ? "you" : S.name}` : TF.goal === "any" ? `within ${gap}%` : TF.fair ? "within the fair range" : `within ${TF.gap}%`;
-    let ideas = findTrades(pkg || X, mode, S, opts);
+    let ideas = findTrades(any ? null : pkg || X, mode, S, opts);
     const sortKey = {
       best: (a, b) => b.score - a.score,
       fair: (a, b) => a.more - b.more || b.score - a.score,
@@ -12195,18 +12280,18 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       oneone: (a, b) => (a.give.length + a.get.length) - (b.give.length + b.get.length) || b.score - a.score,
       fewest: (a, b) => (a.give.length + a.get.length) - (b.give.length + b.get.length) || a.more - b.more,
     }[TF.sort] || ((a, b) => b.score - a.score);
-    ideas = ideas.slice().sort(sortKey).slice(0, 20);
+    ideas = ideas.slice().sort(sortKey).slice(0, any ? 60 : 20);
     TF.ideas = ideas;
-    TF.ideas3 = TF.three && !pkg ? findThree(X, mode, S, opts) : [];   // 3-team cycles are for single players
+    TF.ideas3 = TF.three && !pkg && !any ? findThree(X, mode, S, opts) : [];   // 3-team cycles are for single players
 
     const you = S.mine, sLabel = you ? "You" : S.name;
-    lead.innerHTML += `<span class="tf-persp">${mode === "give" ? `Trades ${esc(you ? "you" : S.name)} could make with ${pkg ? "the pair" : "him"}` : `Ways ${esc(you ? "you" : S.name)} could get ${pkg ? "both" : "him"} from ${esc(owner.name)}`} · ${ideas.length} idea${ideas.length === 1 ? "" : "s"} ${esc(within)}</span>`;
+    lead.innerHTML += `<span class="tf-persp">${any ? `Trades you could make${TF.pos !== "ANY" ? " for a " + esc(TF.pos) : ""} with any of your players` : mode === "give" ? `Trades ${esc(you ? "you" : S.name)} could make with ${pkg ? (pkg.length === 3 ? "the three" : "the pair") : "him"}` : `Ways ${esc(you ? "you" : S.name)} could get ${pkg ? (pkg.length === 3 ? "all three" : "both") : "him"} from ${esc(owner.name)}`} · ${ideas.length} idea${ideas.length === 1 ? "" : "s"} ${esc(within)}</span>`;
     const prow = (p, from, tag) => `<li class="tf-pl">${face(p.sleeperId, p.name, "sm")}<span class="pos ${esc(p.pos)}">${esc(posLabel(p))}</span>
       <span class="tf-n"><span class="pl-head">${nameLink(p.sleeperId, p.name, "tf-name")}${nflTag(p.team)}</span><span class="tf-tag">${ownPill(from, "inline")}${tag ? " · " + esc(tag) : ""}</span></span><span class="tf-v">${fmt(dv(p))}</span></li>`;
     // compact row: photo · name · value, then "RB2 · starts at RB1"
     const crow = (p, note) => `<li class="tf-pl tf-cpl">${face(p.sleeperId, p.name, "sm")}<span class="tf-n"><span class="pl-head">${nameLink(p.sleeperId, p.name, "tf-name")}${nflTag(p.team)}</span><span class="tf-tag"><b class="tf-pr" style="--c: var(--${p.pos.toLowerCase()})">${esc(posLabel(p))}</b>${note ? " · " + esc(note) : ""}</span></span><span class="tf-v">${fmt(dv(p))}</span></li>`;
     // scan order: partner → verdict → players → fit; first TF_PAGE ideas, then "Show more"
-    const showKey = [TF.src, TF.sid, TF.sid2, TF.from, TF.against, TF.pos, TF.size, TF.gap, TF.fair, TF.goal, TF.sort, TF.srcTeam].join("|");
+    const showKey = [TF.src, TF.sid, TF.sid2, TF.sid3, TF.from, TF.against, TF.pos, TF.size, TF.gap, TF.fair, TF.goal, TF.sort, TF.srcTeam].join("|");
     if (TF.showKey !== showKey) { TF.showKey = showKey; TF.show = TF_PAGE; }
     const cards = ideas.slice(0, TF.show).map((it, i) => {
       const sAhead = it.m.a >= it.m.b, v = finderVerdict(it.more, sAhead, S, it.team);
@@ -12243,15 +12328,16 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     }).join("");
     const more = ideas.length - Math.min(TF.show, ideas.length);
     body.innerHTML = (ideas.length ? `<div class="tf-list">${cards}</div>${more > 0 ? `<div class="tf-more-wrap"><button class="btn" type="button" data-tf-more>Show ${Math.min(TF_PAGE, more)} more idea${Math.min(TF_PAGE, more) === 1 ? "" : "s"} <span class="muted">(${more} left)</span></button></div>` : ""}`
-        : GOAL_RANGE[TF.goal] ? `<p class="empty-note">No realistic trades ${esc(within)} for ${esc(pkg ? X.name + " + " + Y.name : X.name)}${TF.pos !== "ANY" ? " at " + TF.pos : ""}: every one that favors ${esc(S.mine ? "you" : S.name)} by that much doesn't make enough sense for the other team. Try ${TF.goal === "value" ? "Slight edge" : "Fair / balanced"}${tfSize(pkg, mode) !== "all" ? " or All packages" : ""}.</p>`
-        : `<p class="empty-note">No trades within ${TF.fair ? "the fair range" : TF.gap + "%"} for ${esc(pkg ? X.name + " + " + Y.name : X.name)}${TF.pos !== "ANY" ? " at " + TF.pos : ""}. Try a bigger value difference${tfSize(pkg, mode) !== "all" ? " or All packages" : ""}.</p>`) +
-      (TF.three && !pkg ? `<h3 class="section-label">3-team ideas</h3>` + (cards3 ? `<div class="tf-list">${cards3}</div>` : `<p class="pp-note">No 3-team deal solves something a 2-team trade can't here.</p>`) : "");
+        : GOAL_RANGE[TF.goal] ? `<p class="empty-note">No realistic trades ${esc(within)} for ${esc(any ? "any of your players" : pkgNames)}${TF.pos !== "ANY" ? " at " + TF.pos : ""}: every one that favors ${esc(S.mine ? "you" : S.name)} by that much doesn't make enough sense for the other team. Try ${TF.goal === "value" ? "Slight edge" : "Fair / balanced"}${tfSize(pkg, mode) !== "all" ? " or All packages" : ""}.</p>`
+        : `<p class="empty-note">No trades within ${TF.fair ? "the fair range" : TF.gap + "%"} for ${esc(any ? "any of your players" : pkgNames)}${TF.pos !== "ANY" ? " at " + TF.pos : ""}. Try a bigger value difference${tfSize(pkg, mode) !== "all" ? " or All packages" : ""}.</p>`) +
+      (TF.three && !pkg && !any ? `<h3 class="section-label">3-team ideas</h3>` + (cards3 ? `<div class="tf-list">${cards3}</div>` : `<p class="pp-note">No 3-team deal solves something a 2-team trade can't here.</p>`) : "");
   }
-  $("tf-src").addEventListener("click", e => { const b = e.target.closest("button[data-src]"); if (!b) return; TF.src = b.dataset.src; TF.sid2 = ""; TF.from = "auto"; TF.openFull = new Set(); renderFinder(); });
+  $("tf-src").addEventListener("click", e => { const b = e.target.closest("button[data-src]"); if (!b) return; TF.src = b.dataset.src; TF.sid2 = ""; TF.sid3 = ""; TF.from = "auto"; TF.openFull = new Set(); renderFinder(); });
   $("tf-pick").addEventListener("change", e => {
-    if (e.target.id === "tf-player") { TF.sid = e.target.value; TF.sid2 = ""; TF.from = "auto"; }
-    if (e.target.id === "tf-player2") { TF.sid2 = e.target.value; }
-    if (e.target.id === "tf-src-team") { TF.srcTeam = e.target.value; TF.sid = null; TF.sid2 = ""; TF.from = "auto"; }
+    if (e.target.id === "tf-player") { TF.sid = e.target.value; TF.sid2 = ""; TF.sid3 = ""; TF.from = "auto"; }
+    if (e.target.id === "tf-player2") { TF.sid2 = e.target.value; if (!TF.sid2 || TF.sid3 === TF.sid2) TF.sid3 = ""; }
+    if (e.target.id === "tf-player3") { TF.sid3 = e.target.value; }
+    if (e.target.id === "tf-src-team") { TF.srcTeam = e.target.value; TF.sid = null; TF.sid2 = ""; TF.sid3 = ""; TF.from = "auto"; }
     TF.openFull = new Set(); renderFinder();
   });
   $("tf-pick").addEventListener("input", e => { if (e.target.id === "tf-q") { TF.q = e.target.value; tfResults(); } });
@@ -12259,7 +12345,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   $("tf-pick").addEventListener("mousedown", e => { if (e.target.closest("#tf-results")) e.preventDefault(); });
   $("tf-pick").addEventListener("click", e => {
     const b = e.target.closest("[data-tf-pick]"); if (!b) return;
-    TF.sid = b.dataset.tfPick; TF.sid2 = ""; TF.q = ""; TF.from = "auto"; TF.openFull = new Set(); renderFinder();
+    TF.sid = b.dataset.tfPick; TF.sid2 = ""; TF.sid3 = ""; TF.q = ""; TF.from = "auto"; TF.openFull = new Set(); renderFinder();
   });
   $("tf-pick").addEventListener("keydown", e => {
     if (e.target.id === "tf-q" && e.key === "Enter") { const first = $("tf-results") && $("tf-results").querySelector("[data-tf-pick]"); if (first) first.click(); e.preventDefault(); }
@@ -12392,7 +12478,9 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   const myLineup = () => { const d = activeData(), me = d && LG.teams.find(t => t.mine); if (!me) return null;
     const slots = d.league.roster_positions.filter(x => x !== "BN"), L = lineupCheck(me, slots, liveStarters(d, me.roster, slots) || me.roster.starters, bySleeper());
     return L && { order: L.best, wk: L.wk, now: L.nowTot, best: L.bestTot, gain: L.gain, act: L.act, start: [...L.startSet], bench: [...L.benchSet], alerts: L.alerts.map(a => a.why), pickups: L.needs.map(n => n.pickup.map(x => x.sid)), moves: L.moves.map(m => [m.x.sid, m.to]), pairs: L.swaps.map(w => [w.start.sid, w.bench ? w.bench.sid : null]) }; };
-  window.SPM = { myLineup, rankingSnapshot, historyText, normalizeHistory, addSnapshot, formatCheck, projectionCheck, scoringCheck, calculateFantasyPoints, valueCheck, setBoard, boards, boardsCsv, consensusOf: csv => { const t = csvToTable(csv); consensus(t); return tableToCsv(t); } };   // helpers for the scheduled snapshot and tests
+  const finderIdeas = () => TF.ideas.map(it => ({ team: it.team.rosterId, s: it.S.rosterId, more: it.more,
+    give: it.give.map(p => ({ sid: p.sleeperId, pos: p.pos })), get: it.get.map(p => { const o = LG.ownerOf.get(p.id); return { sid: p.sleeperId, pos: p.pos, owner: o ? o.rosterId : null }; }) }));
+  window.SPM = { myLineup, finderIdeas, rankingSnapshot, historyText, normalizeHistory, addSnapshot, formatCheck, projectionCheck, scoringCheck, calculateFantasyPoints, valueCheck, setBoard, boards, boardsCsv, consensusOf: csv => { const t = csvToTable(csv); consensus(t); return tableToCsv(t); } };   // helpers for the scheduled snapshot and tests
 
   // Start-up: restore a saved connection
   sl = readSl();
