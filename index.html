@@ -1996,6 +1996,21 @@ dialog.import-dialog { width: min(640px, calc(100vw - 32px)); max-height: calc(1
 .im-steps a { color: var(--gold-bright); }
 dialog.signin label.im-file { text-transform: none; letter-spacing: 0; font-size: 0.8rem; font-weight: 500; margin-top: 10px; }
 dialog.signin label.im-file input { height: auto; border: 0; padding: 4px 0 0; background: none; }
+/* ESPN private leagues: phones save the page and upload it (no select-all on a phone), desktops copy and paste */
+.im-steps-desk { display: none; }
+@media (hover: hover) and (pointer: fine) { .im-steps-phone { display: none; } .im-steps-desk { display: block; } .im-paste-alt { order: 1; } .im-upload { order: 2; } }
+.im-paste-box { display: flex; flex-direction: column; }
+.im-upload { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 4px 0 2px; }
+dialog.signin label.im-file-btn { margin: 0; text-transform: none; letter-spacing: 0; font-size: 0.9rem; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; cursor: pointer; }
+.im-upload:has(#im-espn-file:focus-visible) .im-file-btn { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+dialog.signin #im-espn-file { position: absolute; width: 1px; height: 1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); }
+.im-upload { position: relative; }
+.im-file-name { font-size: 0.8rem; color: var(--ink-2); min-width: 0; overflow-wrap: anywhere; }
+.im-paste-alt { margin-top: 10px; font-size: 0.84rem; color: var(--ink-2); }
+.im-paste-alt summary { cursor: pointer; padding: 6px 0; }
+.im-paste-alt[open] summary { margin-bottom: 6px; }
+@media (hover: hover) and (pointer: fine) { .im-paste-alt { margin: 0 0 10px; } .im-paste-alt > summary { display: none; } }
+.im-paste-box textarea { width: 100%; box-sizing: border-box; }
 .im-block { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
 .im-block h3 { margin: 0 0 6px; font-size: 0.7rem; font-weight: 750; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream); }
 .im-block > p { font-size: 0.84rem !important; }
@@ -3931,7 +3946,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     <p>Bring in your league's settings and rosters for league-adjusted values, My Team, power rankings, free agents and the Trade Finder. Nothing is posted to your league.</p>
     <ul class="league-list">
       <li><button class="league-option" type="button" data-src="sleeper"><span class="lo-name">Sleeper</span><span class="lo-format">Your username · all your leagues</span><span class="lo-status">One click</span></button></li>
-      <li><button class="league-option" type="button" data-src="espn"><span class="lo-name">ESPN</span><span class="lo-format">League link or ID · private leagues by copy and paste</span><span class="lo-status">One click</span></button></li>
+      <li><button class="league-option" type="button" data-src="espn"><span class="lo-name">ESPN</span><span class="lo-format">League link or ID · private leagues with a saved file</span><span class="lo-status">Link or file</span></button></li>
       <li><button class="league-option" type="button" data-src="yahoo"><span class="lo-name">Yahoo</span><span class="lo-format">Copy and paste your league pages</span><span class="lo-status">About a minute</span></button></li>
       <li><button class="league-option" type="button" data-src="other"><span class="lo-name">Another site</span><span class="lo-format">NFL.com, CBS, Fleaflicker… paste your rosters</span><span class="lo-status">About a minute</span></button></li>
     </ul>
@@ -3947,14 +3962,26 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       <div><label for="im-espn-season">Season</label><select class="select" id="im-espn-season"></select></div>
     </div>
     <div class="im-paste-box" id="im-espn-paste" hidden>
-      <p><b>ESPN didn't let this site read the league directly.</b> That's normal for private leagues. Copy it from your own browser instead:</p>
-      <ol class="im-steps">
-        <li>Open <a id="im-espn-link" href="#" target="_blank" rel="noopener">your league's data on ESPN</a> in a tab where you're signed in to ESPN.</li>
-        <li>Select everything on that page (Ctrl+A, or ⌘A on a Mac) and copy it. In Firefox, click <i>Raw Data</i> first.</li>
-        <li>Paste it here.</li>
+      <p id="im-espn-why"><b>ESPN only shares private leagues with signed-in members</b>, so this site can't read yours directly. Bring it over from your own browser:</p>
+      <ol class="im-steps im-steps-phone">
+        <li>Open <a class="im-espn-link" href="#" target="_blank" rel="noopener">your league's data on ESPN</a>. If it says you're not authorized, sign in at <span class="mono">espn.com</span> in this browser first (being signed in to the ESPN app doesn't count), then open the link again.</li>
+        <li>Save that page: on iPhone tap <b>Share</b> → <b>Save to Files</b>; on Android tap <b>⋮</b> → <b>Download</b>.</li>
+        <li>Come back here and tap <b>Upload saved file</b>.</li>
       </ol>
-      <textarea id="im-espn-json" rows="4" spellcheck="false" placeholder="Paste ESPN's league data here"></textarea>
-      <label class="im-file">Or upload it as a saved file <input type="file" id="im-espn-file" accept=".json,.txt,application/json,text/plain"></label>
+      <ol class="im-steps im-steps-desk">
+        <li>Open <a class="im-espn-link" href="#" target="_blank" rel="noopener">your league's data on ESPN</a> in a tab where you're signed in to ESPN.</li>
+        <li>Select everything on that page (Ctrl+A, or ⌘A on a Mac) and copy it. In Firefox, click <i>Raw Data</i> first.</li>
+        <li>Paste it below, or save the page and upload the file.</li>
+      </ol>
+      <div class="im-upload">
+        <label class="btn im-file-btn" for="im-espn-file">Upload saved file</label>
+        <input type="file" id="im-espn-file" class="sr-only">
+        <span class="im-file-name" id="im-espn-file-name" aria-live="polite"></span>
+      </div>
+      <details class="im-paste-alt" id="im-espn-paste-alt">
+        <summary>Or paste the page's text</summary>
+        <textarea id="im-espn-json" rows="4" spellcheck="false" placeholder="Paste ESPN's league data here"></textarea>
+      </details>
     </div>
     <p class="signin-error" id="im-espn-error" role="alert"></p>
     <div class="signin-actions">
@@ -4595,7 +4622,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   (() => { const m = document.querySelector(".masthead"); if (!m) return;
     const set = () => document.documentElement.style.setProperty("--mast-h", m.offsetHeight + "px");
     set(); if (window.ResizeObserver) new ResizeObserver(set).observe(m); else window.addEventListener("resize", set); })();
-  const BUILD_ID = "2026-10-14T15:10Z";
+  const BUILD_ID = "2026-10-16T16:50Z";
   let lastBuildCheck = 0;
   async function checkForUpdate() {
     if (Date.now() - lastBuildCheck < 5 * 60e3) return;
@@ -7971,10 +7998,24 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   }
   async function espnFetch(season, id) {
     let r;
-    try { r = await fetch(espnUrl(season, id), { credentials: "omit" }); } catch (e) { return { blocked: true }; }
+    // blocked: "private" = ESPN answered 401/403 (the league needs a signed-in member); "browser" = the request never
+    // came back (ESPN didn't allow this site to read it, or the network failed)
+    try { r = await fetch(espnUrl(season, id), { credentials: "omit" }); } catch (e) { return { blocked: true, why: "browser" }; }
     if (r.status === 404) throw new Error(`ESPN couldn't find league ${id} for the ${season} season. Check the ID and season.`);
-    if (!r.ok) return { blocked: true };
-    try { return { json: await r.json() }; } catch (e) { return { blocked: true }; }
+    if (!r.ok) return { blocked: true, why: r.status === 401 || r.status === 403 ? "private" : "status " + r.status };
+    try { return { json: await r.json() }; } catch (e) { return { blocked: true, why: "browser" }; }
+  }
+  // ESPN data pasted or uploaded: the league JSON, or ESPN's "not authorized" answer for a signed-out browser
+  function espnParse(text) {
+    const t = String(text || ""), a = t.indexOf("{"), b = t.lastIndexOf("}");
+    let j = null;
+    try { j = JSON.parse(t.slice(a, b + 1)); } catch (x) { j = null; }
+    const auth = /not authori[sz]ed|\b401\b|authenticat/i;
+    if (j && !Array.isArray(j) && !j.settings && (auth.test(JSON.stringify(j.messages || j.details || j.error || "")) || j.httpStatus === 401 || j.status === 401))
+      throw new Error("ESPN says that browser isn't signed in to your league. Sign in at espn.com in the same browser (the ESPN app doesn't count), open the link again and save the page once it shows your league's data.");
+    if (!j && auth.test(t.slice(0, 2000))) throw new Error("ESPN says that browser isn't signed in to your league. Sign in at espn.com in the same browser, then open the link again.");
+    if (!j) throw new Error("That isn't ESPN's league data. Open the link in step 1 and save (or copy) the page that shows the league's data.");
+    return j;
   }
   const espnId = v => { const m = String(v || "").match(/leagueId=(\d+)/i) || String(v || "").trim().match(/^(\d{3,12})$/); return m ? m[1] : null; };
   const nflSeason = () => { const now = new Date(); return now.getMonth() >= 2 ? now.getFullYear() : now.getFullYear() - 1; };
@@ -8045,9 +8086,21 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
     imStep("im-espn"); showDialog(idialog);
     $("im-espn-id").focus();
   }
+  // the "bring it over yourself" box: why ESPN refused, and the link to the league's data
+  function showEspnPaste(season, id, why) {
+    document.querySelectorAll(".im-espn-link").forEach(a => { a.href = espnUrl(season, id); });
+    $("im-espn-why").innerHTML = why === "private" || !why
+      ? "<b>ESPN only shares private leagues with signed-in members</b>, so this site can't read yours directly. Bring it over from your own browser:"
+      : "<b>ESPN didn't let this site read the league directly</b> (it usually only lets signed-in members read a league). Bring it over from your own browser:";
+    $("im-espn-paste").hidden = false;
+    $("im-espn-file-name").textContent = "";
+    $("im-espn-paste-alt").open = matchMedia("(hover: hover) and (pointer: fine)").matches;   // desktops paste; phones upload a saved file
+  }
   $("im-espn-file").addEventListener("change", async e => {
     const f = e.target.files && e.target.files[0]; if (!f) return;
     $("im-espn-json").value = await f.text();
+    $("im-espn-file-name").textContent = `${f.name} · ${Math.max(1, Math.round(f.size / 1024))} KB`;
+    if (espnId($("im-espn-id").value)) $("im-espn").requestSubmit(); else $("im-espn-error").textContent = "Add the league link or ID above, then tap Connect.";
   });
   $("im-espn").addEventListener("submit", async e => {
     e.preventDefault();
@@ -8058,19 +8111,11 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
       await Promise.all([loadStatic(), loadPlatformIds()]);
       let json = null;
       const pasted = $("im-espn-json").value.trim();
-      if (pasted) {
-        try { json = JSON.parse(pasted.slice(pasted.indexOf("{"), pasted.lastIndexOf("}") + 1)); }
-        catch (x) { throw new Error("That paste isn't ESPN's league data. Open the link in step 1, copy everything on the page, and paste it again."); }
-      } else {
+      if (pasted) json = espnParse(pasted);
+      else {
         err.textContent = "Reading the league from ESPN…";
         const r = await espnFetch(season, id);
-        if (r.blocked) {
-          $("im-espn-link").href = espnUrl(season, id);
-          $("im-espn-paste").hidden = false;
-          err.textContent = "";
-          $("im-espn-json").focus();
-          return;
-        }
+        if (r.blocked) { showEspnPaste(season, id, r.why); err.textContent = ""; return; }
         json = r.json;
       }
       const d = espnToLeague(json, platformIds);
@@ -8082,7 +8127,7 @@ dialog.signin input:not([type="checkbox"]):not([type="radio"]):focus { outline: 
   });
   async function refreshEspn(manual) {
     if (!sl || !sl.espn) return;
-    if (!sl.espn.direct) { if (manual) { openEspn(); $("im-espn-link").href = espnUrl(sl.espn.season, sl.espn.id); $("im-espn-paste").hidden = false; } return; }
+    if (!sl.espn.direct) { if (manual) { openEspn(); showEspnPaste(sl.espn.season, sl.espn.id, "private"); } return; }
     try {
       if (manual) toast("Refreshing from ESPN…");
       await Promise.all([loadStatic(), loadPlatformIds()]);
